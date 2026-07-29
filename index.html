@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Planelles Studio — Tu negocio ya es bueno. También debería parecerlo.</title>
+<meta name="description" content="Estudio digital independiente. Diseñamos y desarrollamos webs y tiendas online para negocios que valen más de lo que aparentan en internet. Trato directo con quien diseña." />
+<meta name="theme-color" content="#f7f8fd" />
+<meta property="og:title" content="Planelles Studio — Tu negocio ya es bueno. También debería parecerlo." />
+<meta property="og:description" content="Diseño y desarrollo web para negocios que quieren transmitir confianza, verse mejor online y convertir más visitas en contactos reales." />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="es_ES" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%230b1226'/%3E%3Crect x='7' y='16' width='7.5' height='7.5' rx='2.4' fill='%235c7cff'/%3E%3Crect x='17.5' y='8' width='7.5' height='7.5' rx='2.4' fill='%23ffffff'/%3E%3C/svg%3E" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800;900&family=Geist:wght@400;500;600&family=Libre+Caslon+Text:ital@1&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/styles.css" />
+<link rel="stylesheet" href="css/sections.css" />
+
+<!-- Sin JS la web se lee entera: las entradas solo se esconden si hay quien
+     las vuelva a mostrar. -->
+<script>document.documentElement.classList.add('js');</script>
+</head>
+
+<body>
+<a class="skip" href="#hero">Saltar al contenido</a>
+
+<!-- ── Fondo global: malla de gradientes que viaja con el scroll ─────────── -->
+<div class="atmos" aria-hidden="true">
+  <span class="atmos__blob atmos__blob--1"></span>
+  <span class="atmos__blob atmos__blob--2"></span>
+  <span class="atmos__blob atmos__blob--3"></span>
+  <span class="atmos__grain"></span>
+</div>
+
+<!-- ── Nav ──────────────────────────────────────────────────────────────── -->
+<header class="nav" id="nav">
+  <div class="nav__rail" aria-hidden="true"><span class="nav__rail-fill"></span></div>
+  <div class="shell nav__inner">
+
+    <a class="brand" href="#hero" aria-label="Planelles Studio, inicio">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+        <rect class="mark__frame" x="1.25" y="1.25" width="29.5" height="29.5" rx="9" />
+        <rect class="mark__tile mark__tile--low" x="7" y="16" width="7.5" height="7.5" rx="2.4" />
+        <rect class="mark__tile mark__tile--high" x="17.5" y="8" width="7.5" height="7.5" rx="2.4" />
+      </svg>
+      <span class="brand__text"><b>Planelles</b><i>Studio</i></span>
+    </a>
+
+    <nav class="nav__links" id="menu" aria-label="Secciones">
+      <a href="#problema"><span>El coste</span></a>
+      <a href="#servicios"><span>Servicios</span></a>
+      <a href="#demo"><span>Antes / Después</span></a>
+      <a href="#proceso"><span>Proceso</span></a>
+      <a href="#estudio"><span>Estudio</span></a>
+    </nav>
+
+    <div class="nav__end">
+      <a class="btn btn--ink btn--sm magnet" href="#hablemos">
+        <span>Hablemos</span>
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" /></svg>
+      </a>
+      <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ══ HERO ═════════════════════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <canvas class="dust" id="dust-hero" aria-hidden="true"></canvas>
+
+  <div class="shell hero__grid">
+
+    <div class="hero__copy">
+      <p class="chip" data-reveal>
+        <span class="chip__pulse" aria-hidden="true"></span>
+        Estudio abierto: seleccionando los primeros proyectos
+      </p>
+
+      <h1 class="hero__title">
+        <span class="line"><span data-reveal data-reveal-d="1">Tu negocio</span></span>
+        <span class="line"><span data-reveal data-reveal-d="2">ya es bueno.</span></span>
+        <span class="line"><em data-reveal data-reveal-d="3">También debería</em></span>
+        <span class="line"><em data-reveal data-reveal-d="4">parecerlo.</em></span>
+      </h1>
+
+      <p class="hero__sub" data-reveal data-reveal-d="5">
+        Creamos la presencia online de negocios que valen más de lo que aparentan
+        en internet. Diseño claro, carga rápida y una primera impresión que
+        trabaja para ti mientras tú trabajas en lo tuyo.
+      </p>
+
+      <div class="hero__cta" data-reveal data-reveal-d="6">
+        <a class="btn btn--blue magnet" href="#hablemos">
+          <span>Quiero mejorar mi presencia online</span>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" /></svg>
+        </a>
+        <a class="btn btn--ghost magnet" href="#demo">
+          <span>Ver la diferencia</span>
+        </a>
+      </div>
+
+      <ul class="hero__proof" data-reveal data-reveal-d="7">
+        <li><b>+20</b> webs y tiendas online reales</li>
+        <li><b>1</b> persona al otro lado, siempre la misma</li>
+        <li><b>0</b> plantillas</li>
+      </ul>
+    </div>
+
+    <!-- Escena 3D: se inclina con el puntero, orbita y se aleja al hacer scroll -->
+    <div class="stage" id="stage" aria-hidden="true">
+      <div class="stage__glow"></div>
+      <div class="stage__deck">
+
+        <div class="mock mock--browser">
+          <div class="mock__bar"><i></i><i></i><i></i><span>tunegocio.com</span></div>
+          <div class="mock__body">
+            <div class="mock__nav"><b></b><u></u><u></u><u></u></div>
+            <div class="mock__hero">
+              <span class="w w--80"></span>
+              <span class="w w--55"></span>
+              <span class="w w--30 w--soft"></span>
+              <span class="mock__pill"></span>
+            </div>
+            <div class="mock__cards"><i></i><i></i><i></i></div>
+          </div>
+        </div>
+
+        <div class="mock mock--phone">
+          <div class="mock__notch"></div>
+          <div class="mock__screen">
+            <span class="w w--70"></span>
+            <span class="w w--45 w--soft"></span>
+            <div class="mock__phonecard"></div>
+            <span class="mock__pill mock__pill--sm"></span>
+          </div>
+        </div>
+
+        <div class="mock mock--chip">
+          <span class="mock__chiplabel">Primera impresión</span>
+          <span class="mock__chipvalue" data-count="94" data-suffix="/100">94/100</span>
+          <span class="mock__chipbar"><i></i></span>
+        </div>
+
+        <span class="orbit orbit--a"><i></i></span>
+        <span class="orbit orbit--b"><i></i></span>
+      </div>
+    </div>
+  </div>
+
+  <a class="hero__scroll" href="#problema" aria-label="Bajar a la siguiente sección">
+    <span></span>
+  </a>
+</section>
+
+<!-- ══ COSTURA: cinta de verdades ═══════════════════════════════════════ -->
+<div class="seam" aria-hidden="true">
+  <div class="seam__track">
+    <div class="seam__set">
+      <span>Se juzga tu web antes de leerla</span><i>◆</i>
+      <span>Una web lenta se lee como descuido</span><i>◆</i>
+      <span>Nadie contacta con quien no le da confianza</span><i>◆</i>
+      <span>Tu competencia no es mejor, comunica mejor</span><i>◆</i>
+      <span>Instagram es de Instagram, tu web es tuya</span><i>◆</i>
+    </div>
+    <div class="seam__set">
+      <span>Se juzga tu web antes de leerla</span><i>◆</i>
+      <span>Una web lenta se lee como descuido</span><i>◆</i>
+      <span>Nadie contacta con quien no le da confianza</span><i>◆</i>
+      <span>Tu competencia no es mejor, comunica mejor</span><i>◆</i>
+      <span>Instagram es de Instagram, tu web es tuya</span><i>◆</i>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 01 · EL COSTE ════════════════════════════════════════════════════ -->
+<section class="sec sec--cost" id="problema">
+  <div class="shell">
+    <div class="seclabel" data-reveal><span class="seclabel__n">01</span><span class="seclabel__r"></span>El coste invisible</div>
+
+    <div class="sechead">
+      <h2 class="h2" data-reveal>Nadie te dice que se fue.<br /><span class="dim">Simplemente no vuelve.</span></h2>
+      <p class="sechead__p" data-reveal data-reveal-d="2">
+        Nadie rellena un formulario para contarte por qué desconfió. Estos son los
+        seis motivos que más veces encuentro cuando un buen negocio no está
+        recibiendo los contactos que merece.
+      </p>
+    </div>
+
+    <ol class="costs">
+      <li class="cost cost--wide" data-reveal>
+        <span class="cost__n">01</span>
+        <h3>Tu web habla de otra época</h3>
+        <p>El negocio ha crecido, ha mejorado, ha aprendido. La web se quedó en el año en que la hiciste. Y el visitante no ve el negocio: ve la web.</p>
+      </li>
+      <li class="cost" data-reveal data-reveal-d="1">
+        <span class="cost__n">02</span>
+        <h3>No se entiende en cinco segundos</h3>
+        <p>Si hay que leer tres párrafos para saber qué haces, ya cerró la pestaña.</p>
+      </li>
+      <li class="cost" data-reveal data-reveal-d="2">
+        <span class="cost__n">03</span>
+        <h3>Contactar cuesta demasiado</h3>
+        <p>Un teléfono escondido en el pie de página es una oportunidad que se pierde en silencio.</p>
+      </li>
+      <li class="cost" data-reveal data-reveal-d="3">
+        <span class="cost__n">04</span>
+        <h3>Tarda en cargar</h3>
+        <p>Cada segundo de espera se interpreta como descuido. Y ese descuido se proyecta sobre tu trabajo, aunque tu trabajo sea impecable.</p>
+      </li>
+      <li class="cost" data-reveal data-reveal-d="4">
+        <span class="cost__n">05</span>
+        <h3>Solo existes en redes</h3>
+        <p>Tu perfil lo alquilas. Tu web es tuya, y es donde te toman en serio.</p>
+      </li>
+      <li class="cost cost--turn" data-reveal data-reveal-d="5">
+        <span class="cost__n">06</span>
+        <h3>Tu competencia no es mejor. Comunica mejor.</h3>
+        <p>Y esa es la buena noticia: comunicar mejor se arregla en semanas. Ser mejor te ha costado años, y eso ya lo tienes.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ══ 02 · SERVICIOS ═══════════════════════════════════════════════════ -->
+<section class="sec sec--serv" id="servicios">
+  <div class="shell">
+    <div class="seclabel" data-reveal><span class="seclabel__n">02</span><span class="seclabel__r"></span>Lo que hacemos</div>
+
+    <div class="sechead">
+      <h2 class="h2" data-reveal>Cuatro formas de que<br />tu negocio <span class="dim">se vea como es.</span></h2>
+    </div>
+
+    <div class="servs">
+      <article class="serv serv--lg spot" data-reveal>
+        <span class="serv__n">01</span>
+        <h3>Diseño web</h3>
+        <p>Para negocios que necesitan una presencia online moderna, clara y profesional. Empezamos por lo que quieres que sienta quien entra. El diseño sale de ahí, no de una plantilla.</p>
+        <ul class="serv__tags"><li>Diseño a medida</li><li>Copy incluido</li><li>Móvil primero</li></ul>
+      </article>
+
+      <article class="serv serv--lg spot" data-reveal data-reveal-d="1">
+        <span class="serv__n">02</span>
+        <h3>Rediseño web</h3>
+        <p>Para webs antiguas o lentas que ya no están a la altura del negocio. Conservamos lo que funciona y cambiamos lo que te está costando clientes.</p>
+        <ul class="serv__tags"><li>Auditoría previa</li><li>Sin perder posiciones</li><li>Velocidad</li></ul>
+      </article>
+
+      <article class="serv spot" data-reveal data-reveal-d="2">
+        <span class="serv__n">03</span>
+        <h3>Tiendas online</h3>
+        <p>Para ecommerce que necesitan una compra clara, bonita y de fiar. Menos pasos, menos dudas, más carritos que llegan al final.</p>
+        <ul class="serv__tags"><li>Shopify</li><li>A medida</li><li>Ficha de producto</li></ul>
+      </article>
+
+      <article class="serv spot" data-reveal data-reveal-d="3">
+        <span class="serv__n">04</span>
+        <h3>Automatización e IA</h3>
+        <p>Formularios, avisos y procesos que se ocupan de sí mismos. Cuando tiene sentido para tu negocio, no porque esté de moda.</p>
+        <ul class="serv__tags"><li>Formularios</li><li>Avisos</li><li>Integraciones</li></ul>
+      </article>
+    </div>
+
+    <p class="serv__note" data-reveal>
+      <em>La IA acelera el proceso. El criterio decide el resultado.</em>
+    </p>
+  </div>
+</section>
+
+<!-- ══ 03 · DEMO ANTES / DESPUÉS ════════════════════════════════════════ -->
+<section class="sec sec--demo" id="demo">
+  <div class="shell">
+    <div class="seclabel" data-reveal><span class="seclabel__n">03</span><span class="seclabel__r"></span>Míralo, no te lo creas</div>
+
+    <div class="sechead sechead--center">
+      <h2 class="h2" data-reveal>Arrastra.<br /><span class="dim">El mismo negocio, dos primeras impresiones.</span></h2>
+      <p class="sechead__p" data-reveal data-reveal-d="2">
+        Mismos servicios. Mismos precios. La misma persona haciendo el trabajo.
+        Lo único que cambia es lo que transmite en los primeros tres segundos.
+      </p>
+    </div>
+
+    <div class="ba" id="ba" data-reveal data-reveal-d="3">
+      <div class="ba__frame">
+
+        <!-- Las dos maquetas son demostración visual: para lectores de
+             pantalla vale el resumen de ba__sr, no el ruido de dentro. -->
+        <p class="sr-only" id="ba__sr">
+          Comparación de dos versiones de la web de un taller mecánico. La
+          antigua, de 2013: fondo gris, tipografía con serifa, un titular que
+          dice «bienvenidos a nuestra web», dos párrafos genéricos sin decir qué
+          hacen y un botón que solo dice «click aquí». La nueva: titular claro
+          «tu coche en manos de quien lo entiende», una frase que explica el
+          servicio, un botón de «pedir cita en 30 segundos» y tres datos de
+          confianza, treinta años abiertos, 4,9 en Google y 1.200 revisiones al
+          año.
+        </p>
+
+        <!-- Después (capa de fondo) -->
+        <div class="ba__pane ba__pane--new" aria-hidden="true">
+          <div class="fake fake--new">
+            <div class="fake__nav">
+              <b>Talleres Ribera</b>
+              <u>Servicios</u><u>Taller</u><u>Contacto</u>
+              <span class="fake__btn">Pedir cita</span>
+            </div>
+            <div class="fake__hero">
+              <p class="fake__kick">Mecánica de confianza desde 1994</p>
+              <h4>Tu coche en manos<br />de quien lo entiende.</h4>
+              <p class="fake__lead">Diagnóstico honesto, presupuesto por escrito y el coche listo cuando dijimos que estaría.</p>
+              <div class="fake__ctas"><span class="fake__btn fake__btn--big">Pedir cita en 30 s</span><span class="fake__link">Ver servicios</span></div>
+            </div>
+            <div class="fake__strip"><i><b>4,9</b><u>en Google</u></i><i><b>1.200</b><u>revisiones/año</u></i><i><b>30</b><u>años abiertos</u></i></div>
+          </div>
+        </div>
+
+        <!-- Antes (capa recortada) -->
+        <div class="ba__pane ba__pane--old" aria-hidden="true">
+          <div class="fake fake--old">
+            <div class="fakeold__top">
+              <span class="fakeold__logo">TALLERES RIBERA S.L.</span>
+              <span class="fakeold__hits">Visitas: 018342</span>
+            </div>
+            <div class="fakeold__menu">Inicio | Quienes somos | Servicios | Galeria | Contactenos | Enlaces</div>
+            <div class="fakeold__body">
+              <h4>BIENVENIDOS A NUESTRA WEB</h4>
+              <p>Talleres Ribera S.L. es una empresa lider en el sector de la automocion con una amplia experiencia y un equipo altamente cualificado que ofrece soluciones integrales adaptadas a las necesidades de nuestros clientes mas exigentes, apostando siempre por la calidad y el servicio.</p>
+              <p>Para mas informacion no dude en ponerse en contacto con nosotros a traves del formulario o llamando al telefono que figura en el pie de pagina.</p>
+              <span class="fakeold__btn">CLICK AQUI</span>
+            </div>
+            <div class="fakeold__foot">© 2013 Todos los derechos reservados · Optimizado para 1024x768</div>
+          </div>
+        </div>
+
+        <!-- Control -->
+        <div class="ba__handle" id="ba-handle" role="slider" tabindex="0"
+             aria-label="Comparar la web antigua con la nueva"
+             aria-describedby="ba__sr"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="Mitad y mitad">
+          <span class="ba__grip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6 5 12l4 6M15 6l4 6-4 6" /></svg></span>
+        </div>
+
+        <span class="ba__tag ba__tag--old">Antes</span>
+        <span class="ba__tag ba__tag--new">Después</span>
+      </div>
+
+      <p class="ba__hint">Arrastra el control, o usa las flechas del teclado</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 04 · ESTUDIO VS AGENCIA ══════════════════════════════════════════ -->
+<section class="sec sec--vs" id="cercania">
+  <span class="vs__spot" aria-hidden="true"></span>
+  <div class="shell">
+    <div class="seclabel seclabel--inv" data-reveal><span class="seclabel__n">04</span><span class="seclabel__r"></span>Trato directo</div>
+
+    <div class="sechead">
+      <h2 class="h2 h2--inv" data-reveal>Hablas con quien diseña.<br /><span class="dim">Siempre.</span></h2>
+      <p class="sechead__p sechead__p--inv" data-reveal data-reveal-d="2">
+        No compito con las grandes en tamaño. Compito en algo que ellas no pueden
+        replicar: que la persona que dibuja tu web sepa tu nombre, tu temporada alta
+        y qué cliente te interesa de verdad.
+      </p>
+    </div>
+
+    <div class="vs">
+      <div class="vs__col vs__col--them" data-reveal>
+        <h3>En una empresa grande</h3>
+        <ul>
+          <li>Te atiende un comercial que no diseñará tu web</li>
+          <li>Pasas a una cuenta, y de la cuenta a un equipo rotatorio</li>
+          <li>Una plantilla ya comprada, adaptada a tu logo</li>
+          <li>Respuestas en tres o cuatro días laborables</li>
+          <li>El proyecto acaba y tú también, para ellos</li>
+        </ul>
+      </div>
+
+      <div class="vs__vs" aria-hidden="true"><span>vs</span></div>
+
+      <div class="vs__col vs__col--us" data-reveal data-reveal-d="2">
+        <h3>Aquí</h3>
+        <ul>
+          <li>Desde el primer mensaje hablas conmigo</li>
+          <li>La misma persona escucha, diseña y programa</li>
+          <li>Se dibuja desde cero para tu negocio, no para tu sector</li>
+          <li>Respuesta el mismo día, casi siempre en horas</li>
+          <li>Sigo estando cuando la web ya está viva y necesita cambios</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="vs__punch" data-reveal>
+      No te prometo un equipo de cuarenta personas.
+      <b>Te prometo que quien diseña tu web sabe cómo se llama tu negocio y por qué te importa.</b>
+    </p>
+  </div>
+</section>
+
+<!-- ══ 05 · PROCESO ═════════════════════════════════════════════════════ -->
+<section class="sec sec--proc" id="proceso">
+  <div class="shell">
+    <div class="seclabel" data-reveal><span class="seclabel__n">05</span><span class="seclabel__r"></span>Cómo trabajamos</div>
+
+    <div class="sechead">
+      <h2 class="h2" data-reveal>Cuatro pasos.<br /><span class="dim">Sin sorpresas y sin humo.</span></h2>
+    </div>
+
+    <ol class="steps" id="steps">
+      <span class="steps__line" aria-hidden="true"><i></i></span>
+
+      <li class="step" data-reveal>
+        <span class="step__dot" aria-hidden="true"></span>
+        <span class="step__meta">Paso 01 · 45 minutos</span>
+        <h3>Conversación</h3>
+        <p>Me cuentas el negocio, no la web. Quién te compra, qué te preguntan siempre, qué te gustaría dejar de explicar por teléfono. De ahí sale todo lo demás.</p>
+      </li>
+
+      <li class="step" data-reveal data-reveal-d="1">
+        <span class="step__dot" aria-hidden="true"></span>
+        <span class="step__meta">Paso 02 · 3 a 5 días</span>
+        <h3>Propuesta y dirección visual</h3>
+        <p>Ves a dónde vamos antes de que yo escriba una línea de código: estructura, tono y una dirección visual concreta. Si no te convence, se cambia ahora, no al final.</p>
+      </li>
+
+      <li class="step" data-reveal data-reveal-d="2">
+        <span class="step__dot" aria-hidden="true"></span>
+        <span class="step__meta">Paso 03 · 2 a 4 semanas</span>
+        <h3>Diseño y construcción</h3>
+        <p>Trabajamos con revisiones contigo, no con informes para ti. Ves la web crecer en un enlace real y opinas sobre algo que ya se puede tocar.</p>
+      </li>
+
+      <li class="step" data-reveal data-reveal-d="3">
+        <span class="step__dot" aria-hidden="true"></span>
+        <span class="step__meta">Paso 04 · Después</span>
+        <h3>Lanzamiento y seguimiento</h3>
+        <p>Publicamos, medimos qué hace la gente y ajustamos lo que haga falta. No desaparezco el día que la web sale.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ══ 06 · PLAZAS ══════════════════════════════════════════════════════ -->
+<section class="sec sec--slots" id="plazas">
+  <div class="shell">
+    <div class="seclabel" data-reveal><span class="seclabel__n">06</span><span class="seclabel__r"></span>Primeros proyectos</div>
+
+    <div class="slots">
+      <div class="slots__copy">
+        <h2 class="h2" data-reveal>Estamos eligiendo<br /><span class="dim">los primeros proyectos del estudio.</span></h2>
+        <p data-reveal data-reveal-d="2">
+          Planelles Studio acaba de abrir. Por eso voy a seleccionar unos pocos
+          negocios para trabajar su presencia online con condiciones iniciales
+          especiales, a cambio de poder mostrar el resultado como ejemplo del
+          estudio.
+        </p>
+        <p data-reveal data-reveal-d="3">
+          No es un descuento. Es un intercambio: tú te llevas una web hecha con
+          todo el tiempo del mundo, yo me llevo un caso del que estar orgulloso.
+          Por eso elijo pocos, y por eso los elijo bien.
+        </p>
+        <a class="btn btn--blue magnet" href="#hablemos" data-reveal data-reveal-d="4">
+          <span>Quiero una de las plazas</span>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" /></svg>
+        </a>
+      </div>
+
+      <div class="slots__board" data-reveal data-reveal-d="2">
+        <p class="slots__head"><span>Plazas del trimestre</span><b><span data-count="2">2</span> de 3 libres</b></p>
+        <ul class="slots__list">
+          <li class="slot slot--taken"><span class="slot__i">01</span><span class="slot__t">Reservada</span><span class="slot__d">Ecommerce · en marcha</span></li>
+          <li class="slot"><span class="slot__i">02</span><span class="slot__t">Libre</span><span class="slot__d">Diseño o rediseño web</span></li>
+          <li class="slot"><span class="slot__i">03</span><span class="slot__t">Libre</span><span class="slot__d">Diseño o rediseño web</span></li>
+        </ul>
+        <p class="slots__foot">Se cierra cuando se llena, no cuando acaba el mes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 07 · SOBRE MÍ ════════════════════════════════════════════════════ -->
+<section class="sec sec--me" id="estudio">
+  <div class="shell">
+    <div class="seclabel" data-reveal><span class="seclabel__n">07</span><span class="seclabel__r"></span>La persona detrás</div>
+
+    <div class="me">
+      <figure class="me__shot" data-reveal>
+        <span class="me__frame">
+          <img src="img/quique.jpg" alt="Quique Planelles, fundador de Planelles Studio" width="640" height="800"
+               onerror="this.closest('.me__frame').classList.add('is-empty'); this.remove();" />
+          <span class="me__mono" aria-hidden="true">QP</span>
+        </span>
+        <figcaption>Quique Planelles · Fundador</figcaption>
+      </figure>
+
+      <div class="me__copy">
+        <h2 class="h2" data-reveal>Soy Quique Planelles.</h2>
+
+        <p data-reveal data-reveal-d="2">
+          Después de trabajar en más de veinte webs y tiendas online reales, monté
+          este estudio para hacer las cosas como creo que hay que hacerlas:
+          hablando con la persona que tiene el negocio, no con un briefing
+          reenviado tres veces.
+        </p>
+
+        <blockquote class="me__quote" data-reveal data-reveal-d="3">
+          No creo en la decoración. Cada elemento de una web tiene que hacer una de
+          dos cosas: generar confianza, o quitar una duda.
+        </blockquote>
+
+        <p data-reveal data-reveal-d="4">
+          Mi forma de trabajar mezcla diseño, código e inteligencia artificial,
+          siempre con criterio humano. La IA me ahorra las horas mecánicas. Las
+          decisiones importantes las sigo tomando yo, contigo delante.
+        </p>
+
+        <dl class="me__stats" data-reveal data-reveal-d="5">
+          <div><dt><span data-count="20">20</span>+</dt><dd>webs y tiendas online</dd></div>
+          <div><dt><span data-count="1">1</span></dt><dd>persona al teléfono</dd></div>
+          <div><dt><span data-count="0">0</span></dt><dd>plantillas usadas</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA FINAL ════════════════════════════════════════════════════════ -->
+<section class="cta" id="hablemos">
+  <canvas class="dust" id="dust-cta" aria-hidden="true"></canvas>
+  <span class="cta__spot" aria-hidden="true"></span>
+
+  <div class="shell cta__grid">
+    <div class="cta__copy">
+      <h2 class="cta__title" data-reveal>
+        <span class="line"><span data-reveal data-reveal-d="1">Tu negocio ya</span></span>
+        <span class="line"><span data-reveal data-reveal-d="2">es bueno. Vamos</span></span>
+        <span class="line"><em data-reveal data-reveal-d="3">a que se note.</em></span>
+      </h2>
+      <p data-reveal data-reveal-d="4">
+        ¿Y si la próxima persona que te busque en Google se quedara? Cuéntame tu
+        negocio en dos líneas. Te contesto con sinceridad si puedo ayudarte, qué
+        haría primero y qué no haría todavía. Sin compromiso y sin discurso de
+        ventas.
+      </p>
+      <ul class="cta__list" data-reveal data-reveal-d="5">
+        <li>Respondo yo, el mismo día</li>
+        <li>Primera llamada gratuita de 45 minutos</li>
+        <li>Si no soy la persona adecuada, te lo digo</li>
+      </ul>
+    </div>
+
+    <form class="form" id="form" novalidate data-reveal data-reveal-d="3">
+      <div class="field">
+        <label for="f-name">Cómo te llamas</label>
+        <input id="f-name" name="nombre" type="text" autocomplete="name" required placeholder="Nombre y apellido" />
+      </div>
+      <div class="field">
+        <label for="f-biz">Tu negocio <span>y tu web actual, si tienes</span></label>
+        <input id="f-biz" name="negocio" type="text" required placeholder="Talleres Ribera · talleresribera.com" />
+      </div>
+      <div class="field">
+        <label for="f-mail">Email</label>
+        <input id="f-mail" name="email" type="email" autocomplete="email" required placeholder="tu@correo.com" />
+      </div>
+      <div class="field">
+        <label for="f-msg">Qué te gustaría cambiar</label>
+        <textarea id="f-msg" name="mensaje" rows="3" required placeholder="Dos líneas bastan."></textarea>
+      </div>
+
+      <button class="btn btn--light btn--full magnet" type="submit">
+        <span>Enviar y hablamos</span>
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" /></svg>
+      </button>
+
+      <p class="form__alt">
+        O más rápido todavía:
+        <a href="https://wa.me/34600000000?text=Hola%20Quique%2C%20me%20gustar%C3%ADa%20mejorar%20la%20web%20de%20mi%20negocio" target="_blank" rel="noopener">escríbeme por WhatsApp</a>
+      </p>
+      <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<!-- ══ FOOTER ═══════════════════════════════════════════════════════════ -->
+<footer class="foot">
+  <div class="shell">
+    <div class="foot__top">
+      <a class="brand brand--foot" href="#hero" aria-label="Planelles Studio, inicio">
+        <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+          <rect class="mark__frame" x="1.25" y="1.25" width="29.5" height="29.5" rx="9" />
+          <rect class="mark__tile mark__tile--low" x="7" y="16" width="7.5" height="7.5" rx="2.4" />
+          <rect class="mark__tile mark__tile--high" x="17.5" y="8" width="7.5" height="7.5" rx="2.4" />
+        </svg>
+        <span class="brand__text"><b>Planelles</b><i>Studio</i></span>
+      </a>
+      <p class="foot__claim">Diseño y desarrollo web para negocios<br />que quieren verse como realmente son.</p>
+    </div>
+
+    <div class="foot__cols">
+      <div>
+        <h3>Estudio</h3>
+        <a href="#servicios">Servicios</a>
+        <a href="#proceso">Proceso</a>
+        <a href="#estudio">Sobre mí</a>
+        <a href="#plazas">Plazas abiertas</a>
+      </div>
+      <div>
+        <h3>Hablemos</h3>
+        <a href="mailto:hola@planellesstudio.com">hola@planellesstudio.com</a>
+        <a href="https://wa.me/34600000000" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="#hablemos">Formulario</a>
+      </div>
+      <div>
+        <h3>Dónde estoy</h3>
+        <a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+
+    <div class="foot__end">
+      <p>© <span id="year">2026</span> Planelles Studio</p>
+      <p class="foot__craft">Hecho a mano, sin plantilla, con criterio.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/motion.js" defer></script>
+<script src="js/ui.js" defer></script>
+</body>
+</html>

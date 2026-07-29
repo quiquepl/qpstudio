@@ -1,0 +1,8 @@
+Guarda aquí tu retrato con el nombre exacto: quique.jpg
+
+Recomendado: vertical, proporción 4:5 (por ejemplo 640x800 o 1024x1280),
+recortado a la altura del pecho, fondo sencillo, luz suave.
+
+Mientras el archivo no exista, la sección "Sobre mí" muestra un monograma QP
+sobre el gradiente de marca. La web no se rompe, pero una cara real convence
+mucho más que dos iniciales.
