@@ -450,9 +450,10 @@
   height: 1px; background: var(--grad-rule);
 }
 
+/* zigzag 3-2 / 2-3: ni cuatro tarjetas iguales ni una rejilla plana */
 .servs {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: clamp(0.9rem, 1.6vw, 1.3rem);
 }
 .serv {
@@ -485,8 +486,9 @@
   }
   .serv:hover::before { opacity: 1; }
 }
-.serv--lg { grid-column: span 2; }
-.serv--lg h3 { font-size: clamp(1.35rem, 2.1vw, 1.75rem); }
+.serv--lg { grid-column: span 3; }
+.serv--lg h3 { font-size: clamp(1.35rem, 2.1vw, 1.8rem); }
+.serv--lg p { max-width: 44ch; }
 
 .serv__n {
   display: block;
