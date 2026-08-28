@@ -55,6 +55,7 @@
   // el formulario se ve suelto y legible en vez de esconderse tras el raíl
   if (use3d) root.classList.remove("no-3d");
 
+  let scrollPx = 0;
   let queued = false;
   let lastActive = null;
   let panelLive = false;
@@ -63,6 +64,7 @@
     queued = false;
     const vh = Math.max(1, innerHeight);
     const y = Math.max(0, scrollY);
+    scrollPx = y;
 
     root.style.setProperty('--scroll', (y / Math.max(1, document.body.scrollHeight - vh)).toFixed(4));
     nav.classList.toggle('is-stuck', y > 12);
@@ -262,10 +264,10 @@
   };
 
   const LAYERS = [
-    { base: 0.58, amp: 0.48, freq: 0.0052, fall: 0.52, ink: 0.26, speed: 0.008, seed: 11 },
-    { base: 0.74, amp: 0.46, freq: 0.0076, fall: 0.44, ink: 0.38, speed: 0.014, seed: 47 },
-    { base: 0.90, amp: 0.44, freq: 0.0108, fall: 0.36, ink: 0.52, speed: 0.022, seed: 83 },
-    { base: 1.04, amp: 0.42, freq: 0.0150, fall: 0.30, ink: 0.70, speed: 0.033, seed: 137 }
+    { base: 0.58, amp: 0.48, freq: 0.0052, fall: 0.52, ink: 0.26, speed: 0.008, par: 0.06, seed: 11 },
+    { base: 0.74, amp: 0.46, freq: 0.0076, fall: 0.44, ink: 0.38, speed: 0.014, par: 0.11, seed: 47 },
+    { base: 0.90, amp: 0.44, freq: 0.0108, fall: 0.36, ink: 0.52, speed: 0.022, par: 0.17, seed: 83 },
+    { base: 1.04, amp: 0.42, freq: 0.0150, fall: 0.30, ink: 0.70, speed: 0.033, par: 0.24, seed: 137 }
   ];
 
   const makeRidges = (canvas, opts) => {
@@ -310,7 +312,8 @@
       for (let l = 0; l < cfg.length; l++) {
         const c = cfg[l];
         const arr = tops[l];
-        const off = t * c.speed;
+        // el scroll desplaza cada capa a distinta velocidad: parallax real
+        const off = t * c.speed + scrollPx * c.par * 0.004;
         for (let x = 0; x < W; x++) arr[x] = (c.base - ridged(x * c.freq + off, c.seed) * c.amp) * H;
       }
       px.fill(0);

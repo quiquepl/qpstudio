@@ -55,10 +55,10 @@ Alternancia claro / oscuro para que no haya dos bloques seguidos iguales.
 | # | Sección | Fondo | Pieza visual |
 |---|---|---|---|
 | 1 | Hero | papel | cordillera tramada animada |
-| 2 | El coste | foto a sangre | banda oscura con foto y tres frases |
+| 2 | El coste | foto a sangre | banda oscura, entradilla, tres motivos y remate |
 | 3 | Nuestro trabajo | papel + halo azul | ocho webs en órbita continua |
 | 4 | Nuestros servicios | oscuro | cintas 3D en canvas |
-| 5 | Antes y después | degradado azul | comparador con hero de taller |
+| 5 | Antes y después | degradado azul | comparador con hero de taller, sin cifras |
 | 6 | Tuya de verdad | oscuro | cintas 3D + maqueta de edición |
 | 7 | El estudio | papel | retrato |
 | 8 | Final | **blanco** | portátil que se abre y se acerca |
@@ -72,7 +72,10 @@ meterlas.
 Todo en `js/motion.js`, sin librerías. Curva única `--ease` (out-expo), cero
 bounce. Sin desenfoques ni escalados del contenido al hacer scroll.
 
-**1. Cordillera tramada (hero).** Búfer de canvas a 0.42 de resolución escalado
+**1. Cordillera tramada (hero).** Se mueve sola y **además con el scroll**:
+cada capa lleva su propio factor de parallax, así que al bajar la cordillera se
+abre en profundidad.
+ Búfer de canvas a 0.42 de resolución escalado
 con `image-rendering: pixelated`, para que el punto salga gordo. Crestas de
 multifractal en cresta, caída de tinta precalculada en tablas, matriz de Bayer
 8x8 y un ruido fijo por píxel contra el bandeado. Cuatro capas con parallax.
@@ -105,9 +108,13 @@ variables en la sección:
 | `--zoom` | p 0.20 → 0.66 | la cámara entra 1220px en la pantalla |
 | `--panel` | p 0.58 → 0.80 | el contacto aparece y el ordenador se apaga |
 
-El formulario **no** va dentro de la pantalla escalada: es una capa aparte que
-entra por encima. Así se lee y se usa perfecto en el punto final, en vez de ser
-texto diminuto ampliado.
+Lo que se ve en la pantalla del portátil **ya es el contacto**: mismo titular,
+mismos campos, mismo botón, dibujados con unidades `cqw` dentro de la pantalla.
+Al entrar no cambia nada, solo se hace grande.
+
+El formulario de verdad **no** va dentro de la pantalla escalada: es una capa
+aparte que entra por encima cuando el zoom ya llenó el cuadro. Así se lee y se
+usa perfecto en el punto final, en vez de ser texto diminuto ampliado.
 
 Para que no se atasque: ninguna sombra con `filter`, un único transform
 compuesto por elemento y el cálculo se salta entero cuando el raíl está fuera de
@@ -132,9 +139,9 @@ formulario suelto y legible. Lo mismo hace la clase `no-3d` cuando no hay JS.
 Las fotos son de Unsplash y todos los IDs están comprobados. Van en
 **escala de grises** (`filter: grayscale(1)`) para que no rompan la paleta.
 
-El logo va en `img/logo.png`. Si falta, el wordmark cae en un monograma QP
-dibujado en SVG con el degradado azul: queda decente, pero no es el cromado
-del logo real.
+En el nav **solo va el logo**, sin wordmark. El archivo es `img/logo.png`. Si
+falta, cae en un monograma QP dibujado en SVG con el degradado azul: queda
+decente, pero no es el cromado del logo real.
 
 La maqueta del taller (el «después» del comparador) **no lleva una gota de
 azul**: negro, blanco y un ámbar `#f0a03c`. Es la web de un cliente, no la

@@ -30,7 +30,7 @@
   <div class="nav__rail" aria-hidden="true"><span class="nav__rail-fill"></span></div>
   <div class="shell nav__inner">
 
-    <a class="brand" href="#hero" aria-label="QP Studio, inicio">
+    <a class="brand brand--mark-only" href="#hero" aria-label="QP Studio, inicio">
       <img class="brand__mark" src="img/logo.png" alt="" width="36" height="36"
            onerror="this.closest('.brand').classList.add('no-logo'); this.remove();" />
       <svg class="brand__fallback" viewBox="0 0 40 40" aria-hidden="true">
@@ -43,7 +43,6 @@
         <path d="M17 4A12 12 0 0 0 5 16v8a12 12 0 0 0 12 12h3v-6.5h-3a5.5 5.5 0 0 1-5.5-5.5v-8A5.5 5.5 0 0 1 17 10.5h1.5V4z" fill="url(#qpg)" />
         <path d="M22 10v26h6.5v-7.5H33a9.25 9.25 0 0 0 0-18.5zm6.5 6.5H33a2.75 2.75 0 0 1 0 5.5h-4.5z" fill="url(#qpg)" />
       </svg>
-      <span class="brand__text"><b>QP</b><i>Studio</i></span>
     </a>
 
     <nav class="nav__links" id="menu" aria-label="Secciones">
@@ -102,11 +101,29 @@
       Si tu web parece vieja,<br /><span class="soft">tu negocio también.</span>
     </h2>
 
+    <p class="band__lead" data-reveal data-reveal-d="1">
+      Nadie contrata a ciegas. Antes de descolgar el teléfono te miran, te
+      comparan y deciden. Casi siempre pierdes ahí, y casi nunca te enteras.
+    </p>
+
     <ul class="band__points">
-      <li data-reveal data-reveal-d="1">Te buscan en Google antes de llamarte.</li>
-      <li data-reveal data-reveal-d="2">Deciden en cinco segundos si te toman en serio.</li>
-      <li data-reveal data-reveal-d="3">Y nunca te dicen por qué no llamaron.</li>
+      <li data-reveal data-reveal-d="2">
+        <b>Te buscan antes de llamarte</b>
+        <span>Escriben tu nombre en Google y lo primero que ven es tu web, no tu trabajo.</span>
+      </li>
+      <li data-reveal data-reveal-d="3">
+        <b>Deciden en cinco segundos</b>
+        <span>Si no entienden qué haces ni ven cómo contactarte, cierran y prueban con el siguiente.</span>
+      </li>
+      <li data-reveal data-reveal-d="4">
+        <b>Nunca te dicen por qué</b>
+        <span>No hay queja ni aviso. Solo un teléfono que suena menos de lo que debería.</span>
+      </li>
     </ul>
+
+    <p class="band__foot" data-reveal data-reveal-d="5">
+      La buena noticia: esto se arregla en semanas, no en años.
+    </p>
   </div>
 </section>
 
@@ -279,11 +296,6 @@
                 <span class="shop__link">Ver servicios</span>
               </div>
             </div>
-            <div class="shop__strip">
-              <i><b>30</b><u>años abiertos</u></i>
-              <i><b>4,9</b><u>en Google</u></i>
-              <i><b>1.200</b><u>revisiones al año</u></i>
-            </div>
           </div>
         </div>
 
@@ -408,11 +420,11 @@
             <div class="mac__screen">
               <span class="mac__cam"></span>
               <div class="mac__ui">
-                <b>QP Studio</b>
-                <span class="w w-70 w-light"></span>
-                <span class="w w-45 w-light"></span>
-                <span class="cta-pill cta-pill--blue"></span>
-              </div>
+              <b>Cuéntame tu negocio<br />en dos líneas.</b>
+              <span class="mac__row"><i></i><i></i></span>
+              <span class="mac__inp mac__inp--tall"></span>
+              <span class="mac__cta">Enviar y hablamos</span>
+            </div>
               <span class="mac__glare"></span>
             </div>
           </div>
@@ -464,14 +476,13 @@
 <!-- ══ FOOTER ═══════════════════════════════════════════════════════════ -->
 <footer class="foot">
   <div class="shell foot__inner">
-    <a class="brand" href="#hero" aria-label="QP Studio, inicio">
+    <a class="brand brand--mark-only" href="#hero" aria-label="QP Studio, inicio">
       <img class="brand__mark" src="img/logo.png" alt="" width="36" height="36"
            onerror="this.closest('.brand').classList.add('no-logo'); this.remove();" />
       <svg class="brand__fallback" viewBox="0 0 40 40" aria-hidden="true">
         <path d="M17 4A12 12 0 0 0 5 16v8a12 12 0 0 0 12 12h3v-6.5h-3a5.5 5.5 0 0 1-5.5-5.5v-8A5.5 5.5 0 0 1 17 10.5h1.5V4z" fill="currentColor" />
         <path d="M22 10v26h6.5v-7.5H33a9.25 9.25 0 0 0 0-18.5zm6.5 6.5H33a2.75 2.75 0 0 1 0 5.5h-4.5z" fill="currentColor" />
       </svg>
-      <span class="brand__text"><b>QP</b><i>Studio</i></span>
     </a>
 
     <nav class="foot__links" aria-label="Pie">

@@ -193,11 +193,13 @@ h3 {
   text-decoration: none; color: var(--ink); flex: 0 0 auto;
 }
 .brand__mark {
-  width: 34px; height: 34px;
+  width: 40px; height: 40px;
   object-fit: contain;
   transition: transform var(--t-slow) var(--ease);
 }
-.brand__fallback { display: none; width: 28px; height: 28px; }
+/* solo el logo arriba a la izquierda: sin wordmark */
+.brand--mark-only { gap: 0; }
+.brand__fallback { display: none; width: 36px; height: 36px; }
 .brand.no-logo .brand__fallback { display: block; }
 @media (hover: hover) { .brand:hover .brand__mark { transform: rotate(-8deg) scale(1.06); } }
 
