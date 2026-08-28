@@ -80,6 +80,11 @@ con `image-rendering: pixelated`, para que el punto salga gordo. Crestas de
 multifractal en cresta, caída de tinta precalculada en tablas, matriz de Bayer
 8x8 y un ruido fijo por píxel contra el bandeado. Cuatro capas con parallax.
 
+**2b. Partículas de transición.** Al entrar en la banda del coste, un puñado de
+puntos con el mismo grano que las montañas cae desde el borde superior y se
+apaga. Cada partícula tiene un umbral fijo, así que desaparece de golpe en vez
+de parpadear. Es solo decoración: `pointer-events: none` y por debajo del texto.
+
 **2. Cintas 3D (secciones oscuras).** Veinte bandas onduladas trazadas con un
 degradado horizontal cuyo brillo viaja. Superpuestas dan pliegues con volumen.
 Se dibujan a 30 fps.
@@ -104,9 +109,18 @@ variables en la sección:
 
 | Variable | Tramo | Qué hace |
 |---|---|---|
-| `--lid` | p 0 → 0.30 | la tapa se abre de -90° a 0° |
-| `--zoom` | p 0.20 → 0.66 | la cámara entra 1220px en la pantalla |
-| `--panel` | p 0.58 → 0.80 | el contacto aparece y el ordenador se apaga |
+| `--lid` | p 0 → 0.20 | la tapa se abre de -90° a 0° |
+| `--zoom` | p 0.10 → 0.50 | la cámara entra 1260px en la pantalla |
+| `--panel` | p 0.42 → 0.64 | el contacto aparece y el ordenador se apaga |
+
+El raíl es de 165svh (150 en móvil): 520px de recorrido en un viewport de
+800, con el formulario completo a los 343px. Tres muescas de rueda. Antes
+eran 1760px y se sentía como que el scroll no avanzaba.
+
+El ordenador es un portátil **negro espacial**, con teclado dibujado a base de
+degradados repetidos y trackpad. La opacidad del conjunto llega a cero exacto:
+con 0.05 el botón de la pantalla se veía gigante y fantasma detrás del
+formulario real.
 
 Lo que se ve en la pantalla del portátil **ya es el contacto**: mismo titular,
 mismos campos, mismo botón, dibujados con unidades `cqw` dentro de la pantalla.

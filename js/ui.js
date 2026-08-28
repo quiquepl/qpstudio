@@ -53,9 +53,15 @@ const CONTACTO = {
     let pos = 50;
     let dragging = false;
 
+    const tagOld = ba.querySelector('.ba__tag--old');
+    const tagNew = ba.querySelector('.ba__tag--new');
+
     const paint = (v) => {
       pos = clamp(v);
       ba.style.setProperty('--pos', pos + '%');
+      // con una web ocupando todo el marco, la etiqueta de la otra sobra
+      if (tagNew) tagNew.classList.toggle('is-off', pos > 93);
+      if (tagOld) tagOld.classList.toggle('is-off', pos < 7);
       handle.setAttribute('aria-valuenow', Math.round(pos));
       handle.setAttribute(
         'aria-valuetext',

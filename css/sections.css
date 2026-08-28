@@ -67,7 +67,7 @@
   content: ""; position: absolute; inset: 0;
   background: linear-gradient(100deg, oklch(13.5% 0.026 255 / .92), oklch(13.5% 0.026 255 / .55) 62%, oklch(13.5% 0.026 255 / .8));
 }
-.band__in { position: relative; z-index: 1; }
+.band__in { position: relative; z-index: 2; }
 .band__title { max-width: 18ch; }
 
 .band__lead {
@@ -119,6 +119,18 @@
 @media (max-width: 700px) {
   .band__points li { border-right: 0; border-bottom: 1px solid oklch(100% 0 0 / .16); padding-inline: 0 !important; }
   .band__points li:last-child { border-bottom: 0; }
+}
+
+/* la cordillera se deshace en partículas al entrar en la banda: solo
+   decoración, ni tapa ni desplaza nada */
+.spill {
+  position: absolute; top: 0; left: 0; right: 0;
+  width: 100%;
+  height: clamp(120px, 20vw, 230px);
+  z-index: 1;
+  pointer-events: none;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 /* ═══ NUESTRO TRABAJO · webs en órbita ════════════════════════════════
@@ -356,6 +368,10 @@
   font-size: 0.66rem; font-weight: 700;
   letter-spacing: 0.08em; text-transform: uppercase;
 }
+.ba__tag {
+  transition: opacity var(--t) var(--ease), scale var(--t) var(--ease);
+}
+.ba__tag.is-off { opacity: 0; scale: 0.9; }
 .ba__tag--old { left: 0.8rem; background: oklch(30% 0.01 60); color: oklch(94% 0.005 60); }
 .ba__tag--new { right: 0.8rem; background: oklch(99% 0 0); color: oklch(20% 0.01 250); }
 
@@ -668,8 +684,8 @@
    ═══════════════════════════════════════════════════════════════════ */
 
 .finale { position: relative; background: oklch(99.2% 0.001 250); }
-.finale__rail { height: 230svh; }
-@media (max-width: 700px) { .finale__rail { height: 190svh; } }
+.finale__rail { height: 165svh; }
+@media (max-width: 700px) { .finale__rail { height: 150svh; } }
 
 .finale__sticky {
   position: sticky; top: 0;
@@ -690,49 +706,48 @@
   width: min(56vw, 680px);
   transform-style: preserve-3d;
   transform:
-    translate3d(0, calc(var(--zoom) * -5vh), calc(var(--zoom) * 1220px))
-    rotateX(calc(8deg - var(--zoom) * 8deg));
-  opacity: calc(1 - var(--panel) * 0.95);
+    translate3d(0, calc(var(--zoom) * -5vh), calc(var(--zoom) * 1260px))
+    rotateX(calc(10deg - var(--zoom) * 10deg));
+  /* llega a cero de verdad: si se quedaba en 0.05 el "Enviar y hablamos"
+     de la pantalla se veía gigante y fantasma detrás del formulario */
+  opacity: calc(1 - var(--panel));
   will-change: transform, opacity;
 }
 
-/* ── tapa: chasis de aluminio, bisel fino y cristal ────────────────── */
+/* ── tapa: aluminio negro espacial ─────────────────────────────────── */
 .mac__lid {
   position: relative;
   transform-origin: 50% 100%;
   transform: rotateX(calc(-90deg + var(--lid) * 90deg));
-  padding: 0.9% 0.9% 1.5%;
-  border-radius: 16px 16px 5px 5px;
+  padding: 0.75% 0.75% 1.3%;
+  border-radius: 15px 15px 4px 4px;
   background:
-    linear-gradient(184deg, #f2f4f7 0%, #dfe3e9 18%, #cdd2da 60%, #bcc2cb 100%);
+    linear-gradient(184deg, #494a4e 0%, #303134 16%, #232427 58%, #1a1b1e 100%);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.95),
-    inset 1px 0 0 rgba(255,255,255,.55),
-    inset -1px 0 0 rgba(255,255,255,.55),
-    inset 0 -1px 0 rgba(0,0,0,.10),
-    0 2px 3px rgba(22,26,36,.16);
+    inset 0 1px 0 rgba(255,255,255,.22),
+    inset 1px 0 0 rgba(255,255,255,.10),
+    inset -1px 0 0 rgba(255,255,255,.10),
+    inset 0 -1px 0 rgba(0,0,0,.5),
+    0 2px 4px rgba(10,12,18,.34);
 }
-/* borde negro del cristal, pegado al aluminio */
 .mac__screen {
   position: relative;
   aspect-ratio: 16 / 10.4;
-  border-radius: 9px;
-  background: linear-gradient(170deg, #171d2b 0%, #0d1220 55%, #080b14 100%);
+  border-radius: 8px;
+  background: linear-gradient(170deg, #14161f 0%, #0b0d15 55%, #06070c 100%);
   box-shadow:
-    inset 0 0 0 1px rgba(0,0,0,.9),
-    inset 0 2px 14px rgba(0,0,0,.55);
+    inset 0 0 0 1px rgba(0,0,0,.95),
+    inset 0 2px 16px rgba(0,0,0,.6);
   overflow: hidden;
   container-type: inline-size;
 }
 .mac__cam {
   position: absolute; top: 1.1%; left: 50%; translate: -50% 0;
-  width: 0.5%; aspect-ratio: 1; border-radius: 50%;
-  background: #2b3444;
-  box-shadow: 0 0 0 1px rgba(255,255,255,.06);
+  width: 0.45%; aspect-ratio: 1; border-radius: 50%;
+  background: #23262f;
 }
 
-/* lo que se ve en la pantalla es ya el contacto, para que al entrar no
-   cambie nada: solo se hace grande */
+/* lo que se ve en la pantalla es ya el contacto */
 .mac__ui {
   position: absolute; inset: 13% 17% 12%;
   display: flex; flex-direction: column;
@@ -763,62 +778,58 @@
   color: #fff;
   font-family: var(--display);
   font-size: 2.5cqw; font-weight: 600; letter-spacing: -0.015em;
-  box-shadow: 0 1.4cqw 3cqw -1.4cqw rgba(47,107,255,.75);
 }
-
-/* reflejo del cristal: dos franjas suaves, nada de filtros */
 .mac__glare {
   position: absolute; inset: 0;
   background:
-    linear-gradient(108deg, rgba(255,255,255,.16) 0 16%, rgba(255,255,255,.03) 30%, rgba(255,255,255,0) 46%),
-    linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,0) 22%);
+    linear-gradient(108deg, rgba(255,255,255,.13) 0 15%, rgba(255,255,255,.03) 29%, rgba(255,255,255,0) 45%),
+    linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,0) 20%);
   pointer-events: none;
 }
 .mac__back { display: none; }
 
-/* ── base: cuerpo, teclado y trackpad ──────────────────────────────── */
+/* ── base: cuerpo negro con teclado y trackpad ─────────────────────── */
 .mac__base {
   position: relative;
-  aspect-ratio: 100 / 19;
-  transform: rotateX(75deg);
+  aspect-ratio: 100 / 33;
+  transform: rotateX(78deg);
   transform-origin: 50% 0;
-  border-radius: 2px 2px 12px 12px;
+  border-radius: 2px 2px 14px 14px;
   background:
-    linear-gradient(180deg, #b7bdc7 0%, #e6e9ee 6%, #d5dae1 30%, #c2c8d1 74%, #a5abb6 100%);
+    linear-gradient(180deg, #17181b 0%, #45464b 3%, #303136 26%, #232428 70%, #131417 100%);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.7),
-    0 2px 4px rgba(22,26,36,.24);
+    inset 0 1px 0 rgba(255,255,255,.20),
+    0 3px 6px rgba(10,12,18,.4);
 }
-/* hueco del teclado */
+/* teclado: rejilla de teclas hecha con degradados repetidos */
 .mac__base::before {
   content: ""; position: absolute;
-  inset: 13% 9% 42%;
+  inset: 11% 7.5% 38%;
   border-radius: 4px;
-  background: linear-gradient(180deg, rgba(78,86,100,.34), rgba(120,128,142,.16));
-  box-shadow: inset 0 1px 2px rgba(0,0,0,.28);
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,.075) 0 1.02%, rgba(0,0,0,0) 1.02% 1.36%),
+    repeating-linear-gradient(180deg, rgba(255,255,255,.06) 0 15%, rgba(0,0,0,0) 15% 19.5%),
+    #0d0e10;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,.75);
 }
-/* bisagra en sombra */
 .mac__hinge {
-  position: absolute; top: 0; left: 16%; right: 16%;
-  height: 4%;
-  background: linear-gradient(180deg, rgba(42,48,60,.55), rgba(42,48,60,0));
+  position: absolute; top: 0; left: 15%; right: 15%;
+  height: 5%;
+  background: linear-gradient(180deg, rgba(6,7,10,.85), rgba(6,7,10,0));
 }
-/* trackpad */
 .mac__lip {
-  position: absolute; bottom: 9%; left: 37%; right: 37%;
-  height: 26%; border-radius: 4px;
-  background: linear-gradient(180deg, rgba(196,202,211,.9), rgba(214,219,226,.8));
-  box-shadow: inset 0 0 0 1px rgba(120,128,142,.35);
+  position: absolute; bottom: 7%; left: 34%; right: 34%;
+  height: 26%; border-radius: 5px;
+  background: linear-gradient(180deg, #34353a, #26272b);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.10);
 }
-
-/* sombra de contacto y algo de rebote en la mesa blanca */
 .mac__shadow {
-  position: absolute; left: 50%; bottom: -26px;
+  position: absolute; left: 50%; bottom: -30px;
   translate: -50% 0;
-  width: 120%; height: 66px;
+  width: 118%; height: 74px;
   border-radius: 50%;
   background:
-    radial-gradient(ellipse at 50% 46%, rgba(22,28,42,.34) 0%, rgba(22,28,42,.13) 40%, transparent 72%);
+    radial-gradient(ellipse at 50% 46%, rgba(14,16,24,.42) 0%, rgba(14,16,24,.16) 40%, transparent 72%);
   opacity: calc(1 - var(--zoom));
 }
 
