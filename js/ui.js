@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════════════════════
    PLANELLES STUDIO · ui.js
-   Menú, comparador antes/después, efectos hover y formulario.
+   Menú, comparador antes/después, botones magnéticos y formulario.
    ── CAMBIA ESTO cuando tengas los datos definitivos del estudio ──
    ═══════════════════════════════════════════════════════════════════════ */
 const CONTACTO = {
@@ -40,7 +40,7 @@ const CONTACTO = {
       if (e.key === 'Escape') setMenu(false);
     });
     addEventListener('resize', () => {
-      if (innerWidth > 940) setMenu(false);
+      if (innerWidth > 880) setMenu(false);
     });
   }
 
@@ -51,6 +51,7 @@ const CONTACTO = {
   if (ba && handle) {
     const frame = ba.querySelector('.ba__frame');
     let pos = 50;
+    let dragging = false;
 
     const paint = (v) => {
       pos = clamp(v);
@@ -70,8 +71,6 @@ const CONTACTO = {
       const r = frame.getBoundingClientRect();
       paint(((e.clientX - r.left) / r.width) * 100);
     };
-
-    let dragging = false;
 
     frame.addEventListener('pointerdown', (e) => {
       dragging = true;
@@ -93,12 +92,7 @@ const CONTACTO = {
 
     handle.addEventListener('keydown', (e) => {
       const step = e.shiftKey ? 12 : 4;
-      const map = {
-        ArrowLeft: -step,
-        ArrowRight: step,
-        ArrowDown: -step,
-        ArrowUp: step
-      };
+      const map = { ArrowLeft: -step, ArrowRight: step, ArrowDown: -step, ArrowUp: step };
       if (e.key in map) {
         paint(pos + map[e.key]);
         e.preventDefault();
@@ -113,12 +107,11 @@ const CONTACTO = {
 
     paint(50);
 
-    // Al entrar en pantalla el control se mueve solo una vez:
-    // así se entiende que hay algo que arrastrar sin tener que leerlo.
-    // Si el observador no llegase a dispararse, se queda en el 50 % de
-    // reposo en lugar de dejar la web antigua ocupando casi todo.
+    // Al entrar en pantalla el control hace un barrido en dos tiempos: abre
+    // hasta el pasado y vuelve. Así se entiende que hay algo que arrastrar
+    // sin tener que leerlo. Si el observador no llegase a dispararse, se
+    // queda en el 50 % de reposo.
     if (!quiet.matches) {
-      // barrido en dos tiempos: abre hasta el pasado y vuelve al presente
       const keys = [
         { at: 0, v: 50 },
         { at: 0.42, v: 88 },
@@ -130,8 +123,7 @@ const CONTACTO = {
           const a = keys[i - 1];
           const b = keys[i];
           const t = (p - a.at) / (b.at - a.at);
-          const eased = 1 - Math.pow(1 - t, 3);
-          return a.v + (b.v - a.v) * eased;
+          return a.v + (b.v - a.v) * (1 - Math.pow(1 - t, 3));
         }
         return keys[keys.length - 1].v;
       };
@@ -156,70 +148,45 @@ const CONTACTO = {
     }
   }
 
-  /* ── Efectos de puntero (solo con ratón de verdad) ─────────────────── */
+  /* ── Botones magnéticos (solo con ratón de verdad) ─────────────────── */
   if (fine.matches && !quiet.matches) {
-    // botones magnéticos: se acercan un poco al cursor
     document.querySelectorAll('.magnet').forEach((el) => {
       el.addEventListener('pointermove', (e) => {
         const r = el.getBoundingClientRect();
         const dx = (e.clientX - (r.left + r.width / 2)) / r.width;
         const dy = (e.clientY - (r.top + r.height / 2)) / r.height;
-        el.style.setProperty('--tx', (dx * 7).toFixed(2) + 'px');
-        el.style.setProperty('--ty', (dy * 5).toFixed(2) + 'px');
-        el.style.setProperty('--px', (((e.clientX - r.left) / r.width) * 100).toFixed(1) + '%');
-        el.style.setProperty('--py', (((e.clientY - r.top) / r.height) * 100).toFixed(1) + '%');
+        el.style.setProperty('--tx', (dx * 6).toFixed(2) + 'px');
+        el.style.setProperty('--ty', (dy * 4).toFixed(2) + 'px');
       });
       el.addEventListener('pointerleave', () => {
         el.style.setProperty('--tx', '0px');
         el.style.setProperty('--ty', '0px');
       });
     });
-
-    // foco que sigue al cursor en las tarjetas de servicio
-    document.querySelectorAll('.spot').forEach((el) => {
-      el.addEventListener('pointermove', (e) => {
-        const r = el.getBoundingClientRect();
-        el.style.setProperty('--px', (((e.clientX - r.left) / r.width) * 100).toFixed(1) + '%');
-        el.style.setProperty('--py', (((e.clientY - r.top) / r.height) * 100).toFixed(1) + '%');
-      });
-    });
-
-    // halo de las dos secciones oscuras
-    document.querySelectorAll('.sec--vs, .cta').forEach((el) => {
-      el.addEventListener(
-        'pointermove',
-        (e) => {
-          const r = el.getBoundingClientRect();
-          el.style.setProperty('--sx', (((e.clientX - r.left) / r.width) * 100).toFixed(1) + '%');
-          el.style.setProperty('--sy', (((e.clientY - r.top) / r.height) * 100).toFixed(1) + '%');
-        },
-        { passive: true }
-      );
-    });
   }
 
   /* ── Formulario ────────────────────────────────────────────────────────
-     Esta fase no lleva backend. El formulario valida en el navegador y
-     abre el correo con todo escrito, así que funciona de verdad desde el
-     primer día. Para pasar a un endpoint real, ver README.md.
+     Esta fase no lleva backend. Valida en el navegador y abre el correo
+     con todo escrito, así que funciona de verdad desde el primer día.
+     Para pasar a un endpoint real, ver README.md.
      ─────────────────────────────────────────────────────────────────── */
   const form = document.getElementById('form');
   const status = document.getElementById('form-status');
 
-  if (form) {
-    // enlaces de contacto derivados de la configuración de arriba
-    document.querySelectorAll('a[href^="mailto:"]').forEach((a) => {
-      a.href = 'mailto:' + CONTACTO.email;
-      if (a.textContent.includes('@')) a.textContent = CONTACTO.email;
-    });
-    document.querySelectorAll('a[href*="wa.me/"]').forEach((a) => {
-      a.href = a.href.replace(/wa\.me\/\d+/, 'wa.me/' + CONTACTO.whatsapp);
-    });
+  // los enlaces de contacto salen de la configuración de arriba
+  document.querySelectorAll('a[href^="mailto:"]').forEach((a) => {
+    a.href = 'mailto:' + CONTACTO.email;
+    if (a.textContent.includes('@')) a.textContent = CONTACTO.email;
+  });
+  document.querySelectorAll('a[href*="wa.me/"]').forEach((a) => {
+    a.href = a.href.replace(/wa\.me\/\d+/, 'wa.me/' + CONTACTO.whatsapp);
+  });
 
+  if (form) {
     const rules = {
       'f-name': (v) => (v.trim().length >= 2 ? '' : 'Dime cómo te llamas, aunque sea solo el nombre.'),
-      'f-biz': (v) => (v.trim().length >= 2 ? '' : 'El nombre del negocio me sitúa enseguida.'),
-      'f-mail': (v) => (/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) ? '' : 'Revisa el email: sin él no puedo contestarte.'),
+      'f-mail': (v) =>
+        /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) ? '' : 'Revisa el email: sin él no puedo contestarte.',
       'f-msg': (v) => (v.trim().length >= 8 ? '' : 'Con una frase me vale, pero necesito algo.')
     };
 
@@ -253,19 +220,16 @@ const CONTACTO = {
       const get = (id) => form.querySelector('#' + id).value.trim();
       const cuerpo = [
         `Nombre: ${get('f-name')}`,
-        `Negocio: ${get('f-biz')}`,
         `Email: ${get('f-mail')}`,
         '',
-        'Qué le gustaría cambiar:',
         get('f-msg')
       ].join('\n');
 
-      const url =
+      location.href =
         `mailto:${CONTACTO.email}` +
-        `?subject=${encodeURIComponent('Quiero mejorar mi presencia online · ' + get('f-biz'))}` +
+        `?subject=${encodeURIComponent('Quiero mejorar mi web · ' + get('f-name'))}` +
         `&body=${encodeURIComponent(cuerpo)}`;
 
-      location.href = url;
       status.textContent =
         `Te he abierto el correo con todo escrito. Dale a enviar y te contesto hoy. ` +
         `Si no se ha abierto, escríbeme a ${CONTACTO.email}.`;

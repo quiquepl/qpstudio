@@ -7,8 +7,8 @@ build, cero backend.
 index.html
 css/styles.css      tokens, reset, tipografía, nav, botones, footer
 css/sections.css    arte por sección
-js/motion.js        scroll, partículas, 3D, reveals, contadores
-js/ui.js            menú, comparador, hover, formulario
+js/motion.js        cordilleras tramadas, reveals, scroll, contadores
+js/ui.js            menú, comparador, botones magnéticos, formulario
 img/                aquí va quique.jpg
 server.mjs          servidor estático solo para desarrollo
 PRODUCT.md          marca, público, tono, anti-referencias
@@ -44,16 +44,15 @@ también sin JavaScript: cámbialas ahí igualmente (busca `planellesstudio.com`
 
 **2. Tu foto.** Guarda un retrato vertical en `img/quique.jpg` (recomendado
 640×800 o mayor, misma proporción 4:5). Si el archivo no existe, la sección Sobre
-mí muestra un monograma "QP" sobre el gradiente de marca, así que la web no se
+mí muestra un monograma "QP" sobre la trama de puntos, así que la web no se
 rompe mientras no la tengas, pero una cara real vende bastante más que dos
 iniciales.
 
-**3. Redes.** En el footer, los enlaces de LinkedIn e Instagram apuntan a la
-portada de cada red. Pon tus perfiles.
+**3. Redes.** El footer no lleva redes todavía. Cuando tengas los perfiles del
+estudio, añádelos junto al email y el WhatsApp en `foot__links`.
 
-Opcional pero recomendado: la sección de plazas dice "2 de 3 libres". Mantenlo al
-día en `index.html` (busca `slots__head` y las tres `<li class="slot">`). Un
-contador que nunca cambia deja de dar credibilidad.
+Opcional: la web es a propósito corta. Proceso, plazas abiertas y portfolio van
+en subapartados propios cuando toque, no en la home.
 
 ## Formulario
 
@@ -82,17 +81,17 @@ las cabeceras de caché y de seguridad.
 ## Accesibilidad y rendimiento
 
 - Contraste verificado en todo el texto: mínimo 4.5:1, o 3:1 en tamaños grandes.
-- `prefers-reduced-motion` apaga partículas, parallax, bucles y zoom.
+- `prefers-reduced-motion` congela las cordilleras y muestra todo el contenido de golpe.
 - El comparador se maneja con teclado (flechas, Home, End) y anuncia su estado.
 - Sin JavaScript la web se lee entera: las animaciones de entrada solo se activan
   si hay JS para desactivarlas.
-- Tres fuentes desde Google Fonts con `preconnect` y `display=swap`. Es la única
+- Dos fuentes desde Google Fonts con `preconnect` y `display=swap`. Es la única
   petición externa de toda la web. Si quieres cero dependencias externas,
   descarga los `.woff2` a `css/fonts/` y cambia el `<link>` por `@font-face`.
 
 ## Lo que queda para la siguiente fase
 
-- Portfolio real: sustituir la sección de plazas por casos cuando existan.
+- Subapartados: proceso, plazas abiertas y portfolio, cada uno en su página.
 - Páginas legales (aviso legal, privacidad, cookies).
 - Endpoint real del formulario.
 - Open Graph con imagen propia (`og:image`).

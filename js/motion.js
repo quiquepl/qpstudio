@@ -1,24 +1,23 @@
 /* ═══════════════════════════════════════════════════════════════════════
    PLANELLES STUDIO · motion.js
-   Todo el movimiento ligado al scroll y al puntero, sin dependencias.
-   Un único bucle rAF escribe variables CSS. Nada de librerías.
+   Cordilleras tramadas a un bit y el poco movimiento que hay, sin
+   dependencias. Nada de desenfoques ni de zooms al hacer scroll.
    ═══════════════════════════════════════════════════════════════════════ */
 (() => {
   'use strict';
 
   const root = document.documentElement;
   const quiet = matchMedia('(prefers-reduced-motion: reduce)');
-  const coarse = matchMedia('(hover: none)');
   const clamp = (v, a = 0, b = 1) => (v < a ? a : v > b ? b : v);
 
   /* ─────────────────────────────────────────────────────────────────────
-     1 · Reveals. Una sola gramática de entrada para toda la web.
+     1 · Reveals. Aparecer y subir. Nada más.
      ───────────────────────────────────────────────────────────────────── */
   const revealables = document.querySelectorAll('[data-reveal]');
 
   revealables.forEach((el) => {
     const d = Number(el.dataset.revealD || 0);
-    if (d) el.style.setProperty('--rd', `${d * 85}ms`);
+    if (d) el.style.setProperty('--rd', `${d * 80}ms`);
   });
 
   if (quiet.matches) {
@@ -32,20 +31,17 @@
           seen.unobserve(e.target);
         }
       },
-      { rootMargin: '0px 0px -12% 0px', threshold: 0.12 }
+      { rootMargin: '0px 0px -10% 0px', threshold: 0.1 }
     );
     revealables.forEach((el) => seen.observe(el));
 
-    // El hero entra solo, sin esperar al scroll.
     requestAnimationFrame(() => {
-      document
-        .querySelectorAll('.hero [data-reveal]')
-        .forEach((el) => el.classList.add('is-in'));
+      document.querySelectorAll('.hero [data-reveal]').forEach((el) => el.classList.add('is-in'));
     });
   }
 
   /* ─────────────────────────────────────────────────────────────────────
-     2 · Contadores. Suben al entrar en pantalla, una sola vez.
+     2 · Contadores
      ───────────────────────────────────────────────────────────────────── */
   const counters = document.querySelectorAll('[data-count]');
 
@@ -56,11 +52,9 @@
       el.textContent = target + suffix;
       return;
     }
-    const dur = 1100;
     const t0 = performance.now();
     const tick = (now) => {
-      const p = clamp((now - t0) / dur);
-      // out-expo, la misma curva que el CSS
+      const p = clamp((now - t0) / 1100);
       const eased = p === 1 ? 1 : 1 - Math.pow(2, -10 * p);
       el.textContent = Math.round(target * eased) + suffix;
       if (p < 1) requestAnimationFrame(tick);
@@ -69,28 +63,24 @@
   };
 
   if (counters.length) {
-    const countObs = new IntersectionObserver(
+    const obs = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
           if (!e.isIntersecting) continue;
           runCount(e.target);
-          countObs.unobserve(e.target);
+          obs.unobserve(e.target);
         }
       },
       { threshold: 0.6 }
     );
-    counters.forEach((el) => countObs.observe(el));
+    counters.forEach((el) => obs.observe(el));
   }
 
   /* ─────────────────────────────────────────────────────────────────────
-     3 · Bucle de scroll. Un solo rAF para todo lo que depende del scroll.
+     3 · Scroll. Barra de progreso, nav pegado y enlace activo.
+         El hero ya no se escala, ni se desenfoca, ni se desvanece.
      ───────────────────────────────────────────────────────────────────── */
   const nav = document.getElementById('nav');
-  const hero = document.querySelector('.hero');
-  const stepsWrap = document.getElementById('steps');
-  const stepsLine = stepsWrap?.querySelector('.steps__line i');
-  const steps = stepsWrap ? [...stepsWrap.querySelectorAll('.step')] : [];
-
   const navLinks = [...document.querySelectorAll('.nav__links a')];
   const targets = navLinks
     .map((a) => {
@@ -99,42 +89,21 @@
     })
     .filter(Boolean);
 
+  let scrollPx = 0;
   let queued = false;
   let lastActive = null;
 
   const frame = () => {
     queued = false;
-    // el alto puede llegar a 0 si la pestaña está oculta: nunca dividir por él
     const vh = Math.max(1, innerHeight);
     const y = Math.max(0, scrollY);
+    scrollPx = y;
 
-    // progreso global del documento (barra del nav + atmósfera)
     const max = Math.max(1, document.body.scrollHeight - vh);
     root.style.setProperty('--scroll', (y / max).toFixed(4));
 
-    // nav pegado
     nav.classList.toggle('is-stuck', y > 12);
 
-    // el hero se aleja mientras la web sube por encima
-    if (hero && !quiet.matches) {
-      hero.style.setProperty('--hero-out', clamp(y / (vh * 0.85)).toFixed(4));
-    }
-
-    // línea del proceso: se rellena a la altura de la mirada
-    if (stepsLine) {
-      const r = stepsWrap.getBoundingClientRect();
-      const eye = vh * 0.55;
-      stepsLine.style.setProperty(
-        '--fill',
-        clamp((eye - r.top) / Math.max(1, r.height)).toFixed(4)
-      );
-      for (const s of steps) {
-        const sr = s.getBoundingClientRect();
-        s.classList.toggle('is-live', sr.top < eye && sr.bottom > vh * 0.18);
-      }
-    }
-
-    // enlace activo del nav: la última sección cuyo inicio ya pasamos
     let active = null;
     for (const t of targets) {
       if (t.el.getBoundingClientRect().top <= vh * 0.35) active = t;
@@ -156,118 +125,185 @@
   addEventListener('resize', onScroll, { passive: true });
   frame();
 
-  /* ─────────────────────────────────────────────────────────────────────
-     4 · Escena 3D del hero. Se inclina con el puntero.
-     ───────────────────────────────────────────────────────────────────── */
-  const stage = document.getElementById('stage');
+  /* ═════════════════════════════════════════════════════════════════════
+     4 · Cordilleras tramadas
+     ─────────────────────────────────────────────────────────────────────
+     El búfer del canvas se dibuja a baja resolución y el CSS lo escala
+     con image-rendering: pixelated. Así los puntos salen gruesos y
+     limpios, como una impresión a un bit, en vez de un degradado suave.
 
-  if (stage && !quiet.matches && !coarse.matches) {
-    let raf = 0;
-    const move = (e) => {
-      if (raf) return;
-      raf = requestAnimationFrame(() => {
-        raf = 0;
-        const mx = (e.clientX / innerWidth - 0.5) * 2;
-        const my = (e.clientY / innerHeight - 0.5) * 2;
-        stage.style.setProperty('--mx', mx.toFixed(3));
-        stage.style.setProperty('--my', my.toFixed(3));
-      });
-    };
-    addEventListener('pointermove', move, { passive: true });
-  }
+     Cada capa es una línea de cresta sacada de ruido fbm. Debajo de la
+     cresta la tinta decae, y una matriz de Bayer 8x8 decide si cada
+     píxel se enciende o no. Eso es el tramado.
+     ═════════════════════════════════════════════════════════════════════ */
 
-  /* ─────────────────────────────────────────────────────────────────────
-     5 · Partículas. Canvas ligero, en pausa cuando no se ve.
-     ───────────────────────────────────────────────────────────────────── */
-  const makeDust = (canvas, opts) => {
+  // Bayer 8x8 ordenada, normalizada a 0..1
+  const BAYER = new Float32Array(
+    [
+      0, 32, 8, 40, 2, 34, 10, 42,
+      48, 16, 56, 24, 50, 18, 58, 26,
+      12, 44, 4, 36, 14, 46, 6, 38,
+      60, 28, 52, 20, 62, 30, 54, 22,
+      3, 35, 11, 43, 1, 33, 9, 41,
+      51, 19, 59, 27, 49, 17, 57, 25,
+      15, 47, 7, 39, 13, 45, 5, 37,
+      63, 31, 55, 23, 61, 29, 53, 21
+    ].map((v) => (v + 0.5) / 64)
+  );
+
+  const hash = (i, s) => {
+    let h = Math.imul(i ^ s, 2246822519);
+    h = Math.imul(h ^ (h >>> 13), 3266489917);
+    return ((h ^ (h >>> 16)) >>> 0) / 4294967295;
+  };
+  const noise = (x, s) => {
+    const i = Math.floor(x);
+    const f = x - i;
+    const a = hash(i, s);
+    const b = hash(i + 1, s);
+    return a + (b - a) * f * f * (3 - 2 * f);
+  };
+  // Multifractal en cresta: 1 - |2n - 1| al cuadrado. Da picos afilados
+  // en vez de lomas redondas, que es lo que hace que parezcan montañas.
+  const ridged = (x, s) => {
+    let sum = 0;
+    let w = 0;
+    let amp = 0.5;
+    let f = 1;
+    for (let o = 0; o < 3; o++) {
+      const n = 1 - Math.abs(noise(x * f, s + o * 71) * 2 - 1);
+      sum += n * n * amp;
+      w += amp;
+      amp *= 0.5;
+      f *= 2.07;
+    }
+    return sum / w;
+  };
+
+  // De lejos a cerca. base es el valle, amp lo que suben los picos desde
+  // ahí, fall la distancia de caída de la tinta en fracción del alto.
+  // Nada llega a tinta plena: la trama tiene que respirar.
+  const LAYERS = [
+    { base: 0.58, amp: 0.48, freq: 0.0052, fall: 0.52, ink: 0.26, speed: 0.008, par: 0.05, seed: 11 },
+    { base: 0.74, amp: 0.46, freq: 0.0076, fall: 0.44, ink: 0.38, speed: 0.014, par: 0.08, seed: 47 },
+    { base: 0.90, amp: 0.44, freq: 0.0108, fall: 0.36, ink: 0.52, speed: 0.022, par: 0.12, seed: 83 },
+    { base: 1.04, amp: 0.42, freq: 0.0150, fall: 0.30, ink: 0.70, speed: 0.033, par: 0.17, seed: 137 }
+  ];
+
+  const makeRidges = (canvas, opts) => {
     const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
 
-    const dots = [];
-    let w = 0;
-    let h = 0;
-    let dpr = 1;
+    const SCALE = 0.42; // grosor del punto: más bajo, punto más gordo
+    const layers = opts.layers ?? LAYERS.length;
+    const cfg = LAYERS.slice(LAYERS.length - layers);
+
+    let W = 0;
+    let H = 0;
+    let img = null;
+    let px = null; // vista de 32 bits sobre el búfer
+    let tops = [];
+    let decay = []; // tablas de caída, para no llamar a Math.exp en el bucle
+    let fade = null; // desvanecido de densidad hacia abajo
+    let jitter = null; // ruido fijo contra el bandeado
     let alive = false;
     let raf = 0;
-    const pointer = { x: -9999, y: -9999 };
+    let flip = 0;
+
+    // color del punto empaquetado en ABGR (little endian)
+    const [r, g, b] = opts.rgb;
+    const DOT = (255 << 24) | (b << 16) | (g << 8) | r;
 
     const size = () => {
-      const r = canvas.getBoundingClientRect();
-      dpr = Math.min(devicePixelRatio || 1, 2);
-      w = Math.max(1, Math.round(r.width));
-      h = Math.max(1, Math.round(r.height));
-      canvas.width = w * dpr;
-      canvas.height = h * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const rect = canvas.getBoundingClientRect();
+      const w = Math.max(1, Math.round(rect.width * SCALE));
+      const h = Math.max(1, Math.round(rect.height * SCALE));
+      if (w === W && h === H) return;
 
-      const density = innerWidth < 700 ? 26000 : 13000;
-      const n = clamp(Math.round((w * h) / density), 14, opts.max);
-      dots.length = 0;
-      for (let i = 0; i < n; i++) {
-        dots.push({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          vx: (Math.random() - 0.5) * 0.16,
-          vy: (Math.random() - 0.5) * 0.16,
-          r: 0.7 + Math.random() * 1.5
-        });
+      W = w;
+      H = h;
+      canvas.width = W;
+      canvas.height = H;
+      img = ctx.createImageData(W, H);
+      px = new Uint32Array(img.data.buffer);
+
+      tops = cfg.map(() => new Float32Array(W));
+
+      decay = cfg.map((c) => {
+        const fall = Math.max(6, c.fall * H);
+        const n = Math.ceil(fall * 4.5);
+        const table = new Float32Array(n);
+        for (let d = 0; d < n; d++) table[d] = c.ink * Math.exp(-d / fall);
+        return table;
+      });
+
+      fade = new Float32Array(H);
+      for (let y = 0; y < H; y++) {
+        const p = y / H;
+        // solo un cierre corto abajo, para que no quede un corte seco
+        fade[y] = p < 0.86 ? 1 : Math.max(0, 1 - (p - 0.86) / 0.14) ** 1.3;
       }
+
+      // ruido fijo por píxel: rompe las bandas del tramado ordenado sin
+      // parpadear, porque no depende del tiempo
+      jitter = new Float32Array(W * H);
+      for (let i = 0; i < jitter.length; i++) jitter[i] = (hash(i, 9173) - 0.5) * 0.075;
     };
 
-    const draw = () => {
+    const draw = (t) => {
+      const par = scrollPx * 0.0016;
+
+      for (let l = 0; l < cfg.length; l++) {
+        const c = cfg[l];
+        const arr = tops[l];
+        const off = t * c.speed + par * c.par * 100;
+        for (let x = 0; x < W; x++) {
+          arr[x] = (c.base - ridged(x * c.freq + off, c.seed) * c.amp) * H;
+        }
+      }
+
+      px.fill(0);
+
+      const last = cfg.length - 1;
+      for (let x = 0; x < W; x++) {
+        // arrancamos en la cresta más alta de esta columna: el cielo se salta
+        let start = H;
+        for (let l = 0; l <= last; l++) if (tops[l][x] < start) start = tops[l][x];
+        let y = start < 0 ? 0 : Math.floor(start);
+
+        for (; y < H; y++) {
+          let v = 0;
+          // la capa más cercana que ya ha empezado tapa a las de detrás
+          for (let l = last; l >= 0; l--) {
+            const top = tops[l][x];
+            if (y < top) continue;
+            const d = (y - top) | 0;
+            const table = decay[l];
+            v = d < table.length ? table[d] : 0;
+            break;
+          }
+          if (v <= 0.004) continue;
+          const i = y * W + x;
+          v = v * fade[y] + jitter[i];
+          if (v > BAYER[((y & 7) << 3) | (x & 7)]) px[i] = DOT;
+        }
+      }
+
+      ctx.putImageData(img, 0, 0);
+    };
+
+    const loop = (now) => {
       raf = 0;
-      ctx.clearRect(0, 0, w, h);
-
-      for (const d of dots) {
-        d.x += d.vx;
-        d.y += d.vy;
-
-        // el puntero aparta las partículas: interacción, no decoración
-        const dx = d.x - pointer.x;
-        const dy = d.y - pointer.y;
-        const d2 = dx * dx + dy * dy;
-        if (d2 < 16900) {
-          const f = (1 - Math.sqrt(d2) / 130) * 0.9;
-          d.x += dx * 0.02 * f;
-          d.y += dy * 0.02 * f;
-        }
-
-        if (d.x < -10) d.x = w + 10;
-        if (d.x > w + 10) d.x = -10;
-        if (d.y < -10) d.y = h + 10;
-        if (d.y > h + 10) d.y = -10;
-
-        ctx.beginPath();
-        ctx.arc(d.x, d.y, d.r, 0, 6.283);
-        ctx.fillStyle = opts.dot;
-        ctx.fill();
-      }
-
-      // hilos entre vecinos cercanos, con tope para que salga barato
-      ctx.lineWidth = 1;
-      for (let i = 0; i < dots.length; i++) {
-        let links = 0;
-        for (let j = i + 1; j < dots.length && links < 2; j++) {
-          const dx = dots[i].x - dots[j].x;
-          const dy = dots[i].y - dots[j].y;
-          const dist = Math.hypot(dx, dy);
-          if (dist > 118) continue;
-          links++;
-          ctx.strokeStyle = opts.line.replace('$a', (1 - dist / 118) * opts.lineMax);
-          ctx.beginPath();
-          ctx.moveTo(dots[i].x, dots[i].y);
-          ctx.lineTo(dots[j].x, dots[j].y);
-          ctx.stroke();
-        }
-      }
-
-      if (alive) raf = requestAnimationFrame(draw);
+      // a la mitad de fotogramas: es un movimiento lento, 30 fps sobran
+      // y el coste del tramado se parte por dos
+      if ((flip ^= 1)) draw(now * 0.001);
+      if (alive) raf = requestAnimationFrame(loop);
     };
 
     const start = () => {
-      if (alive) return;
+      if (alive || quiet.matches) return;
       alive = true;
-      if (!raf) raf = requestAnimationFrame(draw);
+      if (!raf) raf = requestAnimationFrame(loop);
     };
     const stop = () => {
       alive = false;
@@ -275,24 +311,15 @@
       raf = 0;
     };
 
-    size();
-    // ResizeObserver y no 'resize': el canvas puede medir 0 si el panel
-    // aún no está visible, y así se recupera solo en cuanto lo esté.
-    new ResizeObserver(size).observe(canvas);
+    const refresh = () => {
+      size();
+      if (!alive) draw(performance.now() * 0.001);
+    };
 
-    const host = canvas.parentElement;
-    host.addEventListener(
-      'pointermove',
-      (e) => {
-        const r = canvas.getBoundingClientRect();
-        pointer.x = e.clientX - r.left;
-        pointer.y = e.clientY - r.top;
-      },
-      { passive: true }
-    );
-    host.addEventListener('pointerleave', () => {
-      pointer.x = pointer.y = -9999;
-    });
+    size();
+    draw(0);
+
+    new ResizeObserver(refresh).observe(canvas);
 
     new IntersectionObserver((entries) => {
       entries[0].isIntersecting ? start() : stop();
@@ -303,23 +330,12 @@
     });
   };
 
-  if (!quiet.matches) {
-    const heroDust = document.getElementById('dust-hero');
-    const ctaDust = document.getElementById('dust-cta');
-    // rgba y no oklch: el canvas de Safari antiguo no entiende oklch
-    if (heroDust)
-      makeDust(heroDust, {
-        max: 72,
-        dot: 'rgba(31, 71, 224, 0.34)',
-        line: 'rgba(31, 71, 224, $a)',
-        lineMax: 0.16
-      });
-    if (ctaDust)
-      makeDust(ctaDust, {
-        max: 60,
-        dot: 'rgba(255, 255, 255, 0.42)',
-        line: 'rgba(255, 255, 255, $a)',
-        lineMax: 0.24
-      });
-  }
+  const heroRidges = document.getElementById('ridges-hero');
+  const ctaRidges = document.getElementById('ridges-cta');
+  const small = innerWidth < 620;
+
+  // tinta sobre papel
+  if (heroRidges) makeRidges(heroRidges, { rgb: [34, 32, 29], layers: small ? 3 : 4 });
+  // el negativo: papel sobre tinta
+  if (ctaRidges) makeRidges(ctaRidges, { rgb: [238, 236, 232], layers: small ? 3 : 4 });
 })();
