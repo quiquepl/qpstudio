@@ -47,7 +47,9 @@
     })
     .filter(Boolean);
 
-  const finale = document.getElementById('hablemos');
+  const finale = document.getElementById("hablemos");
+  const seqImgs = [...document.querySelectorAll("#macseq img")];
+  let seqOn = 0;
   const rail = finale?.querySelector('.finale__rail');
   const panel = finale?.querySelector('.finale__panel');
   const use3d = finale && rail && !quiet.matches;
@@ -86,11 +88,21 @@
       const travel = Math.max(1, r.height - vh);
       const p = clamp(-r.top / travel);
 
-      // al mínimo movimiento la tapa se levanta, al siguiente se entra en la
-      // pantalla, y a partir de ahí el contacto se queda fijo
-      finale.style.setProperty('--lid', clamp(p / 0.16).toFixed(3));
-      finale.style.setProperty('--zoom', clamp((p - 0.16) / 0.34).toFixed(3));
-      const pan = clamp((p - 0.38) / 0.16);
+      // la secuencia: cerrado, se abre en tres pasos, y al último fotograma
+      // la cámara entra en la pantalla y aparece el formulario
+      const zoom = clamp((p - 0.5) / 0.24);
+      finale.style.setProperty("--zoom", zoom.toFixed(3));
+      const pan = clamp((p - 0.62) / 0.16);
+      finale.style.setProperty("--panel", pan.toFixed(3));
+
+      if (seqImgs.length) {
+        const f = p < 0.13 ? 0 : p < 0.26 ? 1 : p < 0.38 ? 2 : p < 0.5 ? 3 : 4;
+        if (f !== seqOn) {
+          seqImgs[seqOn].classList.remove("is-on");
+          seqImgs[f].classList.add("is-on");
+          seqOn = f;
+        }
+      }
       finale.style.setProperty('--panel', pan.toFixed(3));
 
       const live = pan > 0.8;

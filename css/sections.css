@@ -1,3 +1,55 @@
+/* ═══ AURA · fondo vivo de manchas azules sobre blanco ════════════════
+   Cuatro manchas desenfocadas que se desplazan muy despacio y una capa de
+   grano encima. Va detrás de todo y no captura el puntero.
+   ═══════════════════════════════════════════════════════════════════ */
+
+.aura {
+  position: absolute; inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.aura span {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(58px);
+  opacity: 0.55;
+  will-change: transform;
+}
+.aura span:nth-child(1) {
+  width: 46%; aspect-ratio: 1; top: -12%; left: 6%;
+  background: radial-gradient(circle, oklch(72% 0.14 250 / .85), transparent 68%);
+  animation: aura-a 26s ease-in-out infinite alternate;
+}
+.aura span:nth-child(2) {
+  width: 38%; aspect-ratio: 1; top: 22%; right: 2%;
+  background: radial-gradient(circle, oklch(78% 0.11 236 / .8), transparent 68%);
+  animation: aura-b 32s ease-in-out infinite alternate;
+}
+.aura span:nth-child(3) {
+  width: 42%; aspect-ratio: 1; bottom: -14%; left: 24%;
+  background: radial-gradient(circle, oklch(68% 0.16 258 / .7), transparent 70%);
+  animation: aura-c 29s ease-in-out infinite alternate;
+}
+.aura span:nth-child(4) {
+  width: 26%; aspect-ratio: 1; top: 44%; left: 38%;
+  background: radial-gradient(circle, oklch(84% 0.08 78 / .55), transparent 70%);
+  animation: aura-d 36s ease-in-out infinite alternate;
+}
+@keyframes aura-a { to { transform: translate3d(14%, 22%, 0) scale(1.18); } }
+@keyframes aura-b { to { transform: translate3d(-18%, 16%, 0) scale(0.86); } }
+@keyframes aura-c { to { transform: translate3d(12%, -20%, 0) scale(1.14); } }
+@keyframes aura-d { to { transform: translate3d(-14%, -12%, 0) scale(1.3); } }
+
+/* el grano es lo que le da el acabado de la referencia */
+.aura::after {
+  content: ""; position: absolute; inset: -60%;
+  opacity: 0.16;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) { .aura span { animation: none; } }
+
 /* ═══════════════════════════════════════════════════════════════════════
    QP STUDIO · secciones
    ═══════════════════════════════════════════════════════════════════════ */
@@ -130,8 +182,9 @@
   position: relative;
   padding-block: clamp(3rem, 5.5vw, 4.5rem);
   overflow: hidden;
-  background: radial-gradient(115% 80% at 50% 50%, var(--paper) 42%, var(--blue-wash) 100%);
+  background: var(--paper);
   border-block: 1px solid var(--line-soft);
+  isolation: isolate;
 }
 .orbit__links {
   position: absolute; inset: 0;
@@ -149,6 +202,7 @@
 /* rejilla de reserva (sin JS) */
 .orbit__field {
   position: relative;
+  z-index: 2;
   width: 100%; max-width: 1400px;
   margin-inline: auto;
   padding-inline: var(--pad-x);
@@ -231,6 +285,22 @@
   background-size: cover; background-position: center;
   filter: grayscale(1) contrast(1.05);
 }
+.win__body--panel {
+  aspect-ratio: 4 / 3;
+  display: flex; flex-direction: column; justify-content: center;
+  gap: 7px; padding: 10px 11px;
+}
+.panel__row { display: flex; align-items: baseline; justify-content: space-between; }
+.panel__row b { font-size: 0.46rem; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: oklch(72% 0.02 250); }
+.panel__row i { font-family: var(--display); font-style: normal; font-weight: 800; font-size: 0.82rem; letter-spacing: -0.03em; color: var(--t-00); }
+.panel__row--sm i { font-size: 0.62rem; color: var(--blue-sky); }
+.panel__chart { display: flex; align-items: flex-end; gap: 3px; height: 34px; }
+.panel__chart u {
+  flex: 1; height: var(--v); border-radius: 2px 2px 0 0;
+  background: linear-gradient(180deg, var(--blue-lift), var(--blue));
+}
+.panel__chart u:last-child { background: linear-gradient(180deg, var(--blue-sky), var(--blue-lift)); }
+
 .win__body--dash {
   aspect-ratio: 4 / 3;
   display: flex; flex-direction: column; justify-content: center;
@@ -269,9 +339,6 @@
   color: oklch(74% 0.015 250);
   text-wrap: pretty;
 }
-.serv__more { margin-top: clamp(2rem, 3.4vw, 2.8rem); }
-.tuya__more { margin-top: clamp(1.6rem, 2.8vw, 2.2rem); }
-.demo__more { display: flex; width: fit-content; margin: clamp(1.4rem, 2.4vw, 2rem) auto 0; }
 
 .servs { border-top: 1px solid oklch(100% 0 0 / .13); }
 .serv {
@@ -281,10 +348,21 @@
   gap: 0.35rem 1.5rem;
   padding: clamp(1.3rem, 2.2vw, 1.8rem) 0;
   border-bottom: 1px solid oklch(100% 0 0 / .13);
-  transition: background var(--t) var(--ease), padding-inline var(--t-slow) var(--ease);
+  position: relative;
+}
+/* el fondo del hover es una capa aparte: antes se animaba el padding y al
+   pasar el ratón mientras se hacía scroll la fila se movía y saltaba */
+.serv::before {
+  content: ""; position: absolute;
+  inset: 0 -1.1rem;
+  border-radius: 10px;
+  background: oklch(100% 0 0 / .05);
+  opacity: 0;
+  transition: opacity var(--t) var(--ease);
+  pointer-events: none;
 }
 @media (hover: hover) {
-  .serv:hover { background: oklch(100% 0 0 / .05); padding-inline: 1.1rem; }
+  .serv:hover::before { opacity: 1; }
   .serv:hover .serv__n { color: var(--blue-sky); }
   .serv:hover h3 { color: var(--t-00); }
 }
@@ -628,7 +706,8 @@
   display: grid;
   grid-template-columns: minmax(0, 0.62fr) minmax(0, 1.38fr);
   gap: clamp(2rem, 5vw, 4rem);
-  align-items: center;
+  /* que las dos columnas acaben rectas por abajo */
+  align-items: end;
 }
 .me__frame {
   position: relative; display: block;
@@ -669,7 +748,15 @@
 
 /* ═══ PREGUNTAS FRECUENTES ═══════════════════════════════════════════ */
 
-.sec--faq { padding-block: clamp(3.5rem, 6vw, 5.5rem); background: var(--paper-2); }
+.sec--faq {
+  position: relative;
+  padding-block: clamp(3.5rem, 6vw, 5.5rem);
+  background: var(--paper);
+  overflow: hidden;
+  isolation: isolate;
+}
+.sec--faq .shell { position: relative; z-index: 1; }
+.faq { background: oklch(100% 0 0 / .55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border-radius: var(--r); }
 .faq__head { text-align: center; margin-bottom: clamp(2rem, 3.4vw, 2.8rem); }
 
 .faq {
@@ -734,163 +821,38 @@
   perspective-origin: 50% 44%;
 }
 
-.mac {
+/* Secuencia real: cinco fotogramas del portátil. El scroll elige cuál se
+   ve, así que no hay 3D que calcular y va suave hasta en móvil. */
+.macseq {
   position: relative;
-  width: min(56vw, 680px);
-  transform-style: preserve-3d;
-  /* cerrado se mira desde arriba (se ve la tapa con el logo) y al abrirse
-     la cámara baja hasta ponerse de frente */
-  transform:
-    translate3d(0, calc(var(--zoom) * -5vh), calc(var(--zoom) * 1260px))
-    rotateX(calc(46deg - var(--lid) * 36deg - var(--zoom) * 10deg));
-  /* llega a cero de verdad: si se quedaba en 0.05 el "Enviar y hablamos"
-     de la pantalla se veía gigante y fantasma detrás del formulario */
-  opacity: calc(1 - var(--panel));
-  will-change: transform, opacity;
+  width: min(74vw, 940px);
+  aspect-ratio: 4 / 3;
 }
-
-/* ── tapa: aluminio negro espacial ─────────────────────────────────── */
-.mac__lid {
-  position: relative;
-  transform-style: preserve-3d;
-  transform-origin: 50% 100%;
-  transform: rotateX(calc(-90deg + var(--lid) * 90deg));
-  padding: 0.75% 0.75% 1.3%;
-  border-radius: 15px 15px 4px 4px;
-  background:
-    linear-gradient(184deg, #494a4e 0%, #303134 16%, #232427 58%, #1a1b1e 100%);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.22),
-    inset 1px 0 0 rgba(255,255,255,.10),
-    inset -1px 0 0 rgba(255,255,255,.10),
-    inset 0 -1px 0 rgba(0,0,0,.5),
-    0 2px 4px rgba(10,12,18,.34);
-}
-.mac__screen {
-  position: relative;
-  backface-visibility: hidden;
-  aspect-ratio: 16 / 10.4;
-  border-radius: 8px;
-  background: linear-gradient(170deg, #14161f 0%, #0b0d15 55%, #06070c 100%);
-  box-shadow:
-    inset 0 0 0 1px rgba(0,0,0,.95),
-    inset 0 2px 16px rgba(0,0,0,.6);
-  overflow: hidden;
-  container-type: inline-size;
-}
-.mac__cam {
-  position: absolute; top: 1.1%; left: 50%; translate: -50% 0;
-  width: 0.45%; aspect-ratio: 1; border-radius: 50%;
-  background: #23262f;
-}
-
-/* lo que se ve en la pantalla es ya el contacto */
-.mac__ui {
-  position: absolute; inset: 13% 17% 12%;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  gap: 2.4cqw;
-  text-align: center;
-}
-.mac__ui b {
-  font-family: var(--display);
-  font-size: 5.4cqw; font-weight: 800;
-  line-height: 0.98; letter-spacing: -0.042em;
-  color: #f4f6fa;
-}
-.mac__row { display: flex; gap: 1.6cqw; width: 100%; }
-.mac__row i, .mac__inp {
-  display: block; flex: 1;
-  height: 5.2cqw; border-radius: 1cqw;
-  background: rgba(255,255,255,.07);
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.14);
-}
-.mac__inp { width: 100%; }
-.mac__inp--tall { height: 9.4cqw; }
-.mac__cta {
-  display: grid; place-items: center;
-  width: 100%; height: 6cqw;
-  border-radius: 99px;
-  background: linear-gradient(110deg, #1d47c4, #2f6bff 55%, #4f8bff);
-  color: #fff;
-  font-family: var(--display);
-  font-size: 2.5cqw; font-weight: 600; letter-spacing: -0.015em;
-}
-.mac__glare {
+.macseq img {
   position: absolute; inset: 0;
-  background:
-    linear-gradient(108deg, rgba(255,255,255,.13) 0 15%, rgba(255,255,255,.03) 29%, rgba(255,255,255,0) 45%),
-    linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,0) 20%);
-  pointer-events: none;
+  width: 100%; height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 120ms linear;
 }
-/* cara exterior de la tapa: es lo que se ve con el portátil cerrado */
-.mac__back {
-  position: absolute; inset: 0;
-  transform: translateZ(-7px) rotateY(180deg);
-  backface-visibility: hidden;
-  display: grid; place-items: center;
-  border-radius: 8px;
-  background: linear-gradient(160deg, #3d3e43 0%, #2a2b2f 40%, #1d1e21 100%);
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.07);
+.macseq img.is-on { opacity: 1; }
+/* el último se acerca hasta llenar el cuadro y da paso al formulario */
+.macseq__last {
+  transform: scale(calc(1 + var(--zoom) * 0.55));
+  transform-origin: 50% 42%;
+  will-change: transform;
 }
-.mac__back img {
-  width: 17%; height: auto;
-  opacity: 0.92;
-}
+.finale__scene { opacity: calc(1 - var(--panel)); }
 
-/* ── base: cuerpo negro con teclado y trackpad ─────────────────────── */
-.mac__base {
-  position: relative;
-  aspect-ratio: 100 / 33;
-  transform: rotateX(78deg);
-  transform-origin: 50% 0;
-  border-radius: 2px 2px 14px 14px;
-  background:
-    linear-gradient(180deg, #17181b 0%, #45464b 3%, #303136 26%, #232428 70%, #131417 100%);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.20),
-    0 3px 6px rgba(10,12,18,.4);
-}
-/* teclado: rejilla de teclas hecha con degradados repetidos */
-.mac__base::before {
-  content: ""; position: absolute;
-  inset: 11% 7.5% 38%;
-  border-radius: 4px;
-  background:
-    repeating-linear-gradient(90deg, rgba(255,255,255,.075) 0 1.02%, rgba(0,0,0,0) 1.02% 1.36%),
-    repeating-linear-gradient(180deg, rgba(255,255,255,.06) 0 15%, rgba(0,0,0,0) 15% 19.5%),
-    #0d0e10;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,.75);
-}
-.mac__hinge {
-  position: absolute; top: 0; left: 15%; right: 15%;
-  height: 5%;
-  background: linear-gradient(180deg, rgba(6,7,10,.85), rgba(6,7,10,0));
-}
-.mac__lip {
-  position: absolute; bottom: 7%; left: 34%; right: 34%;
-  height: 26%; border-radius: 5px;
-  background: linear-gradient(180deg, #34353a, #26272b);
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.10);
-}
-.mac__shadow {
-  position: absolute; left: 50%; bottom: -30px;
-  translate: -50% 0;
-  width: 118%; height: 74px;
-  border-radius: 50%;
-  background:
-    radial-gradient(ellipse at 50% 46%, rgba(14,16,24,.42) 0%, rgba(14,16,24,.16) 40%, transparent 72%);
-  opacity: calc(1 - var(--zoom));
-}
+@media (max-width: 620px) { .macseq { width: 96vw; } }
 
 /* el contacto, que aparece cuando ya estamos dentro de la pantalla */
 .finale__panel {
   position: relative; z-index: 3;
   width: 100%;
   opacity: var(--panel);
-  transform: scale(calc(0.95 + var(--panel) * 0.05));
   pointer-events: none;
-  will-change: opacity, transform;
+  will-change: opacity;
 }
 .finale__panel.is-live { pointer-events: auto; }
 .finale__in { text-align: center; }
@@ -993,9 +955,7 @@
     text-align: center;
   }
   .serv p { grid-column: 1; max-width: 34ch; margin-inline: auto; }
-  .serv:hover { padding-inline: 0; }
-  .serv__more, .tuya__more { display: flex; width: fit-content; margin-inline: auto; }
-
+  
   /* la maqueta del editor sobra en móvil: ocupa mucho y no se lee */
   .editor { display: none; }
   .tuya { gap: 0; }
@@ -1015,13 +975,15 @@
   .faq__item summary { font-size: 0.98rem; text-align: left; }
   .faq__item p { font-size: 0.86rem; }
 
-  /* la órbita, más compacta */
+  /* la órbita, más compacta: menos aire y tarjetas más grandes */
   .wcard__cap { display: none; }
+  .orbit { padding-block: clamp(1.6rem, 5vw, 2.4rem); }
+  .is-orbiting .orbit__core { width: 74vw; }
+  .is-orbiting .orbit__core .h2 { font-size: 1.8rem; }
+  .is-orbiting .orbit__core p { font-size: 0.84rem; }
 }
 
 @media (max-width: 420px) {
   /* en pantallas muy estrechas el comparador se apila mejor en vertical */
   .ba__frame { aspect-ratio: 3 / 4; }
-  .demo__more { width: 100%; }
-  .demo__more span { width: 100%; text-align: center; }
 }

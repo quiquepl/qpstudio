@@ -55,13 +55,14 @@ Alternancia claro / oscuro para que no haya dos bloques seguidos iguales.
 | # | Sección | Fondo | Pieza visual |
 |---|---|---|---|
 | 1 | Hero | papel | cordillera tramada animada |
-| 2 | El coste | foto a sangre | banda oscura, entradilla, tres motivos y remate |
-| 3 | Nuestro trabajo | papel + halo azul | ocho webs en órbita continua |
+| 2 | La primera impresión | foto a sangre | banda oscura, entradilla, tres motivos y remate |
+| 3 | Nuestro trabajo | aura viva | ocho webs en órbita continua |
 | 4 | Nuestros servicios | oscuro | cintas 3D en canvas |
 | 5 | Antes y después | degradado azul | comparador con hero de taller, sin cifras |
 | 6 | Tuya de verdad | oscuro | cintas 3D + maqueta de edición |
 | 7 | El estudio | papel | retrato |
-| 8 | Final | **blanco** | portátil que se abre y se acerca |
+| 8 | Preguntas frecuentes | aura viva | cuatro desplegables |
+| 9 | Final | **blanco** | secuencia real del portátil |
 
 **No hay etiquetas introductorias de sección** (el `01 ——— EL COSTE INVISIBLE`
 de la versión anterior). Se quitaron todas a petición de Quique. No volver a
@@ -103,37 +104,14 @@ hay que rehacer esa cuenta.
 En móvil sigue orbitando, con el anillo más ancho que la pantalla a propósito
 (las tarjetas entran y salen de cuadro) y el texto más estrecho.
 
-**4. El ordenador final.** Un raíl de 230svh (190 en móvil) con un bloque
-`sticky` dentro, sobre **fondo blanco**. El progreso del scroll escribe tres
-variables en la sección:
+**4. El ordenador final.** Cinco fotogramas reales del portátil (`img/mac/`),
+del cerrado visto desde arriba al zoom sobre la pantalla de contacto. El scroll
+elige cuál se muestra, así que no hay 3D que calcular y va suave hasta en móvil.
+El quinto se acerca con `scale` y da paso al formulario real, que entra por
+encima como capa aparte.
 
-| Variable | Tramo | Qué hace |
-|---|---|---|
-| `--lid` | p 0 → 0.20 | la tapa se abre de -90° a 0° |
-| `--zoom` | p 0.10 → 0.50 | la cámara entra 1260px en la pantalla |
-| `--panel` | p 0.42 → 0.64 | el contacto aparece y el ordenador se apaga |
-
-El raíl es de 165svh (150 en móvil): 520px de recorrido en un viewport de
-800, con el formulario completo a los 343px. Tres muescas de rueda. Antes
-eran 1760px y se sentía como que el scroll no avanzaba.
-
-El ordenador es un portátil **negro espacial**, con teclado dibujado a base de
-degradados repetidos y trackpad. La opacidad del conjunto llega a cero exacto:
-con 0.05 el botón de la pantalla se veía gigante y fantasma detrás del
-formulario real.
-
-Lo que se ve en la pantalla del portátil **ya es el contacto**: mismo titular,
-mismos campos, mismo botón, dibujados con unidades `cqw` dentro de la pantalla.
-Al entrar no cambia nada, solo se hace grande.
-
-El formulario de verdad **no** va dentro de la pantalla escalada: es una capa
-aparte que entra por encima cuando el zoom ya llenó el cuadro. Así se lee y se
-usa perfecto en el punto final, en vez de ser texto diminuto ampliado.
-
-Para que no se atasque: ninguna sombra con `filter`, un único transform
-compuesto por elemento y el cálculo se salta entero cuando el raíl está fuera de
-pantalla. El alto de la base sale de `aspect-ratio`, no de un porcentaje: contra
-un padre de altura automática se resolvía a 3 px y el portátil parecía una rayita.
+Las imágenes venían a 1,3 MB cada una; reescaladas a 1200 px y JPEG 84 ocupan
+334 KB las cinco. Lo mismo con el logo (1,2 MB a 73 KB) y el retrato.
 
 Los canvas se paran fuera de pantalla y con la pestaña oculta.
 `prefers-reduced-motion` congela las cordilleras, quita el portátil y deja el
@@ -160,3 +138,25 @@ decente, pero no es el cromado del logo real.
 La maqueta del taller (el «después» del comparador) **no lleva una gota de
 azul**: negro, blanco y un ámbar `#f0a03c`. Es la web de un cliente, no la
 nuestra, y tiene que verse de su sector.
+
+
+## Aura
+
+Fondo vivo de cuatro manchas azules desenfocadas que se desplazan muy despacio,
+con una capa de grano encima. Va en la sección de trabajo y en las preguntas
+frecuentes. Detrás de todo, `pointer-events: none`, y se congela con
+`prefers-reduced-motion`.
+
+## Páginas y administración
+
+La navegación es Inicio, Servicios, Gestión y Contacto. Las páginas interiores se
+generan con `node build-pages.mjs` desde una cabecera y un pie comunes.
+
+`admin.html` tiene acceso con usuario y contraseña y tres pestañas: editar
+textos (nueve secciones, cuarenta campos, con guardar y restaurar por sección),
+añadir secciones (seis tipos de bloque) y mensajes recibidos.
+
+**El acceso se comprueba en el navegador, así que no es seguridad real.** Sirve
+para trabajar mientras no haya servidor. Los cambios se guardan en
+`localStorage`. En cuanto exista backend, la comprobación y el guardado tienen
+que moverse allí.

@@ -37,7 +37,7 @@
     <nav class="nav__links" id="menu" aria-label="Secciones">
       <a href="#hero"><span>Inicio</span></a>
       <a href="servicios.html"><span>Servicios</span></a>
-      <a href="proceso.html"><span>Antes y después</span></a>
+      
       <a href="gestion.html"><span>Gestión</span></a>
       <a href="contacto.html"><span>Contacto</span></a>
     </nav>
@@ -57,7 +57,7 @@
 <section class="hero" id="hero">
   <div class="shell hero__copy">
     <p class="kicker" data-reveal>Estudio digital independiente</p>
-    <p class="kicker kicker--sub" data-reveal data-reveal-d="1">dirigido por Quique Planelles</p>
+    <p class="kicker kicker--sub" data-reveal data-reveal-d="1">Dirigido por Quique Planelles</p>
 
     <h1 class="hero__title">
       <span class="line"><span data-reveal data-reveal-d="2">Haz que tu web refleje</span></span>
@@ -115,6 +115,7 @@
 
 <!-- ══ TRABAJO · webs en órbita ═════════════════════════════════════════ -->
 <section class="orbit" id="trabajo">
+  <div class="aura" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
   <svg class="orbit__links" id="orbit-links" aria-hidden="true"></svg>
 
   <div class="orbit__field" id="orbit-field">
@@ -173,11 +174,10 @@
     </article>
 
     <article class="wcard">
-      <div class="win win--dark">
+      <div class="win">
         <span class="win__bar"><i></i><i></i><i></i></span>
-        <div class="win__body win__body--ui">
-          <span class="w w-60 w-light"></span><span class="w w-35 w-light"></span>
-          <span class="cta-pill cta-pill--blue"></span>
+        <div class="win__body win__body--photo" style="--img:url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=420&q=60')">
+          <b>Club Vertical</b><u>Reservar clase</u>
         </div>
       </div>
       <p class="wcard__cap">Centro deportivo</p>
@@ -196,9 +196,10 @@
     <article class="wcard">
       <div class="win win--dark">
         <span class="win__bar"><i></i><i></i><i></i></span>
-        <div class="win__body win__body--dash">
-          <span class="spark"></span>
-          <span class="w w-50 w-light"></span>
+        <div class="win__body win__body--panel">
+          <span class="panel__row"><b>Reservas de hoy</b><i>14</i></span>
+          <span class="panel__chart"><u style="--v:38%"></u><u style="--v:62%"></u><u style="--v:44%"></u><u style="--v:88%"></u><u style="--v:71%"></u><u style="--v:96%"></u></span>
+          <span class="panel__row panel__row--sm"><b>Ocupación</b><i>92 %</i></span>
         </div>
       </div>
       <p class="wcard__cap">Panel de reservas</p>
@@ -211,7 +212,7 @@
         contenidos, rendimiento e integraciones. Sin plantillas adaptadas ni
         funciones a medio terminar.
       </p>
-      <a class="btn btn--blue magnet" href="proceso.html" data-reveal data-reveal-d="2"><span>Ver un caso completo</span></a>
+      <a class="btn btn--blue magnet" href="index.html#demo" data-reveal data-reveal-d="2"><span>Ver un caso completo</span></a>
     </div>
   </div>
 </section>
@@ -251,7 +252,6 @@
       </li>
     </ul>
 
-    <a class="btn btn--light magnet serv__more" href="servicios.html" data-reveal><span>Ver el detalle y los presupuestos</span></a>
   </div>
 </section>
 
@@ -321,7 +321,6 @@
         <span class="ba__tag ba__tag--new">Después</span>
       </div>
 
-      <a class="btn btn--ghost magnet demo__more" href="proceso.html"><span>Ver el proceso completo</span></a>
     </div>
   </div>
 </section>
@@ -332,7 +331,7 @@
 
   <div class="shell tuya">
     <div class="tuya__copy">
-      <h2 class="h2 h2--inv" data-reveal>La web la gestionas tú</h2>
+      <h2 class="h2 h2--inv" data-reveal>Autonomía total sobre tu web</h2>
 
       <ul class="tuya__list">
         <li data-reveal data-reveal-d="1">
@@ -349,7 +348,6 @@
         </li>
       </ul>
 
-      <a class="btn btn--light magnet tuya__more" href="gestion.html" data-reveal data-reveal-d="4"><span>Cómo funciona el acompañamiento</span></a>
     </div>
 
     <div class="editor" data-reveal data-reveal-d="2" aria-hidden="true">
@@ -388,7 +386,7 @@
     </figure>
 
     <div class="me__copy">
-      <h2 class="h2" data-reveal>Un único interlocutor.<br /><span class="soft">De la primera llamada al mantenimiento.</span></h2>
+      <h2 class="h2" data-reveal>Un solo responsable:<br /><span class="soft">Quique Planelles.</span></h2>
 
       <p class="me__lead" data-reveal data-reveal-d="1">
         La persona con la que hablas es la que diseña, la que programa y la que
@@ -406,33 +404,26 @@
 
 <!-- ══ PREGUNTAS FRECUENTES ═════════════════════════════════════════════ -->
 <section class="sec sec--faq" id="faq">
+  <div class="aura" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
   <div class="shell">
     <h2 class="h2 faq__head" data-reveal>Preguntas frecuentes</h2>
 
     <div class="faq">
       <details class="faq__item" data-reveal>
-        <summary>¿Cuánto cuesta una web?</summary>
-        <p>Depende del alcance. Tras la primera conversación entregamos un presupuesto cerrado que no varía salvo que cambies tú los requisitos. En la página de servicios detallamos qué incluye cada tipo de proyecto.</p>
-      </details>
-      <details class="faq__item" data-reveal data-reveal-d="1">
         <summary>¿Cuánto se tarda en tenerla lista?</summary>
         <p>Entre dos y seis semanas según el proyecto. La fecha se fija en la propuesta y se cumple, salvo que dependamos de contenidos que tengas que enviarnos tú.</p>
       </details>
-      <details class="faq__item" data-reveal data-reveal-d="2">
+      <details class="faq__item" data-reveal data-reveal-d="1">
         <summary>¿Trabajáis con cualquier tipo de negocio?</summary>
         <p>Sí. Adaptamos el nivel de sofisticación a cada caso: hay negocios que necesitan una presencia sencilla, clara y rápida, y otros que requieren catálogo, reservas o integraciones con sus propias herramientas. Ninguna de las dos opciones es peor que la otra.</p>
       </details>
-      <details class="faq__item" data-reveal data-reveal-d="3">
+      <details class="faq__item" data-reveal data-reveal-d="2">
         <summary>¿Podré modificar la web yo mismo?</summary>
         <p>Sí. La web se entrega con un panel de administración para actualizar textos, precios, horarios e imágenes sin tocar código, y con una sesión de formación grabada.</p>
       </details>
-      <details class="faq__item" data-reveal data-reveal-d="4">
+      <details class="faq__item" data-reveal data-reveal-d="3">
         <summary>¿Qué ocurre después de la entrega?</summary>
         <p>Seguimos disponibles. Ofrecemos mantenimiento, cambios puntuales y soporte con respuesta el mismo día. La relación no termina el día que la web se publica.</p>
-      </details>
-      <details class="faq__item" data-reveal data-reveal-d="5">
-        <summary>Ya tengo una web. ¿Merece la pena rehacerla?</summary>
-        <p>Primero la auditamos y te decimos con sinceridad si compensa. Cuando compensa, conservamos el posicionamiento ganado y los contenidos que funcionan, y rehacemos solo lo que está limitando los resultados.</p>
       </details>
     </div>
   </div>
@@ -443,26 +434,14 @@
   <div class="finale__rail">
     <div class="finale__sticky">
 
+      <!-- secuencia real del portátil: se abre y entra en la pantalla -->
       <div class="finale__scene" aria-hidden="true">
-        <div class="mac">
-          <div class="mac__lid">
-            <div class="mac__screen">
-              <span class="mac__cam"></span>
-              <div class="mac__ui">
-                <b>Hablemos de<br />tu proyecto.</b>
-                <span class="mac__row"><i></i><i></i></span>
-                <span class="mac__inp mac__inp--tall"></span>
-                <span class="mac__cta">Enviar solicitud</span>
-              </div>
-              <span class="mac__glare"></span>
-            </div>
-            <div class="mac__back"><img src="img/logo.png" alt="" width="40" height="40" /></div>
-          </div>
-          <div class="mac__base">
-            <span class="mac__hinge"></span>
-            <span class="mac__lip"></span>
-          </div>
-          <span class="mac__shadow"></span>
+        <div class="macseq" id="macseq">
+          <img src="img/mac/mac-1.jpg" alt="" width="1200" height="900" class="is-on" />
+          <img src="img/mac/mac-2.jpg" alt="" width="1200" height="900" />
+          <img src="img/mac/mac-3.jpg" alt="" width="1200" height="900" />
+          <img src="img/mac/mac-4.jpg" alt="" width="1200" height="900" />
+          <img src="img/mac/mac-5.jpg" alt="" width="1200" height="900" class="macseq__last" />
         </div>
       </div>
 
@@ -527,7 +506,7 @@
         <h3>Navegación</h3>
         <a href="#hero">Inicio</a>
         <a href="servicios.html">Servicios</a>
-        <a href="proceso.html">Antes y después</a>
+        
         <a href="gestion.html">Gestión</a>
         <a href="contacto.html">Contacto</a>
       </nav>

@@ -6,7 +6,6 @@ import { writeFileSync } from 'node:fs';
 const NAV = [
   ['index.html', 'Inicio'],
   ['servicios.html', 'Servicios'],
-  ['proceso.html', 'Antes y después'],
   ['gestion.html', 'Gestión'],
   ['contacto.html', 'Contacto']
 ];
@@ -25,7 +24,7 @@ const head = (title, desc) => `<!DOCTYPE html>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Geist:wght@400;500;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="css/styles.css" />
 <link rel="stylesheet" href="css/sections.css" />
-<link rel="stylesheet" href="css/pages.css" />
+<link rel="stylesheet" href="css/pages.css" />${title.__admin ? '<script src="js/admin.js" defer></script>' : ''}
 <script>document.documentElement.classList.add('js');</script>
 </head>
 
@@ -75,7 +74,6 @@ const foot = `</main>
         <h3>Navegación</h3>
         <a href="index.html">Inicio</a>
         <a href="servicios.html">Servicios</a>
-        <a href="proceso.html">Antes y después</a>
         <a href="gestion.html">Gestión</a>
         <a href="contacto.html">Contacto</a>
       </nav>
@@ -139,151 +137,47 @@ const pcta = (h, p) => `
 </section>
 `;
 
+/* ── Piezas visuales reutilizables ─────────────────────────────────── */
+
+const aura = `<div class="aura" aria-hidden="true"><span></span><span></span><span></span><span></span></div>`;
+
+const foto = (id, alt) =>
+  `<img src="https://images.unsplash.com/${id}?auto=format&fit=crop&w=900&q=65" alt="${alt}" width="900" height="600" loading="lazy" decoding="async" />`;
+
 /* ── Servicios ─────────────────────────────────────────────────────── */
 
-const servicio = (id, n, titulo, lead, incluye, precio) => `
+const servicio = (id, n, titulo, lead, incluye, img) => `
   <article class="svc" id="${id}">
     <div>
       <div class="svc__label"><span class="svc__n">${n}</span><h2>${titulo}</h2></div>
       <p class="svc__lead">${lead}</p>
-      <div class="svc__price">
-        <b>Presupuesto</b>
-        <span>${precio}</span>
-      </div>
+      <ul class="chips">${incluye.map((i) => `<li>${i}</li>`).join('')}</ul>
     </div>
-    <div class="prose">
-      <h3>Qué incluye</h3>
-      <ul>${incluye.map((i) => `<li>${i}</li>`).join('')}</ul>
-    </div>
+    <figure class="svc__shot">${foto(img, '')}</figure>
   </article>
 `;
 
 page(
   'servicios.html',
   'Servicios',
-  'Diseño web, rediseño, comercio electrónico y automatización. Alcance y presupuesto de cada servicio.',
-  phead(
-    'Servicios',
-    'Servicios',
-    'Cuatro líneas de trabajo. Adaptamos el alcance al punto en el que esté cada negocio: hay proyectos que piden una presencia sencilla, clara y rápida, y otros que necesitan catálogo, reservas o integraciones con herramientas propias.'
-  ) +
+  'Diseño web, rediseño, comercio electrónico y automatización para negocios de cualquier sector.',
+  phead('Servicios', 'Servicios', 'Cuatro líneas de trabajo. Ajustamos el alcance al punto en el que esté cada negocio.') +
     `
 <section class="pbody">
   <div class="shell">
-${servicio(
-  'diseno',
-  '01',
-  'Diseño web',
-  'Para negocios que parten de cero o que nunca han tenido una presencia a la altura de su trabajo. Definimos identidad, estructura y contenidos partiendo de tu negocio y del cliente al que quieres llegar, no de una plantilla del sector.',
-  [
-    'Sesión inicial de definición y análisis de competencia',
-    'Arquitectura de contenidos y redacción de textos',
-    'Diseño a medida, sin plantillas',
-    'Desarrollo, dominio, alojamiento y certificado',
-    'Optimización de velocidad y visibilidad en buscadores',
-    'Panel de administración y formación grabada'
-  ],
-  'Pendiente de definir. Se cierra tras la primera conversación y no varía salvo que cambie el alcance.'
-)}
-${servicio(
-  'rediseno',
-  '02',
-  'Rediseño web',
-  'Para webs que ya existen pero que se han quedado por detrás del negocio. Auditamos lo que tienes, conservamos el posicionamiento ganado y los contenidos que funcionan, y rehacemos solo lo que está limitando los resultados.',
-  [
-    'Auditoría de la web actual y de su rendimiento',
-    'Plan de migración sin pérdida de posiciones',
-    'Rediseño de la estructura y de los contenidos clave',
-    'Redirecciones y control de enlaces rotos',
-    'Comparativa de métricas antes y después',
-    'Panel de administración y formación grabada'
-  ],
-  'Pendiente de definir. Depende del volumen de contenido y de la complejidad de la migración.'
-)}
-${servicio(
-  'ecommerce',
-  '03',
-  'Comercio electrónico',
-  'Para negocios que venden online o quieren empezar a hacerlo. Trabajamos el catálogo, la ficha de producto y el proceso de compra con un objetivo claro: reducir el abandono del carrito y sostener el ticket medio.',
-  [
-    'Catálogo, categorías y buscador',
-    'Ficha de producto orientada a conversión',
-    'Pasarela de pago y gestión de pedidos',
-    'Envíos, impuestos y facturación',
-    'Integración con tu inventario si ya lo tienes',
-    'Panel de administración y formación grabada'
-  ],
-  'Pendiente de definir. Varía según el número de referencias y las integraciones necesarias.'
-)}
-${servicio(
-  'automatizacion',
-  '04',
-  'Automatización e integraciones',
-  'Para negocios que ya tienen web y pierden horas en tareas repetitivas. Conectamos formularios, avisos y herramientas internas para que la web opere sin intervención manual.',
-  [
-    'Formularios conectados a tu correo o a tu CRM',
-    'Avisos automáticos por email o WhatsApp',
-    'Sincronización con hojas de cálculo y calendarios',
-    'Recordatorios de cita y seguimiento posventa',
-    'Asistentes con inteligencia artificial cuando aportan valor',
-    'Documentación de todo lo que queda automatizado'
-  ],
-  'Pendiente de definir. Se presupuesta por integración.'
-)}
+${servicio('diseno', '01', 'Diseño web', 'Identidad, estructura y contenidos definidos desde cero a partir de tu negocio.', ['Diseño a medida', 'Textos incluidos', 'Dominio y alojamiento', 'Velocidad y SEO', 'Panel de administración'], 'photo-1486406146926-c627a92ad1ab')}
+${servicio('rediseno', '02', 'Rediseño web', 'Conservamos el posicionamiento ganado y rehacemos lo que está limitando los resultados.', ['Auditoría previa', 'Migración sin pérdidas', 'Redirecciones', 'Métricas antes y después'], 'photo-1552664730-d307ca884978')}
+${servicio('ecommerce', '03', 'Comercio electrónico', 'Catálogo, ficha de producto y proceso de compra pensados para que el carrito llegue al final.', ['Catálogo y buscador', 'Pasarela de pago', 'Envíos e impuestos', 'Gestión de pedidos'], 'photo-1441986300917-64674bd600d8')}
+${servicio('automatizacion', '04', 'Automatización e integraciones', 'La web opera sola: formularios, avisos y procesos conectados a tus herramientas.', ['Formularios y CRM', 'Avisos automáticos', 'Calendarios', 'Asistentes con IA'], 'photo-1460925895917-afdab827c52f')}
+
     <div class="notice">
-      <b>Sobre los precios.</b> Todavía estamos cerrando las tarifas públicas. Mientras tanto, cada
-      presupuesto se prepara a medida después de una primera conversación sin compromiso, y se
-      entrega por escrito con alcance y fecha cerrados.
+      <b>Presupuestos.</b> Todavía estamos cerrando las tarifas públicas. Cada propuesta se prepara a
+      medida tras una primera conversación y se entrega por escrito con alcance y fecha cerrados.
     </div>
   </div>
 </section>
 ` +
-    pcta('¿Cuál encaja con tu negocio?', 'Cuéntanos en qué punto estás y te decimos con sinceridad qué servicio necesitas, si es que necesitas alguno.')
-);
-
-/* ── Proceso ───────────────────────────────────────────────────────── */
-
-const paso = (meta, h, p, img) => `
-  <div class="step">
-    <span class="step__meta">${meta}</span>
-    <h3>${h}</h3>
-    <p>${p}</p>
-    ${img ? `<figure><img src="${img}" alt="" width="1200" height="700" loading="lazy" decoding="async" /></figure>` : ''}
-  </div>
-`;
-
-page(
-  'proceso.html',
-  'Antes y después',
-  'El proceso completo de un rediseño real: un taller mecánico, de una web de 2013 a una presencia actual.',
-  phead(
-    'Antes y después',
-    'De 2013 a hoy,<br />paso a paso.',
-    'Talleres Ribera llevaba treinta años trabajando bien y once con la misma web. Este es el recorrido completo del rediseño, desde la primera conversación hasta la web publicada.'
-  ) +
-    `
-<section class="pbody">
-  <div class="shell">
-    <h2>El punto de partida</h2>
-    <p>Una web de 2013: titular genérico, dos párrafos que no explicaban qué hacían, un botón que solo decía «click aquí» y ninguna forma clara de pedir cita. El negocio era excelente. La web no lo contaba.</p>
-
-    <div class="steps">
-${paso('Semana 1 · Conversación', 'Entender el negocio, no la web', 'Cuarenta y cinco minutos con el propietario. Qué servicios dejan más margen, qué preguntan los clientes por teléfono una y otra vez, en qué se diferencian del taller de al lado. De ahí salieron la estructura y los textos.', null)}
-${paso('Semana 1 · Dirección', 'Propuesta y dirección visual', 'Antes de escribir una línea de código: estructura de páginas, tono y una dirección visual concreta. Se aprobó con dos cambios menores.', 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1200&q=70')}
-${paso('Semana 2 · Contenidos', 'Fotografía y textos reales', 'Sesión de fotos en el propio taller. Nada de banco de imágenes: el equipo, las instalaciones y los vehículos reales. Los textos se escribieron a partir de la conversación inicial.', 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=1200&q=70')}
-${paso('Semanas 3 y 4 · Construcción', 'Diseño y desarrollo', 'La web se construyó en un enlace real que el cliente podía abrir en cualquier momento. Revisiones sobre algo que ya se podía tocar, en lugar de informes.', 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=70')}
-${paso('Semana 5 · Cita online', 'Integración de reservas', 'Formulario de cita conectado al calendario del taller, con aviso automático por correo y recordatorio al cliente el día anterior.', null)}
-${paso('Semana 5 · Publicación', 'Lanzamiento y traspaso', 'Migración sin perder posiciones, redirecciones de las páginas antiguas y una sesión grabada para que el propietario pueda cambiar precios y horarios él mismo.', null)}
-${paso('Después', 'Seguimiento', 'Revisión mensual de lo que hace la gente en la web y ajustes sobre lo que no funciona. La relación no terminó el día de la publicación.', null)}
-    </div>
-
-    <h2>El resultado</h2>
-    <p>La misma empresa, los mismos servicios y los mismos precios. Lo único que cambió fue lo que la web transmite en los primeros segundos y lo fácil que resulta pedir una cita.</p>
-    <p><a class="btn btn--ghost magnet" href="index.html#demo"><span>Ver la comparación lado a lado</span></a></p>
-  </div>
-</section>
-` +
-    pcta('¿Tu web se quedó atrás?', 'Auditamos la que tienes y te decimos con sinceridad si compensa rehacerla.')
+    pcta('¿Cuál encaja con tu negocio?', 'Cuéntanos en qué punto estás y te decimos qué necesitas, si es que necesitas algo.')
 );
 
 /* ── Gestión ───────────────────────────────────────────────────────── */
@@ -291,55 +185,64 @@ ${paso('Después', 'Seguimiento', 'Revisión mensual de lo que hace la gente en 
 page(
   'gestion.html',
   'Gestión',
-  'Panel de administración, botones funcionales con backend real y acompañamiento con soporte 24/7.',
-  phead(
-    'Gestión',
-    'La web es tuya.<br />También su día a día.',
-    'Entregamos cada proyecto preparado para que puedas mantenerlo sin depender de nosotros, y seguimos disponibles para lo que sí requiere manos técnicas.'
-  ) +
+  'Panel de administración, botones con backend real y acompañamiento con soporte 24/7.',
+  phead('Gestión', 'La web es tuya.<br />También su día a día.', 'Entregamos cada proyecto preparado para que puedas mantenerlo sin depender de nosotros.') +
     `
-<section class="pbody">
-  <div class="shell prose">
-    <h2>Lo que puedes hacer tú</h2>
-    <ul>
-      <li>Actualizar textos, titulares y descripciones de cualquier página.</li>
-      <li>Cambiar precios, tarifas y horarios sin esperar a nadie.</li>
-      <li>Subir, sustituir y reordenar imágenes.</li>
-      <li>Publicar novedades, servicios o productos nuevos.</li>
-      <li>Consultar los mensajes que llegan desde el formulario de contacto.</li>
-      <li>Activar o desactivar secciones según la temporada.</li>
-    </ul>
-    <p>Todo desde un panel propio, sin tocar código y sin riesgo de romper nada. La formación se entrega grabada, con tu web de ejemplo, para que puedas volver a consultarla cuando la necesites.</p>
+<section class="pbody gpanel">
+  ${aura}
+  <div class="shell gpanel__in">
+    <div class="gsplit">
+      <div>
+        <h2>Lo que cambias tú</h2>
+        <ul class="chips chips--lg">
+          <li>Textos y titulares</li><li>Precios y tarifas</li><li>Horarios</li>
+          <li>Fotografías</li><li>Servicios y productos</li><li>Secciones de temporada</li>
+        </ul>
+        <p>Desde un panel propio, sin tocar código. La formación se entrega grabada con tu propia web de ejemplo.</p>
+      </div>
 
-    <h2>Botones funcionales con backend real</h2>
-    <p>Los elementos interactivos no son decorativos. Cada botón está conectado a un servicio que funciona de verdad y que puedes comprobar el primer día.</p>
-    <ul>
-      <li>Formularios que llegan a tu correo y quedan registrados en el panel.</li>
-      <li>Reservas y citas sincronizadas con tu calendario.</li>
-      <li>Pagos con pasarela y gestión de pedidos.</li>
-      <li>Enlaces a WhatsApp, mapas, redes y plataformas externas.</li>
-      <li>Avisos automáticos y recordatorios para ti y para tus clientes.</li>
-    </ul>
+      <div class="editor" aria-hidden="true">
+        <div class="editor__win">
+          <span class="win__bar win__bar--wide"><i></i><i></i><i></i><em>tunegocio.com</em></span>
+          <div class="editor__body">
+            <div class="editor__block is-editing">
+              <span class="editor__tag">Editando</span>
+              <p>Cambio de aceite <b>59 €</b><span class="caret"></span></p>
+            </div>
+            <div class="editor__block"><span class="w w-80"></span><span class="w w-55"></span></div>
+            <div class="editor__row">
+              <span class="editor__btn">Pedir cita</span>
+              <span class="editor__btn editor__btn--ghost">WhatsApp</span>
+            </div>
+          </div>
+        </div>
+        <span class="editor__cursor"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pbody">
+  <div class="shell">
+    <h2>Botones que funcionan de verdad</h2>
+    <div class="gcards">
+      <article class="gcard"><b>Formularios</b><span>Llegan a tu correo y quedan registrados en el panel.</span></article>
+      <article class="gcard"><b>Reservas y citas</b><span>Sincronizadas con tu calendario, con recordatorio automático.</span></article>
+      <article class="gcard"><b>Pagos</b><span>Pasarela y gestión de pedidos desde el primer día.</span></article>
+      <article class="gcard"><b>Enlaces externos</b><span>WhatsApp, mapas, redes y plataformas de terceros.</span></article>
+    </div>
 
     <h2>Acompañamiento</h2>
-    <p>Publicar la web es el principio. A partir de ahí el acompañamiento incluye:</p>
-    <ul>
-      <li><b>Soporte 24/7.</b> Resolvemos dudas e incidencias en cualquier momento, cualquier día del año.</li>
-      <li><b>Mantenimiento técnico.</b> Copias de seguridad, actualizaciones y vigilancia del rendimiento.</li>
-      <li><b>Cambios puntuales.</b> Lo que no quieras hacer tú lo hacemos nosotros, con respuesta el mismo día.</li>
-      <li><b>Revisión periódica.</b> Analizamos qué hace la gente en la web y proponemos ajustes concretos.</li>
-      <li><b>Un único interlocutor.</b> Siempre la misma persona, que ya conoce tu proyecto.</li>
-    </ul>
-
-    <div class="notice">
-      <b>Adaptado a cada negocio.</b> No todos los proyectos necesitan el mismo nivel de gestión. Hay
-      negocios a los que les basta con un panel sencillo y una revisión al año, y otros que trabajan
-      con el catálogo a diario. El acompañamiento se dimensiona en función de eso.
+    <div class="gcards">
+      <article class="gcard gcard--blue"><b>Soporte 24/7</b><span>Dudas e incidencias resueltas cualquier día y a cualquier hora.</span></article>
+      <article class="gcard"><b>Mantenimiento</b><span>Copias de seguridad, actualizaciones y vigilancia del rendimiento.</span></article>
+      <article class="gcard"><b>Cambios puntuales</b><span>Lo que no quieras hacer tú, con respuesta el mismo día.</span></article>
+      <article class="gcard"><b>Un solo interlocutor</b><span>Siempre la misma persona, que ya conoce tu proyecto.</span></article>
     </div>
   </div>
 </section>
 ` +
-    pcta('¿Quieres verlo por dentro?', 'Te enseñamos el panel de administración en una llamada de quince minutos.')
+    pcta('¿Quieres verlo por dentro?', 'Te enseñamos el panel en una llamada de quince minutos.')
 );
 
 /* ── Contacto ──────────────────────────────────────────────────────── */
@@ -348,10 +251,11 @@ page(
   'contacto.html',
   'Contacto',
   'Solicita una propuesta para tu proyecto web. Respondemos en menos de 24 horas.',
-  phead('Contacto', 'Hablemos de tu proyecto.', 'Cuéntanos en qué punto está tu negocio y qué necesitas. Respondemos en menos de 24 horas con una valoración honesta, tengamos o no encaje.') +
+  phead('Contacto', 'Hablemos de tu proyecto.', 'Cuéntanos en qué punto está tu negocio y qué necesitas.') +
     `
-<section class="pbody">
-  <div class="shell contact">
+<section class="pbody gpanel">
+  ${aura}
+  <div class="shell contact gpanel__in">
     <form class="form" id="form" novalidate>
       <div class="form__row">
         <div class="field">
@@ -372,18 +276,18 @@ page(
       <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
     </form>
 
-    <div class="contact__aside prose">
+    <div class="contact__aside">
       <h2>Qué ocurre después</h2>
-      <ul>
-        <li>Leemos tu mensaje y respondemos en menos de 24 horas.</li>
-        <li>Si hay encaje, agendamos una llamada de 45 minutos sin compromiso.</li>
-        <li>Recibes una propuesta por escrito con alcance, fecha y presupuesto cerrados.</li>
-        <li>Si no somos la opción adecuada para tu caso, te lo decimos.</li>
-      </ul>
+      <ol class="pasos">
+        <li><b>Respondemos</b><span>En menos de 24 horas, siempre.</span></li>
+        <li><b>Llamada de 45 minutos</b><span>Sin compromiso, para entender el negocio.</span></li>
+        <li><b>Propuesta por escrito</b><span>Alcance, fecha y presupuesto cerrados.</span></li>
+        <li><b>Si no encajamos, te lo decimos</b><span>Preferimos no coger un proyecto que hacerlo a medias.</span></li>
+      </ol>
       <dl>
         <dt>Correo</dt><dd><a href="mailto:hola@qpstudio.es">hola@qpstudio.es</a></dd>
-        <dt>WhatsApp</dt><dd><a href="https://wa.me/34600000000" target="_blank" rel="noopener">Escribir por WhatsApp</a></dd>
-        <dt>Horario de respuesta</dt><dd>Lunes a viernes, de 9:00 a 19:00. Soporte de incidencias 24/7.</dd>
+        <dt>WhatsApp</dt><dd><a href="https://wa.me/34600000000" target="_blank" rel="noopener">Escribir ahora</a></dd>
+        <dt>Horario</dt><dd>Lunes a viernes, 9:00 a 19:00. Incidencias 24/7.</dd>
       </dl>
     </div>
   </div>
@@ -393,39 +297,90 @@ page(
 
 /* ── Admin ─────────────────────────────────────────────────────────── */
 
-const acard = (icon, h, p, estado) => `
-  <article class="acard">
-    <span class="acard__ico"><svg viewBox="0 0 24 24" aria-hidden="true">${icon}</svg></span>
-    <h3>${h}</h3>
-    <p>${p}</p>
-    <span class="acard__state">${estado}</span>
-  </article>
-`;
-
-page(
-  'admin.html',
-  'Administración',
-  'Panel de administración de QP Studio: edición de textos, gestión de contenidos y mensajes recibidos.',
-  phead('Administración', 'Panel de administración', 'Desde aquí se gestionará el contenido del sitio y los mensajes recibidos. El panel está preparado en la estructura del proyecto y se conectará cuando se defina el backend.') +
-    `
-<section class="pbody">
-  <div class="shell">
-    <div class="admin">
-${acard('<path d="M4 7h16M4 12h10M4 17h13"/>', 'Editar textos', 'Modificar titulares, párrafos y textos de botones de cualquier sección del sitio, con vista previa antes de publicar.', 'Pendiente de conexión')}
-${acard('<path d="M12 5v14M5 12h14"/>', 'Añadir elementos', 'Crear nuevos servicios, casos, preguntas frecuentes o entradas, y ordenarlos sin tocar código.', 'Pendiente de conexión')}
-${acard('<path d="M3 5.5h18v13H3zM3 6l9 7 9-7"/>', 'Mensajes recibidos', 'Consultar las solicitudes enviadas desde el formulario de contacto, con fecha, estado y respuesta.', 'Pendiente de conexión')}
-    </div>
-
-    <div class="notice">
-      <b>Estado actual.</b> Esta fase del proyecto no incluye backend, así que el panel es todavía una
-      maqueta: define la estructura y las tres áreas de trabajo, pero no guarda ni lee datos. Para
-      activarlo hará falta una base de datos, autenticación y un endpoint que reciba el formulario.
-      La ruta de crecimiento está documentada en el README del proyecto.
-    </div>
+const adminPage = () => {
+  const t = new String('Administración');
+  t.__self = 'admin.html';
+  t.__admin = true;
+  writeFileSync(
+    'admin.html',
+    head(t, 'Panel de administración de QP Studio.') +
+      `
+<section class="phead">
+  <div class="shell phead__in">
+    <p class="crumb"><a href="index.html">Inicio</a> · Administración</p>
+    <h1>Panel de administración</h1>
+    <p>Edita los textos de la web, añade secciones nuevas y consulta los mensajes recibidos.</p>
   </div>
 </section>
-`
-);
+
+<section class="pbody">
+  <div class="shell">
+
+    <div id="login">
+      <form class="form login" id="login-form" novalidate>
+        <div class="field">
+          <label for="l-user">Usuario</label>
+          <input id="l-user" type="text" autocomplete="username" required />
+        </div>
+        <div class="field">
+          <label for="l-pass">Contraseña</label>
+          <input id="l-pass" type="password" autocomplete="current-password" required />
+        </div>
+        <button class="btn btn--blue btn--full magnet" type="submit"><span>Entrar</span></button>
+        <p class="login__error" id="login-error" role="status" aria-live="polite"></p>
+        <p class="login__hint">Acceso provisional mientras no haya servidor. Se comprueba en el navegador, así que no protege de verdad: en cuanto exista backend hay que moverlo allí.</p>
+      </form>
+    </div>
+
+    <div id="panel" hidden>
+      <div class="abar">
+        <p class="abar__who">Sesión iniciada como <b>quique</b></p>
+        <button type="button" class="linkish" id="salir">Cerrar sesión</button>
+      </div>
+
+      <div class="tabs" role="tablist">
+        <button class="tabs__btn" role="tab" aria-selected="true" data-tab="tab-textos">Editar textos</button>
+        <button class="tabs__btn" role="tab" aria-selected="false" data-tab="tab-bloques">Añadir secciones</button>
+        <button class="tabs__btn" role="tab" aria-selected="false" data-tab="tab-mensajes">Mensajes recibidos</button>
+      </div>
+
+      <div class="tabs__panel" id="tab-textos" role="tabpanel">
+        <div id="textos"></div>
+      </div>
+
+      <div class="tabs__panel" id="tab-bloques" role="tabpanel" hidden>
+        <div class="bloques" id="bloques"></div>
+        <div class="cola">
+          <h3>Bloques pendientes de publicar</h3>
+          <ul id="cola"></ul>
+        </div>
+      </div>
+
+      <div class="tabs__panel" id="tab-mensajes" role="tabpanel" hidden>
+        <div class="inbox">
+          <p class="inbox__head"><span>Bandeja de entrada</span><span>0 mensajes</span></p>
+          <div class="inbox__empty">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3zM3 7l9 6 9-6"/></svg>
+            <h3>No han llegado mensajes</h3>
+            <p>Aquí aparecerán las solicitudes enviadas desde el formulario de contacto, con fecha, datos y estado.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="notice">
+        <b>Sin servidor todavía.</b> Los cambios de texto y los bloques añadidos se guardan solo en este
+        navegador, para que puedas probar el flujo. Para que sean reales hace falta base de datos,
+        autenticación en el servidor y un endpoint que reciba el formulario.
+      </div>
+    </div>
+
+  </div>
+</section>
+` + foot
+  );
+  console.log('escrito admin.html');
+};
+adminPage();
 
 /* ── Legales ───────────────────────────────────────────────────────── */
 
@@ -435,86 +390,48 @@ const legal = (file, titulo, desc, cuerpo) =>
   <div class="shell prose">
 ${cuerpo}
     <div class="notice">
-      <b>Documento pendiente de revisión.</b> Este texto es una base de trabajo. Antes de publicar el
-      sitio debe completarse con los datos fiscales reales y revisarse con un profesional, ya que
-      afecta al cumplimiento del RGPD y de la LSSI-CE.
+      <b>Documento pendiente de revisión.</b> Es una base de trabajo. Antes de publicar debe
+      completarse con los datos fiscales reales y revisarse con un profesional: afecta al
+      cumplimiento del RGPD y de la LSSI-CE.
     </div>
   </div>
 </section>
 `);
 
-legal(
-  'aviso-legal.html',
-  'Aviso legal',
-  'Información general y condiciones de uso del sitio web de QP Studio.',
-  `    <h2>Titular del sitio</h2>
-    <p>Denominación: QP Studio, marca de Quique Planelles.<br />NIF: pendiente de completar.<br />Domicilio: pendiente de completar.<br />Correo de contacto: hola@qpstudio.es</p>
-
+legal('aviso-legal.html', 'Aviso legal', 'Información general y condiciones de uso del sitio web de QP Studio.',
+`    <h2>Titular</h2>
+    <p>QP Studio, marca de Quique Planelles. NIF y domicilio pendientes de completar. Correo: hola@qpstudio.es</p>
     <h2>Objeto</h2>
-    <p>Este aviso regula el acceso y el uso del sitio web de QP Studio. La navegación por el sitio atribuye la condición de usuario e implica la aceptación de estas condiciones.</p>
-
+    <p>La navegación por el sitio atribuye la condición de usuario e implica la aceptación de estas condiciones.</p>
     <h2>Propiedad intelectual</h2>
-    <p>Los contenidos del sitio, incluidos textos, diseño, código y elementos gráficos, pertenecen a QP Studio o a terceros que han autorizado su uso. Queda prohibida su reproducción o distribución sin autorización expresa.</p>
-
+    <p>Los contenidos del sitio pertenecen a QP Studio o a terceros que han autorizado su uso. Queda prohibida su reproducción sin autorización expresa.</p>
     <h2>Responsabilidad</h2>
-    <p>QP Studio no se hace responsable del uso que los usuarios hagan de los contenidos del sitio ni de los daños derivados de fallos o desconexiones en las redes de telecomunicaciones que interrumpan el servicio.</p>
-
-    <h2>Enlaces externos</h2>
-    <p>El sitio puede contener enlaces a páginas de terceros. QP Studio no controla ni asume responsabilidad sobre sus contenidos.</p>
-
+    <p>QP Studio no responde del uso que los usuarios hagan de los contenidos ni de las interrupciones del servicio ajenas a su control.</p>
     <h2>Legislación aplicable</h2>
-    <p>Estas condiciones se rigen por la legislación española. Para cualquier controversia serán competentes los juzgados y tribunales que correspondan conforme a derecho.</p>
-`
-);
+    <p>Estas condiciones se rigen por la legislación española.</p>
+`);
 
-legal(
-  'privacidad.html',
-  'Política de privacidad',
-  'Cómo trata QP Studio los datos personales que recibe a través del sitio web.',
-  `    <h2>Responsable del tratamiento</h2>
-    <p>QP Studio, marca de Quique Planelles. Correo de contacto: hola@qpstudio.es</p>
-
+legal('privacidad.html', 'Política de privacidad', 'Cómo trata QP Studio los datos personales recibidos a través del sitio web.',
+`    <h2>Responsable</h2>
+    <p>QP Studio, marca de Quique Planelles. Correo: hola@qpstudio.es</p>
     <h2>Qué datos recogemos</h2>
-    <ul>
-      <li>Los que facilitas en el formulario de contacto: nombre, correo electrónico y el mensaje que escribes.</li>
-      <li>Datos técnicos de navegación estrictamente necesarios para que el sitio funcione.</li>
-    </ul>
-
-    <h2>Para qué los usamos</h2>
-    <ul>
-      <li>Responder a tu solicitud y, si procede, elaborar una propuesta.</li>
-      <li>Mantener el contacto durante el desarrollo del proyecto.</li>
-    </ul>
-    <p>No utilizamos tus datos para enviarte comunicaciones comerciales que no hayas solicitado, ni los cedemos a terceros salvo obligación legal.</p>
-
-    <h2>Base jurídica</h2>
-    <p>El tratamiento se basa en tu consentimiento al enviar el formulario y, cuando exista relación contractual, en la ejecución de dicho contrato.</p>
-
-    <h2>Conservación</h2>
-    <p>Conservamos los datos mientras dure la relación y, después, durante los plazos legalmente exigibles.</p>
-
+    <ul><li>Nombre, correo y mensaje del formulario de contacto.</li><li>Datos técnicos necesarios para que el sitio funcione.</li></ul>
+    <h2>Para qué</h2>
+    <ul><li>Responder a tu solicitud y preparar una propuesta.</li><li>Mantener el contacto durante el proyecto.</li></ul>
+    <p>No enviamos comunicaciones comerciales no solicitadas ni cedemos datos a terceros salvo obligación legal.</p>
     <h2>Tus derechos</h2>
-    <p>Puedes solicitar el acceso, la rectificación, la supresión, la limitación, la portabilidad y la oposición al tratamiento escribiendo a hola@qpstudio.es. También puedes reclamar ante la Agencia Española de Protección de Datos.</p>
-`
-);
+    <p>Puedes solicitar acceso, rectificación, supresión, limitación, portabilidad y oposición escribiendo a hola@qpstudio.es, y reclamar ante la Agencia Española de Protección de Datos.</p>
+`);
 
-legal(
-  'cookies.html',
-  'Política de cookies',
-  'Qué cookies utiliza el sitio web de QP Studio y cómo gestionarlas.',
-  `    <h2>Qué son las cookies</h2>
-    <p>Son pequeños archivos que los sitios web guardan en tu dispositivo para recordar información sobre tu visita.</p>
-
-    <h2>Qué cookies usamos</h2>
-    <p>Este sitio funciona sin cookies de seguimiento ni de publicidad. No utilizamos analítica de terceros ni perfilado.</p>
+legal('cookies.html', 'Política de cookies', 'Qué cookies utiliza el sitio web de QP Studio.',
+`    <h2>Qué usamos</h2>
+    <p>Este sitio funciona sin cookies de seguimiento ni de publicidad. No hay analítica de terceros ni perfilado.</p>
     <ul>
-      <li><b>Técnicas y necesarias.</b> Las imprescindibles para que el sitio se muestre correctamente. No requieren consentimiento.</li>
-      <li><b>De terceros.</b> Las tipografías se cargan desde Google Fonts y algunas imágenes desde Unsplash. Esos servicios pueden registrar la dirección IP desde la que se solicita el archivo.</li>
+      <li><b>Técnicas.</b> Las imprescindibles para que el sitio se muestre. No requieren consentimiento.</li>
+      <li><b>Terceros.</b> Las tipografías se cargan desde Google Fonts y algunas imágenes desde Unsplash; esos servicios pueden registrar la dirección IP.</li>
     </ul>
-
     <h2>Cómo gestionarlas</h2>
-    <p>Puedes bloquear o eliminar las cookies desde la configuración de tu navegador. Si en el futuro incorporamos cookies de analítica o de marketing, se solicitará tu consentimiento previo mediante un aviso en el propio sitio.</p>
-`
-);
+    <p>Puedes bloquearlas desde tu navegador. Si en el futuro añadimos analítica o marketing, se pedirá consentimiento previo.</p>
+`);
 
 console.log('Listo.');
