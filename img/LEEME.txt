@@ -1,4 +1,11 @@
-Guarda aquí tu retrato con el nombre exacto: quique.jpg
+Aquí van dos archivos:
+
+1. logo.png  — el logo GP, PNG con fondo transparente, 512x512 o mayor.
+2. quique.jpg — tu retrato.
+
+Sin logo.png el wordmark usa un SVG de repuesto: funciona, pero no es tu marca.
+
+Retrato con el nombre exacto: quique.jpg
 
 Recomendado: vertical, proporción 4:5 (por ejemplo 640x800 o 1024x1280),
 recortado a la altura del pecho, fondo sencillo, luz suave.

@@ -1,25 +1,24 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="no-3d">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Planelles Studio — Tu negocio ya es bueno. También debería parecerlo.</title>
 <meta name="description" content="Estudio digital independiente. Diseñamos y desarrollamos la web de negocios que valen más de lo que aparentan en internet." />
-<meta name="theme-color" content="#f7f6f4" />
+<meta name="theme-color" content="#0b0d12" />
 <meta property="og:title" content="Planelles Studio — Tu negocio ya es bueno. También debería parecerlo." />
-<meta property="og:description" content="Diseño y desarrollo web para negocios que quieren transmitir confianza y convertir más visitas en contactos reales." />
+<meta property="og:description" content="Webs que se ven como es tu negocio. Diseño, código y acompañamiento de una sola persona." />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="es_ES" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%231b1a18'/%3E%3Crect x='7' y='16' width='7.5' height='7.5' rx='2.4' fill='%23807d78'/%3E%3Crect x='17.5' y='8' width='7.5' height='7.5' rx='2.4' fill='%23f7f6f4'/%3E%3C/svg%3E" />
+<link rel="icon" href="img/logo.png" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Geist:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Geist:wght@400;500;600&family=Libre+Caslon+Text:ital@0;1&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="css/styles.css" />
 <link rel="stylesheet" href="css/sections.css" />
 
-<!-- Sin JS la web se lee entera: las entradas solo se esconden si hay quien
-     las vuelva a mostrar. -->
 <script>document.documentElement.classList.add('js');</script>
 </head>
 
@@ -32,23 +31,26 @@
   <div class="shell nav__inner">
 
     <a class="brand" href="#hero" aria-label="Planelles Studio, inicio">
-      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
-        <rect class="mark__frame" x="1.25" y="1.25" width="29.5" height="29.5" rx="9" />
-        <rect class="mark__tile mark__tile--low" x="7" y="16" width="7.5" height="7.5" rx="2.4" />
-        <rect class="mark__tile mark__tile--high" x="17.5" y="8" width="7.5" height="7.5" rx="2.4" />
+      <img class="brand__mark" src="img/logo.png" alt="" width="34" height="34"
+           onerror="this.closest('.brand').classList.add('no-logo'); this.remove();" />
+      <svg class="brand__fallback" viewBox="0 0 32 32" aria-hidden="true">
+        <rect x="1.25" y="1.25" width="29.5" height="29.5" rx="9" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".2" />
+        <rect x="7" y="16" width="7.5" height="7.5" rx="2.4" fill="currentColor" opacity=".35" />
+        <rect x="17.5" y="8" width="7.5" height="7.5" rx="2.4" fill="currentColor" />
       </svg>
       <span class="brand__text"><b>Planelles</b><i>Studio</i></span>
     </a>
 
     <nav class="nav__links" id="menu" aria-label="Secciones">
-      <a href="#problema"><span>El coste</span></a>
+      <a href="#trabajo"><span>Trabajo</span></a>
       <a href="#servicios"><span>Servicios</span></a>
       <a href="#demo"><span>Antes / Después</span></a>
+      <a href="#tuya"><span>Tuya</span></a>
       <a href="#estudio"><span>Estudio</span></a>
     </nav>
 
     <div class="nav__end">
-      <a class="btn btn--ink btn--sm magnet" href="#hablemos"><span>Hablemos</span></a>
+      <a class="btn btn--blue btn--sm magnet" href="#hablemos"><span>Hablemos</span></a>
       <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
         <span></span><span></span>
       </button>
@@ -60,7 +62,6 @@
 
 <!-- ══ HERO ═════════════════════════════════════════════════════════════ -->
 <section class="hero" id="hero">
-
   <div class="shell hero__copy">
     <p class="kicker" data-reveal>Estudio digital independiente</p>
 
@@ -75,95 +76,188 @@
     </p>
 
     <div class="hero__cta" data-reveal data-reveal-d="5">
-      <a class="btn btn--ink magnet" href="#hablemos"><span>Quiero mejorar mi web</span></a>
+      <a class="btn btn--blue magnet" href="#hablemos"><span>Quiero mejorar mi web</span></a>
       <a class="btn btn--ghost magnet" href="#demo"><span>Ver la diferencia</span></a>
     </div>
   </div>
 
-  <!-- Cordillera tramada. La dibuja motion.js -->
   <canvas class="ridges ridges--hero" id="ridges-hero" aria-hidden="true"></canvas>
 </section>
 
-<!-- ══ 01 · EL COSTE ════════════════════════════════════════════════════ -->
-<section class="sec" id="problema">
+<!-- ══ EL COSTE ═════════════════════════════════════════════════════════ -->
+<section class="sec sec--cost" id="coste">
   <div class="shell">
-    <div class="seclabel" data-reveal><span class="seclabel__n">01</span><span class="seclabel__r"></span>El coste invisible</div>
+    <h2 class="h2 cost__head" data-reveal>Pierdes clientes<br /><span class="soft">sin enterarte.</span></h2>
 
-    <div class="sechead">
-      <h2 class="h2" data-reveal>Nadie te dice que se fue.<br /><span class="soft">Simplemente no vuelve.</span></h2>
-      <p class="sechead__p" data-reveal data-reveal-d="2">
-        Nadie rellena un formulario para contarte por qué desconfió. Estos son los
-        tres motivos que más veces encuentro cuando un buen negocio no recibe los
-        contactos que merece.
-      </p>
-    </div>
+    <div class="costs">
+      <article class="cost" data-reveal>
+        <div class="cost__art cost__art--clock" aria-hidden="true">
+          <span class="ring"><i></i></span>
+          <b>5s</b>
+        </div>
+        <h3>No se entiende</h3>
+        <p>Cinco segundos para saber qué haces. Si no, cierra.</p>
+      </article>
 
-    <ol class="costs">
-      <li class="cost" data-reveal>
-        <span class="cost__n">01</span>
-        <h3>No se entiende en cinco segundos</h3>
-        <p>Si hay que leer tres párrafos para saber qué haces, ya cerró la pestaña.</p>
-      </li>
-      <li class="cost" data-reveal data-reveal-d="1">
-        <span class="cost__n">02</span>
+      <article class="cost" data-reveal data-reveal-d="1">
+        <div class="cost__art cost__art--old" aria-hidden="true">
+          <span class="bar bar--1"></span><span class="bar bar--2"></span>
+          <span class="bar bar--3"></span><span class="bar bar--4"></span>
+        </div>
         <h3>Parece de otra época</h3>
-        <p>El negocio ha mejorado cada año. La web se quedó en el año en que la hiciste, y el visitante no ve el negocio: ve la web.</p>
-      </li>
-      <li class="cost" data-reveal data-reveal-d="2">
-        <span class="cost__n">03</span>
+        <p>Tu negocio mejoró cada año. La web se quedó en 2013.</p>
+      </article>
+
+      <article class="cost" data-reveal data-reveal-d="2">
+        <div class="cost__art cost__art--vs" aria-hidden="true">
+          <span class="pill pill--a"></span>
+          <span class="pill pill--b"></span>
+        </div>
         <h3>Tu competencia no es mejor</h3>
-        <p>Comunica mejor. Y esa es la buena noticia: comunicar mejor se arregla en semanas. Ser mejor te ha costado años, y eso ya lo tienes.</p>
-      </li>
-    </ol>
+        <p>Comunica mejor. Eso se arregla en semanas.</p>
+      </article>
+    </div>
   </div>
 </section>
 
-<!-- ══ 02 · SERVICIOS ═══════════════════════════════════════════════════ -->
-<section class="sec sec--line" id="servicios">
-  <div class="shell">
-    <div class="seclabel" data-reveal><span class="seclabel__n">02</span><span class="seclabel__r"></span>Lo que hacemos</div>
+<!-- ══ CONSTELACIÓN DE WEBS ═════════════════════════════════════════════ -->
+<section class="orbit" id="trabajo">
+  <svg class="orbit__links" id="orbit-links" aria-hidden="true"></svg>
 
-    <div class="sechead">
-      <h2 class="h2" data-reveal>Cuatro cosas,<br /><span class="soft">y las cuatro bien.</span></h2>
+  <div class="orbit__field" id="orbit-field">
+
+    <article class="wcard" style="--x:4%;  --y:6%;  --r:-7deg;  --dur:13s; --d:-1s" data-reveal>
+      <div class="win">
+        <span class="win__bar"><i></i><i></i><i></i></span>
+        <div class="win__body win__body--photo" style="--img:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=420&q=60')">
+          <b>Estudio Foundry</b><u>Ver proyectos</u>
+        </div>
+      </div>
+      <p class="wcard__cap">Arquitectura</p>
+    </article>
+
+    <article class="wcard wcard--sm" style="--x:13%; --y:25%; --r:5deg; --dur:11s; --d:-4s" data-reveal data-reveal-d="1">
+      <div class="win">
+        <span class="win__bar"><i></i><i></i><i></i></span>
+        <div class="win__body win__body--ui">
+          <span class="w w-70"></span><span class="w w-40"></span>
+          <span class="cta-pill"></span>
+        </div>
+      </div>
+      <p class="wcard__cap">Clínica dental</p>
+    </article>
+
+    <article class="wcard" style="--x:2%;  --y:58%; --r:6deg;  --dur:15s; --d:-7s" data-reveal data-reveal-d="1">
+      <div class="win">
+        <span class="win__bar"><i></i><i></i><i></i></span>
+        <div class="win__body win__body--grid">
+          <i style="--img:url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=200&q=60')"></i>
+          <i style="--img:url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=200&q=60')"></i>
+          <i style="--img:url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=200&q=60')"></i>
+          <i style="--img:url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=200&q=60')"></i>
+        </div>
+      </div>
+      <p class="wcard__cap">Tienda online</p>
+    </article>
+
+    <article class="wcard wcard--sm" style="--x:21%; --y:80%; --r:-5deg; --dur:12s; --d:-2s" data-reveal data-reveal-d="2">
+      <div class="win win--dark">
+        <span class="win__bar"><i></i><i></i><i></i></span>
+        <div class="win__body win__body--dash">
+          <span class="spark"></span>
+          <span class="w w-50"></span>
+        </div>
+      </div>
+      <p class="wcard__cap">Panel de reservas</p>
+    </article>
+
+    <article class="wcard wcard--lg" style="--x:74%; --y:4%;  --r:5deg;  --dur:14s; --d:-5s" data-reveal data-reveal-d="1">
+      <div class="win">
+        <span class="win__bar"><i></i><i></i><i></i></span>
+        <div class="win__body win__body--photo" style="--img:url('https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=420&q=60')">
+          <b>Marta Ruiz</b><u>Reservar sesión</u>
+        </div>
+      </div>
+      <p class="wcard__cap">Fotógrafa</p>
+    </article>
+
+    <article class="wcard" style="--x:88%; --y:34%; --r:-6deg; --dur:16s; --d:-9s" data-reveal data-reveal-d="2">
+      <div class="win">
+        <span class="win__bar"><i></i><i></i><i></i></span>
+        <div class="win__body win__body--photo" style="--img:url('https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=420&q=60')">
+          <b>Asesoría Vera</b><u>Pedir cita</u>
+        </div>
+      </div>
+      <p class="wcard__cap">Asesoría</p>
+    </article>
+
+    <article class="wcard wcard--sm" style="--x:77%; --y:64%; --r:7deg;  --dur:10s; --d:-3s" data-reveal data-reveal-d="2">
+      <div class="win win--dark">
+        <span class="win__bar"><i></i><i></i><i></i></span>
+        <div class="win__body win__body--ui">
+          <span class="w w-60 w-light"></span><span class="w w-35 w-light"></span>
+          <span class="cta-pill cta-pill--blue"></span>
+        </div>
+      </div>
+      <p class="wcard__cap">Gimnasio</p>
+    </article>
+
+    <article class="wcard" style="--x:86%; --y:82%; --r:-4deg; --dur:13s; --d:-6s" data-reveal data-reveal-d="3">
+      <div class="win">
+        <span class="win__bar"><i></i><i></i><i></i></span>
+        <div class="win__body win__body--photo" style="--img:url('https://images.unsplash.com/photo-1493397212122-2b85dda8106b?auto=format&fit=crop&w=420&q=60')">
+          <b>Casa Lloret</b><u>Ver la carta</u>
+        </div>
+      </div>
+      <p class="wcard__cap">Restaurante</p>
+    </article>
+
+    <div class="orbit__core">
+      <h2 class="h2" data-reveal>Así se ve<br /><span class="soft">un negocio bien contado.</span></h2>
+      <p data-reveal data-reveal-d="2">Webs de verdad: con sus botones, sus reservas y sus enlaces funcionando.</p>
+      <a class="btn btn--blue magnet" href="#hablemos" data-reveal data-reveal-d="3"><span>Quiero la mía</span></a>
     </div>
+  </div>
+</section>
+
+<!-- ══ SERVICIOS · fondo de cintas 3D ═══════════════════════════════════ -->
+<section class="sec sec--serv" id="servicios">
+  <canvas class="ribbons" id="ribbons-serv" aria-hidden="true"></canvas>
+
+  <div class="shell sec--serv__in">
+    <h2 class="h2 h2--inv" data-reveal>Cuatro cosas,<br /><span class="soft">y las cuatro bien.</span></h2>
 
     <ul class="servs">
       <li class="serv" data-reveal>
         <span class="serv__n">01</span>
         <h3>Diseño web</h3>
-        <p>Una presencia moderna, clara y profesional, dibujada para tu negocio y no para tu sector.</p>
+        <p>Dibujada para tu negocio, no para tu sector.</p>
       </li>
       <li class="serv" data-reveal data-reveal-d="1">
         <span class="serv__n">02</span>
         <h3>Rediseño web</h3>
-        <p>Para webs antiguas o lentas que ya no están a la altura. Conservamos lo que funciona y cambiamos lo que te cuesta clientes.</p>
+        <p>Lo que funciona se queda. Lo que te cuesta clientes, fuera.</p>
       </li>
       <li class="serv" data-reveal data-reveal-d="2">
         <span class="serv__n">03</span>
         <h3>Tiendas online</h3>
-        <p>Menos pasos, menos dudas y más carritos que llegan al final.</p>
+        <p>Menos pasos, menos dudas, más carritos terminados.</p>
       </li>
       <li class="serv" data-reveal data-reveal-d="3">
         <span class="serv__n">04</span>
         <h3>Automatización e IA</h3>
-        <p>Formularios, avisos y procesos que se ocupan solos. Cuando tiene sentido, no porque esté de moda.</p>
+        <p>Avisos y procesos que se ocupan solos.</p>
       </li>
     </ul>
-
-    <p class="serv__note" data-reveal><em>La IA acelera el proceso. El criterio decide el resultado.</em></p>
   </div>
 </section>
 
-<!-- ══ 03 · ANTES / DESPUÉS ═════════════════════════════════════════════ -->
-<section class="sec sec--line" id="demo">
+<!-- ══ ANTES / DESPUÉS ══════════════════════════════════════════════════ -->
+<section class="sec sec--demo" id="demo">
   <div class="shell">
-    <div class="seclabel" data-reveal><span class="seclabel__n">03</span><span class="seclabel__r"></span>Míralo, no te lo creas</div>
+    <h2 class="h2 demo__head" data-reveal>Arrastra.<br /><span class="soft">El mismo negocio, dos impresiones.</span></h2>
 
-    <div class="sechead sechead--center">
-      <h2 class="h2" data-reveal>Arrastra.<br /><span class="soft">El mismo negocio, dos primeras impresiones.</span></h2>
-    </div>
-
-    <div class="ba" id="ba" data-reveal data-reveal-d="2">
+    <div class="ba" id="ba" data-reveal data-reveal-d="1">
       <div class="ba__frame">
 
         <p class="sr-only" id="ba__sr">
@@ -221,96 +315,138 @@
         <span class="ba__tag ba__tag--old">Antes</span>
         <span class="ba__tag ba__tag--new">Después</span>
       </div>
-
-      <p class="ba__hint">Mismos servicios, mismos precios, la misma persona haciendo el trabajo</p>
     </div>
   </div>
 </section>
 
-<!-- ══ 04 · ESTUDIO ═════════════════════════════════════════════════════ -->
-<section class="sec sec--line" id="estudio">
-  <div class="shell">
-    <div class="seclabel" data-reveal><span class="seclabel__n">04</span><span class="seclabel__r"></span>Quién lo hace</div>
+<!-- ══ TUYA DE VERDAD · fondo de cintas 3D ══════════════════════════════ -->
+<section class="sec sec--tuya" id="tuya">
+  <canvas class="ribbons" id="ribbons-tuya" aria-hidden="true"></canvas>
 
-    <div class="me">
-      <figure class="me__shot" data-reveal>
-        <span class="me__frame">
-          <img src="img/quique.jpg" alt="Quique Planelles, fundador de Planelles Studio" width="640" height="800"
-               onerror="this.closest('.me__frame').classList.add('is-empty'); this.remove();" />
-          <span class="me__mono" aria-hidden="true">QP</span>
-        </span>
-        <figcaption>Quique Planelles · Fundador</figcaption>
-      </figure>
+  <div class="shell tuya">
+    <div class="tuya__copy">
+      <h2 class="h2 h2--inv" data-reveal>Y luego<br /><span class="soft">la manejas tú.</span></h2>
 
-      <div class="me__copy">
-        <h2 class="h2" data-reveal>Soy Quique Planelles.</h2>
+      <ul class="tuya__list">
+        <li data-reveal data-reveal-d="1"><b>Cambias lo que quieras</b><span>Precios, horarios y fotos. Sin llamar a nadie.</span></li>
+        <li data-reveal data-reveal-d="2"><b>Botones que hacen cosas</b><span>Reservar, comprar, WhatsApp, mapa. Conectado de verdad.</span></li>
+        <li data-reveal data-reveal-d="3"><b>No te dejo solo</b><span>Te grabo un vídeo con tu web y me tienes en el móvil.</span></li>
+      </ul>
+    </div>
 
-        <p data-reveal data-reveal-d="2">
-          Después de trabajar en más de veinte webs y tiendas online reales, monté
-          este estudio para hacer las cosas hablando con la persona que tiene el
-          negocio, no con un briefing reenviado tres veces.
-        </p>
-
-        <blockquote class="me__quote" data-reveal data-reveal-d="3">
-          No te prometo un equipo de cuarenta personas. Te prometo que quien
-          diseña tu web sabe cómo se llama tu negocio.
-        </blockquote>
-
-        <p data-reveal data-reveal-d="4">
-          Mezclo diseño, código e inteligencia artificial, siempre con criterio
-          humano. La IA me ahorra las horas mecánicas. Las decisiones las sigo
-          tomando yo, contigo delante.
-        </p>
-
-        <dl class="me__stats" data-reveal data-reveal-d="5">
-          <div><dt><span data-count="20">20</span>+</dt><dd>webs y tiendas online</dd></div>
-          <div><dt><span data-count="1">1</span></dt><dd>persona al teléfono</dd></div>
-          <div><dt><span data-count="0">0</span></dt><dd>plantillas usadas</dd></div>
-        </dl>
+    <!-- maqueta: edición en directo -->
+    <div class="editor" data-reveal data-reveal-d="2" aria-hidden="true">
+      <div class="editor__win">
+        <span class="win__bar win__bar--wide"><i></i><i></i><i></i><em>tunegocio.com</em></span>
+        <div class="editor__body">
+          <div class="editor__block is-editing">
+            <span class="editor__tag">Editando</span>
+            <p>Menú del día <b>14,50 €</b><span class="caret"></span></p>
+          </div>
+          <div class="editor__block">
+            <span class="w w-80"></span><span class="w w-55"></span>
+          </div>
+          <div class="editor__row">
+            <span class="editor__btn">Reservar mesa</span>
+            <span class="editor__btn editor__btn--ghost">WhatsApp</span>
+          </div>
+          <div class="editor__block">
+            <span class="w w-65"></span><span class="w w-30"></span>
+          </div>
+        </div>
       </div>
+      <span class="editor__cursor"></span>
     </div>
   </div>
 </section>
 
-<!-- ══ CTA FINAL ════════════════════════════════════════════════════════ -->
-<section class="cta" id="hablemos">
-  <canvas class="ridges ridges--cta" id="ridges-cta" aria-hidden="true"></canvas>
+<!-- ══ ESTUDIO ══════════════════════════════════════════════════════════ -->
+<section class="sec sec--me" id="estudio">
+  <div class="shell me">
+    <figure class="me__shot" data-reveal>
+      <span class="me__frame">
+        <img src="img/quique.jpg" alt="Quique Planelles, fundador de Planelles Studio" width="640" height="800"
+             onerror="this.closest('.me__frame').classList.add('is-empty'); this.remove();" />
+        <span class="me__mono" aria-hidden="true">QP</span>
+      </span>
+      <figcaption>Quique Planelles · Fundador</figcaption>
+    </figure>
 
-  <div class="shell cta__inner">
-    <h2 class="cta__title">
-      <span class="line"><span data-reveal data-reveal-d="1">Tu negocio ya es bueno.</span></span>
-      <span class="line"><span class="soft" data-reveal data-reveal-d="2">Vamos a que se note.</span></span>
-    </h2>
+    <div class="me__copy">
+      <h2 class="h2" data-reveal>Una persona.<br /><span class="soft">Siempre la misma.</span></h2>
 
-    <p class="cta__sub" data-reveal data-reveal-d="3">
-      Cuéntame tu negocio en dos líneas. Te contesto yo, el mismo día, y te digo
-      con sinceridad si puedo ayudarte y qué haría primero.
-    </p>
+      <blockquote class="me__quote" data-reveal data-reveal-d="2">
+        No te prometo un equipo de cuarenta personas. Te prometo que quien
+        diseña tu web sabe cómo se llama tu negocio.
+      </blockquote>
 
-    <form class="form" id="form" novalidate data-reveal data-reveal-d="4">
-      <div class="form__row">
-        <div class="field">
-          <label for="f-name">Cómo te llamas</label>
-          <input id="f-name" name="nombre" type="text" autocomplete="name" required placeholder="Nombre y apellido" />
+      <dl class="me__stats" data-reveal data-reveal-d="3">
+        <div><dt><span data-count="20">20</span>+</dt><dd>webs y tiendas</dd></div>
+        <div><dt><span data-count="1">1</span></dt><dd>persona al teléfono</dd></div>
+        <div><dt><span data-count="0">0</span></dt><dd>plantillas</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FINAL · el portátil que se acerca ════════════════════════════════ -->
+<section class="finale" id="hablemos">
+  <div class="finale__rail">
+    <div class="finale__sticky">
+
+      <!-- escena 3D -->
+      <div class="finale__scene" aria-hidden="true">
+        <div class="laptop">
+          <div class="laptop__lid">
+            <div class="laptop__screen">
+              <span class="laptop__cam"></span>
+              <div class="laptop__ui">
+                <b>Planelles Studio</b>
+                <span class="w w-70"></span>
+                <span class="w w-45"></span>
+                <span class="cta-pill"></span>
+              </div>
+            </div>
+            <div class="laptop__back"></div>
+          </div>
+          <div class="laptop__deck"><span class="laptop__pad"></span></div>
         </div>
-        <div class="field">
-          <label for="f-mail">Email</label>
-          <input id="f-mail" name="email" type="email" autocomplete="email" required placeholder="tu@correo.com" />
+        <span class="laptop__shadow"></span>
+      </div>
+
+      <!-- el contacto, que aparece al entrar en la pantalla -->
+      <div class="finale__panel">
+        <div class="shell finale__in">
+          <h2 class="finale__title">Cuéntame tu negocio<br /><span class="soft">en dos líneas.</span></h2>
+
+          <form class="form" id="form" novalidate>
+            <div class="form__row">
+              <div class="field">
+                <label for="f-name">Cómo te llamas</label>
+                <input id="f-name" name="nombre" type="text" autocomplete="name" required placeholder="Nombre y apellido" />
+              </div>
+              <div class="field">
+                <label for="f-mail">Email</label>
+                <input id="f-mail" name="email" type="email" autocomplete="email" required placeholder="tu@correo.com" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="f-msg">Tu negocio y qué quieres cambiar</label>
+              <textarea id="f-msg" name="mensaje" rows="2" required placeholder="Casa Lloret, casalloret.com. La web es de 2013."></textarea>
+            </div>
+
+            <button class="btn btn--blue btn--full magnet" type="submit"><span>Enviar y hablamos</span></button>
+
+            <p class="form__alt">
+              O más rápido:
+              <a href="https://wa.me/34600000000?text=Hola%20Quique%2C%20me%20gustar%C3%ADa%20mejorar%20la%20web%20de%20mi%20negocio" target="_blank" rel="noopener">escríbeme por WhatsApp</a>
+            </p>
+            <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
+          </form>
         </div>
       </div>
-      <div class="field">
-        <label for="f-msg">Tu negocio y qué te gustaría cambiar</label>
-        <textarea id="f-msg" name="mensaje" rows="3" required placeholder="Talleres Ribera, talleresribera.com. La web es de 2013 y casi no recibo contactos."></textarea>
-      </div>
 
-      <button class="btn btn--light btn--full magnet" type="submit"><span>Enviar y hablamos</span></button>
-
-      <p class="form__alt">
-        O más rápido:
-        <a href="https://wa.me/34600000000?text=Hola%20Quique%2C%20me%20gustar%C3%ADa%20mejorar%20la%20web%20de%20mi%20negocio" target="_blank" rel="noopener">escríbeme por WhatsApp</a>
-      </p>
-      <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
-    </form>
+    </div>
   </div>
 </section>
 
@@ -320,18 +456,20 @@
 <footer class="foot">
   <div class="shell foot__inner">
     <a class="brand" href="#hero" aria-label="Planelles Studio, inicio">
-      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
-        <rect class="mark__frame" x="1.25" y="1.25" width="29.5" height="29.5" rx="9" />
-        <rect class="mark__tile mark__tile--low" x="7" y="16" width="7.5" height="7.5" rx="2.4" />
-        <rect class="mark__tile mark__tile--high" x="17.5" y="8" width="7.5" height="7.5" rx="2.4" />
+      <img class="brand__mark" src="img/logo.png" alt="" width="34" height="34"
+           onerror="this.closest('.brand').classList.add('no-logo'); this.remove();" />
+      <svg class="brand__fallback" viewBox="0 0 32 32" aria-hidden="true">
+        <rect x="1.25" y="1.25" width="29.5" height="29.5" rx="9" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".25" />
+        <rect x="7" y="16" width="7.5" height="7.5" rx="2.4" fill="currentColor" opacity=".4" />
+        <rect x="17.5" y="8" width="7.5" height="7.5" rx="2.4" fill="currentColor" />
       </svg>
       <span class="brand__text"><b>Planelles</b><i>Studio</i></span>
     </a>
 
     <nav class="foot__links" aria-label="Pie">
+      <a href="#trabajo">Trabajo</a>
       <a href="#servicios">Servicios</a>
-      <a href="#demo">Antes / Después</a>
-      <a href="#estudio">Estudio</a>
+      <a href="#tuya">Tuya</a>
       <a href="mailto:hola@planellesstudio.com">hola@planellesstudio.com</a>
       <a href="https://wa.me/34600000000" target="_blank" rel="noopener">WhatsApp</a>
     </nav>

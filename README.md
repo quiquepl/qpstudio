@@ -7,7 +7,7 @@ build, cero backend.
 index.html
 css/styles.css      tokens, reset, tipografía, nav, botones, footer
 css/sections.css    arte por sección
-js/motion.js        cordilleras tramadas, reveals, scroll, contadores
+js/motion.js        cordilleras, cintas 3D, constelación, portátil final
 js/ui.js            menú, comparador, botones magnéticos, formulario
 img/                aquí va quique.jpg
 server.mjs          servidor estático solo para desarrollo
@@ -42,13 +42,17 @@ direcciones escritas a mano en el footer y en el formulario, para que funcionen
 también sin JavaScript: cámbialas ahí igualmente (busca `planellesstudio.com` y
 `34600000000`).
 
-**2. Tu foto.** Guarda un retrato vertical en `img/quique.jpg` (recomendado
+**2. El logo.** Guarda el logo GP en `img/logo.png` (PNG con fondo
+transparente, 512x512 o mayor). Sin ese archivo el wordmark cae en un SVG
+geométrico de repuesto: funciona, pero no es tu marca.
+
+**3. Tu foto.** Guarda un retrato vertical en `img/quique.jpg` (recomendado
 640×800 o mayor, misma proporción 4:5). Si el archivo no existe, la sección Sobre
 mí muestra un monograma "QP" sobre la trama de puntos, así que la web no se
 rompe mientras no la tengas, pero una cara real vende bastante más que dos
 iniciales.
 
-**3. Redes.** El footer no lleva redes todavía. Cuando tengas los perfiles del
+**4. Redes.** El footer no lleva redes todavía. Cuando tengas los perfiles del
 estudio, añádelos junto al email y el WhatsApp en `foot__links`.
 
 Opcional: la web es a propósito corta. Proceso, plazas abiertas y portfolio van
@@ -81,12 +85,13 @@ las cabeceras de caché y de seguridad.
 ## Accesibilidad y rendimiento
 
 - Contraste verificado en todo el texto: mínimo 4.5:1, o 3:1 en tamaños grandes.
-- `prefers-reduced-motion` congela las cordilleras y muestra todo el contenido de golpe.
+- `prefers-reduced-motion` congela los canvas, quita el portátil 3D y deja el
+  formulario suelto y legible. Lo mismo hace la clase `no-3d` si no hay JS.
 - El comparador se maneja con teclado (flechas, Home, End) y anuncia su estado.
 - Sin JavaScript la web se lee entera: las animaciones de entrada solo se activan
   si hay JS para desactivarlas.
-- Dos fuentes desde Google Fonts con `preconnect` y `display=swap`. Es la única
-  petición externa de toda la web. Si quieres cero dependencias externas,
+- Tres fuentes desde Google Fonts y las fotos desde Unsplash, ambas con
+  `preconnect`. Son las únicas peticiones externas. Si quieres cero dependencias externas,
   descarga los `.woff2` a `css/fonts/` y cambia el `<link>` por `@font-face`.
 
 ## Lo que queda para la siguiente fase
