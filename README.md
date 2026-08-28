@@ -6,16 +6,28 @@ Home del estudio. HTML, CSS y JavaScript planos. Cero dependencias, cero paso de
 build, cero backend.
 
 ```
-index.html
+index.html          home
+servicios.html      detalle de los cuatro servicios y presupuestos
+proceso.html        el rediseño del taller, paso a paso
+gestion.html        panel, botones con backend y acompañamiento
+contacto.html       formulario en página propia
+admin.html          panel de administración (maqueta, sin backend)
+aviso-legal.html · privacidad.html · cookies.html
+build-pages.mjs     genera las páginas interiores desde una plantilla común
 css/styles.css      tokens, reset, tipografía, nav, botones, footer
-css/sections.css    arte por sección
-js/motion.js        cordilleras, cintas 3D, constelación, portátil final
+css/sections.css    arte por sección de la home
+css/pages.css       páginas interiores
+js/motion.js        cordillera, cintas 3D, órbita, ordenador final
 js/ui.js            menú, comparador, botones magnéticos, formulario
-img/                aquí va quique.jpg
+img/logo.png        logo QP · img/quique.jpg  retrato
 server.mjs          servidor estático solo para desarrollo
-PRODUCT.md          marca, público, tono, anti-referencias
-DESIGN.md           sistema visual y de movimiento
 ```
+
+## Páginas interiores
+
+Se generan con `node build-pages.mjs`, que usa una cabecera y un pie comunes.
+Si cambias el nav o el footer, tócalo ahí y vuelve a ejecutarlo: si no, las ocho
+páginas se desincronizan de la home.
 
 ## Ver en local
 
@@ -44,17 +56,13 @@ direcciones escritas a mano en el footer y en el formulario, para que funcionen
 también sin JavaScript: cámbialas ahí igualmente (busca `planellesstudio.com` y
 `34600000000`).
 
-**2. El logo.** Guarda el logo GP en `img/logo.png` (PNG con fondo
-transparente, 512x512 o mayor). Sin ese archivo el wordmark cae en un SVG
-geométrico de repuesto: funciona, pero no es tu marca.
-
 **3. Tu foto.** Guarda un retrato vertical en `img/quique.jpg` (recomendado
 640×800 o mayor, misma proporción 4:5). Si el archivo no existe, la sección Sobre
 mí muestra un monograma "QP" sobre la trama de puntos, así que la web no se
 rompe mientras no la tengas, pero una cara real vende bastante más que dos
 iniciales.
 
-**4. Redes.** El footer no lleva redes todavía. Cuando tengas los perfiles del
+**2. Redes.** El footer no lleva redes todavía. Cuando tengas los perfiles del
 estudio, añádelos junto al email y el WhatsApp en `foot__links`.
 
 Opcional: la web es a propósito corta. Proceso, plazas abiertas y portfolio van

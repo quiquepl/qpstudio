@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Administración — QP Studio</title>
+<meta name="description" content="Panel de administración de QP Studio: edición de textos, gestión de contenidos y mensajes recibidos." />
+<meta name="theme-color" content="#f7f8fa" />
+<link rel="icon" href="img/logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Geist:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/styles.css" />
+<link rel="stylesheet" href="css/sections.css" />
+<link rel="stylesheet" href="css/pages.css" />
+<script>document.documentElement.classList.add('js');</script>
+</head>
+
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+
+<header class="nav is-stuck" id="nav">
+  <div class="nav__rail" aria-hidden="true"><span class="nav__rail-fill"></span></div>
+  <div class="shell nav__inner">
+    <a class="brand brand--mark-only" href="index.html" aria-label="QP Studio, inicio">
+      <img class="brand__mark" src="img/logo.png" alt="QP Studio" width="40" height="40" />
+    </a>
+    <nav class="nav__links" id="menu" aria-label="Secciones">
+      <a href="index.html"><span>Inicio</span></a>
+      <a href="servicios.html"><span>Servicios</span></a>
+      <a href="proceso.html"><span>Antes y después</span></a>
+      <a href="gestion.html"><span>Gestión</span></a>
+      <a href="contacto.html"><span>Contacto</span></a>
+    </nav>
+    <div class="nav__end">
+      <a class="btn btn--blue btn--sm magnet" href="contacto.html"><span>Solicitar propuesta</span></a>
+      <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<section class="phead">
+  <div class="shell phead__in">
+    <p class="crumb"><a href="index.html">Inicio</a> · Administración</p>
+    <h1>Panel de administración</h1>
+    <p>Desde aquí se gestionará el contenido del sitio y los mensajes recibidos. El panel está preparado en la estructura del proyecto y se conectará cuando se defina el backend.</p>
+  </div>
+</section>
+
+<section class="pbody">
+  <div class="shell">
+    <div class="admin">
+
+  <article class="acard">
+    <span class="acard__ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h13"/></svg></span>
+    <h3>Editar textos</h3>
+    <p>Modificar titulares, párrafos y textos de botones de cualquier sección del sitio, con vista previa antes de publicar.</p>
+    <span class="acard__state">Pendiente de conexión</span>
+  </article>
+
+
+  <article class="acard">
+    <span class="acard__ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span>
+    <h3>Añadir elementos</h3>
+    <p>Crear nuevos servicios, casos, preguntas frecuentes o entradas, y ordenarlos sin tocar código.</p>
+    <span class="acard__state">Pendiente de conexión</span>
+  </article>
+
+
+  <article class="acard">
+    <span class="acard__ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.5h18v13H3zM3 6l9 7 9-7"/></svg></span>
+    <h3>Mensajes recibidos</h3>
+    <p>Consultar las solicitudes enviadas desde el formulario de contacto, con fecha, estado y respuesta.</p>
+    <span class="acard__state">Pendiente de conexión</span>
+  </article>
+
+    </div>
+
+    <div class="notice">
+      <b>Estado actual.</b> Esta fase del proyecto no incluye backend, así que el panel es todavía una
+      maqueta: define la estructura y las tres áreas de trabajo, pero no guarda ni lee datos. Para
+      activarlo hará falta una base de datos, autenticación y un endpoint que reciba el formulario.
+      La ruta de crecimiento está documentada en el README del proyecto.
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="shell">
+    <div class="foot__grid">
+      <div class="foot__brand">
+        <a class="brand brand--mark-only" href="index.html" aria-label="QP Studio, inicio">
+          <img class="brand__mark" src="img/logo.png" alt="QP Studio" width="48" height="48" />
+        </a>
+        <p>QP Studio. Diseño, desarrollo y mantenimiento web para negocios de cualquier sector.</p>
+        <div class="foot__social">
+          <a href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0zM.5 8h4V24h-4zM8 8h3.8v2.2h.06c.53-1 1.83-2.2 3.77-2.2C19.6 8 21 10.3 21 14.1V24h-4v-8.9c0-2.1-.04-4.8-3-4.8s-3.4 2.3-3.4 4.65V24H8z"/></svg>
+          </a>
+          <a href="mailto:hola@qpstudio.es" aria-label="Correo electrónico">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5zM4.4 6 12 11.7 19.6 6zM20 7.9l-7.4 5.6a1 1 0 0 1-1.2 0L4 7.9V18h16z"/></svg>
+          </a>
+        </div>
+      </div>
+      <nav class="foot__col" aria-label="Navegación">
+        <h3>Navegación</h3>
+        <a href="index.html">Inicio</a>
+        <a href="servicios.html">Servicios</a>
+        <a href="proceso.html">Antes y después</a>
+        <a href="gestion.html">Gestión</a>
+        <a href="contacto.html">Contacto</a>
+      </nav>
+      <nav class="foot__col" aria-label="Servicios">
+        <h3>Servicios</h3>
+        <a href="servicios.html#diseno">Diseño web</a>
+        <a href="servicios.html#rediseno">Rediseño web</a>
+        <a href="servicios.html#ecommerce">Comercio electrónico</a>
+        <a href="servicios.html#automatizacion">Automatización</a>
+      </nav>
+      <nav class="foot__col" aria-label="Legal">
+        <h3>Legal</h3>
+        <a href="aviso-legal.html">Aviso legal</a>
+        <a href="privacidad.html">Política de privacidad</a>
+        <a href="cookies.html">Política de cookies</a>
+        <a href="mailto:hola@qpstudio.es">hola@qpstudio.es</a>
+      </nav>
+    </div>
+    <div class="foot__end">
+      <p>© <span id="year">2026</span> QP Studio. Todos los derechos reservados.</p>
+      <nav class="foot__mini" aria-label="Legal y administración">
+        <a href="aviso-legal.html">Aviso legal</a>
+        <a href="privacidad.html">Privacidad</a>
+        <a href="cookies.html">Cookies</a>
+        <a href="admin.html">Admin</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script src="js/motion.js" defer></script>
+<script src="js/ui.js" defer></script>
+</body>
+</html>

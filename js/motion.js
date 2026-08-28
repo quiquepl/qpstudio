@@ -86,11 +86,11 @@
       const travel = Math.max(1, r.height - vh);
       const p = clamp(-r.top / travel);
 
-      // tramos cortos: la tapa termina de abrirse enseguida y el formulario
-      // llega antes de que dé tiempo a sentir que el scroll no avanza
-      finale.style.setProperty('--lid', clamp(p / 0.2).toFixed(3));
-      finale.style.setProperty('--zoom', clamp((p - 0.1) / 0.4).toFixed(3));
-      const pan = clamp((p - 0.42) / 0.22);
+      // al mínimo movimiento la tapa se levanta, al siguiente se entra en la
+      // pantalla, y a partir de ahí el contacto se queda fijo
+      finale.style.setProperty('--lid', clamp(p / 0.16).toFixed(3));
+      finale.style.setProperty('--zoom', clamp((p - 0.16) / 0.34).toFixed(3));
+      const pan = clamp((p - 0.38) / 0.16);
       finale.style.setProperty('--panel', pan.toFixed(3));
 
       const live = pan > 0.8;
@@ -368,91 +368,7 @@
   const heroRidges = document.getElementById('ridges-hero');
   if (heroRidges) makeRidges(heroRidges, { rgb: [30, 32, 40], layers: innerWidth < 620 ? 3 : 4 });
 
-  /* ═══ 5b · La cordillera se deshace en partículas ═══════════════════
-     Un puñado de puntos que bajan desde el borde superior de la banda y se
-     apagan. Mismo grano que las montañas, para que parezca la misma nieve
-     cayendo. Solo decoración: no ocupa sitio ni tapa nada.
-     ═══════════════════════════════════════════════════════════════════ */
-
-  const makeSpill = (canvas) => {
-    const ctx = canvas.getContext("2d", { alpha: true });
-    if (!ctx) return;
-
-    const SCALE = 0.42;
-    let W = 0, H = 0, img = null, px = null, dots = [];
-    let alive = false, raf = 0, flip = 0;
-    const DOT = (255 << 24) | (238 << 16) | (240 << 8) | 244; // papel sobre la banda oscura
-
-    const size = () => {
-      const rect = canvas.getBoundingClientRect();
-      const w = Math.max(1, Math.round(rect.width * SCALE));
-      const h = Math.max(1, Math.round(rect.height * SCALE));
-      if (w === W && h === H) return;
-      W = w; H = h;
-      canvas.width = W; canvas.height = H;
-      img = ctx.createImageData(W, H);
-      px = new Uint32Array(img.data.buffer);
-
-      const n = Math.round(clamp(W * 0.55, 40, 190));
-      dots = [];
-      for (let i = 0; i < n; i++) {
-        dots.push({
-          x: Math.random() * W,
-          y: Math.random() * H,
-          vx: (Math.random() - 0.5) * 0.09,
-          vy: 0.05 + Math.random() * 0.18,
-          // umbral fijo por partícula: se apaga de golpe en vez de parpadear
-          thr: Math.random() * 0.85
-        });
-      }
-    };
-
-    const draw = () => {
-      px.fill(0);
-      for (const d of dots) {
-        d.x += d.vx;
-        d.y += d.vy;
-        if (d.y >= H || d.x < -2 || d.x > W + 2) {
-          d.y = -1;
-          d.x = Math.random() * W;
-        }
-        // más densas arriba, apagándose hacia abajo
-        const a = 1 - d.y / H;
-        if (a <= d.thr) continue;
-        const xi = d.x | 0, yi = d.y | 0;
-        if (xi < 0 || xi >= W || yi < 0 || yi >= H) continue;
-        px[yi * W + xi] = DOT;
-      }
-      ctx.putImageData(img, 0, 0);
-    };
-
-    const loop = () => {
-      raf = 0;
-      if ((flip ^= 1)) draw();
-      if (alive) raf = requestAnimationFrame(loop);
-    };
-    const start = () => {
-      if (alive || quiet.matches) return;
-      alive = true;
-      if (!raf) raf = requestAnimationFrame(loop);
-    };
-    const stop = () => {
-      alive = false;
-      if (raf) cancelAnimationFrame(raf);
-      raf = 0;
-    };
-
-    size();
-    draw();
-    new ResizeObserver(() => { size(); if (!alive) draw(); }).observe(canvas);
-    new IntersectionObserver((e) => (e[0].isIntersecting ? start() : stop())).observe(canvas);
-    document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
-  };
-
-  const spill = document.getElementById("spill");
-  if (spill) makeSpill(spill);
-
-  /* ═══ 6 · Cintas 3D de fondo ═════════════════════════════════════════ */
+    /* ═══ 6 · Cintas 3D de fondo ═════════════════════════════════════════ */
 
   const makeRibbons = (canvas) => {
     const ctx = canvas.getContext('2d', { alpha: true });

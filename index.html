@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>QP Studio — Tu negocio ya es bueno. También debería parecerlo.</title>
-<meta name="description" content="Estudio digital independiente dirigido por Quique Planelles. Diseñamos y desarrollamos la web de negocios que valen más de lo que aparentan en internet." />
+<title>QP Studio — Diseño y desarrollo web para negocios</title>
+<meta name="description" content="Estudio digital independiente dirigido por Quique Planelles. Diseño web, rediseño, tiendas online y automatización para negocios de cualquier sector." />
 <meta name="theme-color" content="#f7f8fa" />
-<meta property="og:title" content="QP Studio — Tu negocio ya es bueno. También debería parecerlo." />
-<meta property="og:description" content="Webs que se ven como es tu negocio. Diseño, código y atención directa." />
+<meta property="og:title" content="QP Studio — Diseño y desarrollo web para negocios" />
+<meta property="og:description" content="Haz que tu web refleje el valor real de tu negocio." />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="es_ES" />
 <link rel="icon" href="img/logo.png" />
@@ -31,30 +31,19 @@
   <div class="shell nav__inner">
 
     <a class="brand brand--mark-only" href="#hero" aria-label="QP Studio, inicio">
-      <img class="brand__mark" src="img/logo.png" alt="" width="36" height="36"
-           onerror="this.closest('.brand').classList.add('no-logo'); this.remove();" />
-      <svg class="brand__fallback" viewBox="0 0 40 40" aria-hidden="true">
-        <defs>
-          <linearGradient id="qpg" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#9dbcff" /><stop offset=".36" stop-color="#1f6bff" />
-            <stop offset=".68" stop-color="#12306e" /><stop offset="1" stop-color="#86adff" />
-          </linearGradient>
-        </defs>
-        <path d="M17 4A12 12 0 0 0 5 16v8a12 12 0 0 0 12 12h3v-6.5h-3a5.5 5.5 0 0 1-5.5-5.5v-8A5.5 5.5 0 0 1 17 10.5h1.5V4z" fill="url(#qpg)" />
-        <path d="M22 10v26h6.5v-7.5H33a9.25 9.25 0 0 0 0-18.5zm6.5 6.5H33a2.75 2.75 0 0 1 0 5.5h-4.5z" fill="url(#qpg)" />
-      </svg>
+      <img class="brand__mark" src="img/logo.png" alt="QP Studio" width="40" height="40" />
     </a>
 
     <nav class="nav__links" id="menu" aria-label="Secciones">
-      <a href="#trabajo"><span>Trabajo</span></a>
-      <a href="#servicios"><span>Servicios</span></a>
-      <a href="#demo"><span>Antes y después</span></a>
-      <a href="#tuya"><span>Tuya</span></a>
-      <a href="#estudio"><span>Estudio</span></a>
+      <a href="#hero"><span>Inicio</span></a>
+      <a href="servicios.html"><span>Servicios</span></a>
+      <a href="proceso.html"><span>Antes y después</span></a>
+      <a href="gestion.html"><span>Gestión</span></a>
+      <a href="contacto.html"><span>Contacto</span></a>
     </nav>
 
     <div class="nav__end">
-      <a class="btn btn--blue btn--sm magnet" href="#hablemos"><span>Hablemos</span></a>
+      <a class="btn btn--blue btn--sm magnet" href="contacto.html"><span>Solicitar propuesta</span></a>
       <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
         <span></span><span></span>
       </button>
@@ -71,28 +60,27 @@
     <p class="kicker kicker--sub" data-reveal data-reveal-d="1">dirigido por Quique Planelles</p>
 
     <h1 class="hero__title">
-      <span class="line"><span data-reveal data-reveal-d="2">Tu negocio ya es bueno.</span></span>
-      <span class="line"><span class="soft" data-reveal data-reveal-d="3">También debería parecerlo.</span></span>
+      <span class="line"><span data-reveal data-reveal-d="2">Haz que tu web refleje</span></span>
+      <span class="line"><span class="soft" data-reveal data-reveal-d="3">el valor real de tu negocio.</span></span>
     </h1>
 
     <p class="hero__sub" data-reveal data-reveal-d="5">
-      Diseñamos y desarrollamos la web de negocios que valen más de lo que
-      aparentan en internet.
+      Diseño, desarrollo y mantenimiento web para negocios de cualquier sector.
+      Desde proyectos sencillos y directos hasta desarrollos con integraciones a
+      medida.
     </p>
 
     <div class="hero__cta" data-reveal data-reveal-d="6">
-      <a class="btn btn--blue magnet" href="#hablemos"><span>Quiero mejorar mi web</span></a>
-      <a class="btn btn--ghost magnet" href="#demo"><span>Ver la diferencia</span></a>
+      <a class="btn btn--blue magnet" href="contacto.html"><span>Solicitar propuesta</span></a>
+      <a class="btn btn--ghost magnet" href="servicios.html"><span>Ver servicios</span></a>
     </div>
   </div>
 
   <canvas class="ridges ridges--hero" id="ridges-hero" aria-hidden="true"></canvas>
 </section>
 
-<!-- ══ EL COSTE · banda a sangre, foto y frase directa ══════════════════ -->
-<section class="band" id="coste">
-  <canvas class="spill" id="spill" aria-hidden="true"></canvas>
-
+<!-- ══ LA PRIMERA IMPRESIÓN ═════════════════════════════════════════════ -->
+<section class="band" id="impresion">
   <div class="band__media" aria-hidden="true">
     <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=70"
          alt="" width="1800" height="1200" loading="lazy" decoding="async" />
@@ -100,36 +88,32 @@
 
   <div class="shell band__in">
     <h2 class="h2 h2--inv band__title" data-reveal>
-      Si tu web parece vieja,<br /><span class="soft">tu negocio también.</span>
+      Tu web es la primera reunión.<br /><span class="soft">Y decide más de lo que parece.</span>
     </h2>
 
     <p class="band__lead" data-reveal data-reveal-d="1">
-      Nadie contrata a ciegas. Antes de descolgar el teléfono te miran, te
-      comparan y deciden. Casi siempre pierdes ahí, y casi nunca te enteras.
+      Tanto si partes de cero como si arrastras una web antigua, el resultado se
+      juzga igual: en los primeros segundos y sin que nadie te explique por qué.
     </p>
 
     <ul class="band__points">
       <li data-reveal data-reveal-d="2">
-        <b>Te buscan antes de llamarte</b>
-        <span>Escriben tu nombre en Google y lo primero que ven es tu web, no tu trabajo.</span>
+        <b>Te buscan antes de contactarte</b>
+        <span>Escriben el nombre de tu negocio y lo primero que encuentran es tu web, no tu trabajo.</span>
       </li>
       <li data-reveal data-reveal-d="3">
-        <b>Deciden en cinco segundos</b>
-        <span>Si no entienden qué haces ni ven cómo contactarte, cierran y prueban con el siguiente.</span>
+        <b>Deciden en segundos</b>
+        <span>Si no entienden qué haces ni cómo contactar, cierran y siguen con el siguiente resultado.</span>
       </li>
       <li data-reveal data-reveal-d="4">
-        <b>Nunca te dicen por qué</b>
-        <span>No hay queja ni aviso. Solo un teléfono que suena menos de lo que debería.</span>
+        <b>Nunca sabrás el motivo</b>
+        <span>No hay queja ni aviso. Solo un volumen de contactos por debajo de lo que el negocio merece.</span>
       </li>
     </ul>
-
-    <p class="band__foot" data-reveal data-reveal-d="5">
-      La buena noticia: esto se arregla en semanas, no en años.
-    </p>
   </div>
 </section>
 
-<!-- ══ NUESTRO TRABAJO · webs en órbita ═════════════════════════════════ -->
+<!-- ══ TRABAJO · webs en órbita ═════════════════════════════════════════ -->
 <section class="orbit" id="trabajo">
   <svg class="orbit__links" id="orbit-links" aria-hidden="true"></svg>
 
@@ -152,7 +136,7 @@
           <b>Marta Ruiz</b><u>Reservar sesión</u>
         </div>
       </div>
-      <p class="wcard__cap">Fotógrafa</p>
+      <p class="wcard__cap">Fotografía</p>
     </article>
 
     <article class="wcard">
@@ -165,7 +149,7 @@
           <i style="--img:url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=200&q=60')"></i>
         </div>
       </div>
-      <p class="wcard__cap">Tienda online</p>
+      <p class="wcard__cap">Comercio electrónico</p>
     </article>
 
     <article class="wcard">
@@ -175,7 +159,7 @@
           <b>Talleres Ribera</b><u>Pedir cita</u>
         </div>
       </div>
-      <p class="wcard__cap">Taller</p>
+      <p class="wcard__cap">Automoción</p>
     </article>
 
     <article class="wcard">
@@ -185,7 +169,7 @@
           <b>Asesoría Vera</b><u>Pedir cita</u>
         </div>
       </div>
-      <p class="wcard__cap">Asesoría</p>
+      <p class="wcard__cap">Servicios profesionales</p>
     </article>
 
     <article class="wcard">
@@ -196,7 +180,7 @@
           <span class="cta-pill cta-pill--blue"></span>
         </div>
       </div>
-      <p class="wcard__cap">Gimnasio</p>
+      <p class="wcard__cap">Centro deportivo</p>
     </article>
 
     <article class="wcard">
@@ -206,7 +190,7 @@
           <b>Casa Lloret</b><u>Ver la carta</u>
         </div>
       </div>
-      <p class="wcard__cap">Restaurante</p>
+      <p class="wcard__cap">Hostelería</p>
     </article>
 
     <article class="wcard">
@@ -222,18 +206,27 @@
 
     <div class="orbit__core">
       <h2 class="h2" data-reveal>Nuestro trabajo</h2>
-      <p data-reveal data-reveal-d="1">Diseñamos y desarrollamos cada proyecto a medida: arquitectura, contenidos, rendimiento e integraciones. Sin plantillas adaptadas ni funciones a medio terminar.</p>
-      <a class="btn btn--blue magnet" href="#hablemos" data-reveal data-reveal-d="2"><span>Quiero la mía</span></a>
+      <p data-reveal data-reveal-d="1">
+        Diseñamos y desarrollamos cada proyecto a medida: arquitectura,
+        contenidos, rendimiento e integraciones. Sin plantillas adaptadas ni
+        funciones a medio terminar.
+      </p>
+      <a class="btn btn--blue magnet" href="proceso.html" data-reveal data-reveal-d="2"><span>Ver un caso completo</span></a>
     </div>
   </div>
 </section>
 
-<!-- ══ NUESTROS SERVICIOS · fondo de cintas 3D ══════════════════════════ -->
+<!-- ══ SERVICIOS ════════════════════════════════════════════════════════ -->
 <section class="sec sec--serv" id="servicios">
   <canvas class="ribbons" id="ribbons-serv" aria-hidden="true"></canvas>
 
   <div class="shell sec--serv__in">
     <h2 class="h2 h2--inv" data-reveal>Nuestros servicios</h2>
+    <p class="serv__intro" data-reveal data-reveal-d="1">
+      Trabajamos con negocios de cualquier sector y tamaño. Ajustamos el nivel de
+      sofisticación a cada caso: desde presencias sencillas y directas hasta
+      desarrollos complejos con integraciones a medida.
+    </p>
 
     <ul class="servs">
       <li class="serv" data-reveal>
@@ -248,15 +241,17 @@
       </li>
       <li class="serv" data-reveal data-reveal-d="2">
         <span class="serv__n">03</span>
-        <h3>Tiendas online</h3>
+        <h3>Comercio electrónico</h3>
         <p>Catálogo, ficha de producto y proceso de compra optimizados para reducir el abandono y sostener el ticket medio.</p>
       </li>
       <li class="serv" data-reveal data-reveal-d="3">
         <span class="serv__n">04</span>
-        <h3>Automatización e IA</h3>
+        <h3>Automatización e integraciones</h3>
         <p>Conectamos formularios, avisos y herramientas internas para que la web opere sin intervención manual.</p>
       </li>
     </ul>
+
+    <a class="btn btn--light magnet serv__more" href="servicios.html" data-reveal><span>Ver el detalle y los presupuestos</span></a>
   </div>
 </section>
 
@@ -264,7 +259,7 @@
 <section class="sec sec--demo" id="demo">
   <div class="shell">
     <h2 class="h2 demo__head" data-reveal>Antes y después</h2>
-    <p class="demo__sub" data-reveal data-reveal-d="1">El mismo taller. Arrastra para ver la diferencia.</p>
+    <p class="demo__sub" data-reveal data-reveal-d="1">Un taller mecánico real. Arrastra para comparar.</p>
 
     <div class="ba" id="ba" data-reveal data-reveal-d="2">
       <div class="ba__frame">
@@ -272,14 +267,11 @@
         <p class="sr-only" id="ba__sr">
           Comparación de dos versiones de la web de un taller mecánico. La
           antigua, de 2013: fondo gris, tipografía con serifa, un titular que
-          dice «bienvenidos a nuestra web», dos párrafos genéricos sin decir qué
-          hacen y un botón que solo dice «click aquí». La nueva: una foto grande
-          del taller, el titular «mecánica de precisión desde 1994», un botón de
-          «pedir cita en 30 segundos» y tres datos de confianza, treinta años
-          abiertos, 4,9 en Google y 1.200 revisiones al año.
+          dice «bienvenidos a nuestra web» y dos párrafos genéricos. La nueva:
+          una fotografía grande del taller, el titular «mecánica de precisión
+          desde 1994» y un botón para pedir cita.
         </p>
 
-        <!-- DESPUÉS: hero real de taller, sin una gota de azul -->
         <div class="ba__pane ba__pane--new" aria-hidden="true">
           <div class="shop">
             <img class="shop__bg" src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=1400&q=70"
@@ -292,16 +284,15 @@
             <div class="shop__hero">
               <p class="shop__kick">Mecánica multimarca · Desde 1994</p>
               <h4>Mecánica de precisión<br />desde 1994.</h4>
-              <p class="shop__lead">Diagnóstico por escrito, presupuesto cerrado y el coche listo el día que dijimos.</p>
+              <p class="shop__lead">Diagnóstico por escrito, presupuesto cerrado y el vehículo listo en la fecha acordada.</p>
               <div class="shop__ctas">
-                <span class="shop__btn shop__btn--big">Pedir cita en 30 s</span>
+                <span class="shop__btn shop__btn--big">Pedir cita</span>
                 <span class="shop__link">Ver servicios</span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- ANTES: 2013 -->
         <div class="ba__pane ba__pane--old" aria-hidden="true">
           <div class="fakeold">
             <div class="fakeold__top">
@@ -329,32 +320,36 @@
         <span class="ba__tag ba__tag--old">Antes</span>
         <span class="ba__tag ba__tag--new">Después</span>
       </div>
+
+      <a class="btn btn--ghost magnet demo__more" href="proceso.html"><span>Ver el proceso completo</span></a>
     </div>
   </div>
 </section>
 
-<!-- ══ TUYA DE VERDAD · fondo de cintas 3D ══════════════════════════════ -->
-<section class="sec sec--tuya" id="tuya">
+<!-- ══ GESTIÓN ══════════════════════════════════════════════════════════ -->
+<section class="sec sec--tuya" id="gestion">
   <canvas class="ribbons" id="ribbons-tuya" aria-hidden="true"></canvas>
 
   <div class="shell tuya">
     <div class="tuya__copy">
-      <h2 class="h2 h2--inv" data-reveal>Y luego la manejas tú</h2>
+      <h2 class="h2 h2--inv" data-reveal>La web la gestionas tú</h2>
 
       <ul class="tuya__list">
         <li data-reveal data-reveal-d="1">
-          <b>Cambias lo que quieras</b>
-          <span>Precios, horarios y fotos. Sin llamar a nadie.</span>
+          <b>Contenidos editables</b>
+          <span>Precios, horarios, textos e imágenes se actualizan desde un panel, sin depender de nadie.</span>
         </li>
         <li data-reveal data-reveal-d="2">
           <b>Botones funcionales con backend real</b>
-          <span>Reservas, pagos y formularios que llegan a tu correo de verdad.</span>
+          <span>Reservas, pagos y formularios conectados a tu correo y a tus herramientas.</span>
         </li>
         <li data-reveal data-reveal-d="3">
-          <b>Atención 24/7</b>
-          <span>Resolvemos tus dudas al momento, cualquier día y a cualquier hora.</span>
+          <b>Soporte 24/7</b>
+          <span>Resolvemos dudas e incidencias en cualquier momento, cualquier día del año.</span>
         </li>
       </ul>
+
+      <a class="btn btn--light magnet tuya__more" href="gestion.html" data-reveal data-reveal-d="4"><span>Cómo funciona el acompañamiento</span></a>
     </div>
 
     <div class="editor" data-reveal data-reveal-d="2" aria-hidden="true">
@@ -387,9 +382,7 @@
   <div class="shell me">
     <figure class="me__shot" data-reveal>
       <span class="me__frame">
-        <img src="img/quique.jpg" alt="Quique Planelles, fundador de QP Studio" width="640" height="800"
-             onerror="this.closest('.me__frame').classList.add('is-empty'); this.remove();" />
-        <span class="me__mono" aria-hidden="true">QP</span>
+        <img src="img/quique.jpg" alt="Quique Planelles, fundador de QP Studio" width="720" height="900" loading="lazy" decoding="async" />
       </span>
       <figcaption>Quique Planelles · Fundador</figcaption>
     </figure>
@@ -411,6 +404,40 @@
   </div>
 </section>
 
+<!-- ══ PREGUNTAS FRECUENTES ═════════════════════════════════════════════ -->
+<section class="sec sec--faq" id="faq">
+  <div class="shell">
+    <h2 class="h2 faq__head" data-reveal>Preguntas frecuentes</h2>
+
+    <div class="faq">
+      <details class="faq__item" data-reveal>
+        <summary>¿Cuánto cuesta una web?</summary>
+        <p>Depende del alcance. Tras la primera conversación entregamos un presupuesto cerrado que no varía salvo que cambies tú los requisitos. En la página de servicios detallamos qué incluye cada tipo de proyecto.</p>
+      </details>
+      <details class="faq__item" data-reveal data-reveal-d="1">
+        <summary>¿Cuánto se tarda en tenerla lista?</summary>
+        <p>Entre dos y seis semanas según el proyecto. La fecha se fija en la propuesta y se cumple, salvo que dependamos de contenidos que tengas que enviarnos tú.</p>
+      </details>
+      <details class="faq__item" data-reveal data-reveal-d="2">
+        <summary>¿Trabajáis con cualquier tipo de negocio?</summary>
+        <p>Sí. Adaptamos el nivel de sofisticación a cada caso: hay negocios que necesitan una presencia sencilla, clara y rápida, y otros que requieren catálogo, reservas o integraciones con sus propias herramientas. Ninguna de las dos opciones es peor que la otra.</p>
+      </details>
+      <details class="faq__item" data-reveal data-reveal-d="3">
+        <summary>¿Podré modificar la web yo mismo?</summary>
+        <p>Sí. La web se entrega con un panel de administración para actualizar textos, precios, horarios e imágenes sin tocar código, y con una sesión de formación grabada.</p>
+      </details>
+      <details class="faq__item" data-reveal data-reveal-d="4">
+        <summary>¿Qué ocurre después de la entrega?</summary>
+        <p>Seguimos disponibles. Ofrecemos mantenimiento, cambios puntuales y soporte con respuesta el mismo día. La relación no termina el día que la web se publica.</p>
+      </details>
+      <details class="faq__item" data-reveal data-reveal-d="5">
+        <summary>Ya tengo una web. ¿Merece la pena rehacerla?</summary>
+        <p>Primero la auditamos y te decimos con sinceridad si compensa. Cuando compensa, conservamos el posicionamiento ganado y los contenidos que funcionan, y rehacemos solo lo que está limitando los resultados.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
 <!-- ══ FINAL · el ordenador ═════════════════════════════════════════════ -->
 <section class="finale" id="hablemos">
   <div class="finale__rail">
@@ -422,13 +449,14 @@
             <div class="mac__screen">
               <span class="mac__cam"></span>
               <div class="mac__ui">
-              <b>Cuéntame tu negocio<br />en dos líneas.</b>
-              <span class="mac__row"><i></i><i></i></span>
-              <span class="mac__inp mac__inp--tall"></span>
-              <span class="mac__cta">Enviar y hablamos</span>
-            </div>
+                <b>Hablemos de<br />tu proyecto.</b>
+                <span class="mac__row"><i></i><i></i></span>
+                <span class="mac__inp mac__inp--tall"></span>
+                <span class="mac__cta">Enviar solicitud</span>
+              </div>
               <span class="mac__glare"></span>
             </div>
+            <div class="mac__back"><img src="img/logo.png" alt="" width="40" height="40" /></div>
           </div>
           <div class="mac__base">
             <span class="mac__hinge"></span>
@@ -440,29 +468,29 @@
 
       <div class="finale__panel">
         <div class="shell finale__in">
-          <h2 class="finale__title">Cuéntame tu negocio<br /><span class="soft">en dos líneas.</span></h2>
+          <h2 class="finale__title">Hablemos de tu proyecto.<br /><span class="soft">Respondemos en menos de 24 horas.</span></h2>
 
           <form class="form" id="form" novalidate>
             <div class="form__row">
               <div class="field">
-                <label for="f-name">Cómo te llamas</label>
-                <input id="f-name" name="nombre" type="text" autocomplete="name" required placeholder="Nombre y apellido" />
+                <label for="f-name">Nombre</label>
+                <input id="f-name" name="nombre" type="text" autocomplete="name" required placeholder="Nombre y apellidos" />
               </div>
               <div class="field">
                 <label for="f-mail">Email</label>
-                <input id="f-mail" name="email" type="email" autocomplete="email" required placeholder="tu@correo.com" />
+                <input id="f-mail" name="email" type="email" autocomplete="email" required placeholder="nombre@empresa.com" />
               </div>
             </div>
             <div class="field">
-              <label for="f-msg">Tu negocio y qué quieres cambiar</label>
-              <textarea id="f-msg" name="mensaje" rows="2" required placeholder="Talleres Ribera, talleresribera.com. La web es de 2013."></textarea>
+              <label for="f-msg">Tu negocio y qué necesitas</label>
+              <textarea id="f-msg" name="mensaje" rows="2" required placeholder="Taller mecánico en Alicante. Web de 2013, queremos rehacerla y añadir cita online."></textarea>
             </div>
 
-            <button class="btn btn--blue btn--full magnet" type="submit"><span>Enviar y hablamos</span></button>
+            <button class="btn btn--blue btn--full magnet" type="submit"><span>Enviar solicitud</span></button>
 
             <p class="form__alt">
-              O más rápido:
-              <a href="https://wa.me/34600000000?text=Hola%20Quique%2C%20me%20gustar%C3%ADa%20mejorar%20la%20web%20de%20mi%20negocio" target="_blank" rel="noopener">escríbeme por WhatsApp</a>
+              También por
+              <a href="https://wa.me/34600000000?text=Hola%2C%20me%20gustar%C3%ADa%20una%20propuesta%20para%20la%20web%20de%20mi%20negocio" target="_blank" rel="noopener">WhatsApp</a>
             </p>
             <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
           </form>
@@ -477,25 +505,60 @@
 
 <!-- ══ FOOTER ═══════════════════════════════════════════════════════════ -->
 <footer class="foot">
-  <div class="shell foot__inner">
-    <a class="brand brand--mark-only" href="#hero" aria-label="QP Studio, inicio">
-      <img class="brand__mark" src="img/logo.png" alt="" width="36" height="36"
-           onerror="this.closest('.brand').classList.add('no-logo'); this.remove();" />
-      <svg class="brand__fallback" viewBox="0 0 40 40" aria-hidden="true">
-        <path d="M17 4A12 12 0 0 0 5 16v8a12 12 0 0 0 12 12h3v-6.5h-3a5.5 5.5 0 0 1-5.5-5.5v-8A5.5 5.5 0 0 1 17 10.5h1.5V4z" fill="currentColor" />
-        <path d="M22 10v26h6.5v-7.5H33a9.25 9.25 0 0 0 0-18.5zm6.5 6.5H33a2.75 2.75 0 0 1 0 5.5h-4.5z" fill="currentColor" />
-      </svg>
-    </a>
+  <div class="shell">
+    <div class="foot__grid">
 
-    <nav class="foot__links" aria-label="Pie">
-      <a href="#trabajo">Trabajo</a>
-      <a href="#servicios">Servicios</a>
-      <a href="#tuya">Tuya</a>
-      <a href="mailto:hola@qpstudio.es">hola@qpstudio.es</a>
-      <a href="https://wa.me/34600000000" target="_blank" rel="noopener">WhatsApp</a>
-    </nav>
+      <div class="foot__brand">
+        <a class="brand brand--mark-only" href="#hero" aria-label="QP Studio, inicio">
+          <img class="brand__mark" src="img/logo.png" alt="QP Studio" width="48" height="48" />
+        </a>
+        <p>QP Studio. Diseño, desarrollo y mantenimiento web para negocios de cualquier sector.</p>
+        <div class="foot__social">
+          <a href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0zM.5 8h4V24h-4zM8 8h3.8v2.2h.06c.53-1 1.83-2.2 3.77-2.2C19.6 8 21 10.3 21 14.1V24h-4v-8.9c0-2.1-.04-4.8-3-4.8s-3.4 2.3-3.4 4.65V24H8z"/></svg>
+          </a>
+          <a href="mailto:hola@qpstudio.es" aria-label="Correo electrónico">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5zM4.4 6 12 11.7 19.6 6zM20 7.9l-7.4 5.6a1 1 0 0 1-1.2 0L4 7.9V18h16z"/></svg>
+          </a>
+        </div>
+      </div>
 
-    <p class="foot__end">© <span id="year">2026</span> QP Studio · Dirigido por Quique Planelles</p>
+      <nav class="foot__col" aria-label="Navegación">
+        <h3>Navegación</h3>
+        <a href="#hero">Inicio</a>
+        <a href="servicios.html">Servicios</a>
+        <a href="proceso.html">Antes y después</a>
+        <a href="gestion.html">Gestión</a>
+        <a href="contacto.html">Contacto</a>
+      </nav>
+
+      <nav class="foot__col" aria-label="Servicios">
+        <h3>Servicios</h3>
+        <a href="servicios.html#diseno">Diseño web</a>
+        <a href="servicios.html#rediseno">Rediseño web</a>
+        <a href="servicios.html#ecommerce">Comercio electrónico</a>
+        <a href="servicios.html#automatizacion">Automatización</a>
+      </nav>
+
+      <nav class="foot__col" aria-label="Legal">
+        <h3>Legal</h3>
+        <a href="aviso-legal.html">Aviso legal</a>
+        <a href="privacidad.html">Política de privacidad</a>
+        <a href="cookies.html">Política de cookies</a>
+        <a href="mailto:hola@qpstudio.es">hola@qpstudio.es</a>
+      </nav>
+
+    </div>
+
+    <div class="foot__end">
+      <p>© <span id="year">2026</span> QP Studio. Todos los derechos reservados.</p>
+      <nav class="foot__mini" aria-label="Legal y administración">
+        <a href="aviso-legal.html">Aviso legal</a>
+        <a href="privacidad.html">Privacidad</a>
+        <a href="cookies.html">Cookies</a>
+        <a href="admin.html">Admin</a>
+      </nav>
+    </div>
   </div>
 </footer>
 
