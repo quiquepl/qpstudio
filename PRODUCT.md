@@ -1,4 +1,4 @@
-# PRODUCT.md — Planelles Studio
+# PRODUCT.md — QP Studio
 
 register: brand
 

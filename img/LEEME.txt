@@ -1,9 +1,10 @@
 Aquí van dos archivos:
 
-1. logo.png  — el logo GP, PNG con fondo transparente, 512x512 o mayor.
+1. logo.png  — el logo QP en cromado, PNG con fondo transparente, 512x512 o mayor.
 2. quique.jpg — tu retrato.
 
-Sin logo.png el wordmark usa un SVG de repuesto: funciona, pero no es tu marca.
+Sin logo.png el wordmark usa un monograma QP en SVG con el degradado azul:
+funciona y queda decente, pero no es el cromado de tu logo.
 
 Retrato con el nombre exacto: quique.jpg
 

@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Planelles Studio — Tu negocio ya es bueno. También debería parecerlo.</title>
-<meta name="description" content="Estudio digital independiente. Diseñamos y desarrollamos la web de negocios que valen más de lo que aparentan en internet." />
-<meta name="theme-color" content="#0b0d12" />
-<meta property="og:title" content="Planelles Studio — Tu negocio ya es bueno. También debería parecerlo." />
-<meta property="og:description" content="Webs que se ven como es tu negocio. Diseño, código y acompañamiento de una sola persona." />
+<title>QP Studio — Tu negocio ya es bueno. También debería parecerlo.</title>
+<meta name="description" content="Estudio digital independiente dirigido por Quique Planelles. Diseñamos y desarrollamos la web de negocios que valen más de lo que aparentan en internet." />
+<meta name="theme-color" content="#f7f8fa" />
+<meta property="og:title" content="QP Studio — Tu negocio ya es bueno. También debería parecerlo." />
+<meta property="og:description" content="Webs que se ven como es tu negocio. Diseño, código y atención directa." />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="es_ES" />
 <link rel="icon" href="img/logo.png" />
@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Geist:wght@400;500;600&family=Libre+Caslon+Text:ital@0;1&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Geist:wght@400;500;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="css/styles.css" />
 <link rel="stylesheet" href="css/sections.css" />
 
@@ -30,21 +30,26 @@
   <div class="nav__rail" aria-hidden="true"><span class="nav__rail-fill"></span></div>
   <div class="shell nav__inner">
 
-    <a class="brand" href="#hero" aria-label="Planelles Studio, inicio">
-      <img class="brand__mark" src="img/logo.png" alt="" width="34" height="34"
+    <a class="brand" href="#hero" aria-label="QP Studio, inicio">
+      <img class="brand__mark" src="img/logo.png" alt="" width="36" height="36"
            onerror="this.closest('.brand').classList.add('no-logo'); this.remove();" />
-      <svg class="brand__fallback" viewBox="0 0 32 32" aria-hidden="true">
-        <rect x="1.25" y="1.25" width="29.5" height="29.5" rx="9" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".2" />
-        <rect x="7" y="16" width="7.5" height="7.5" rx="2.4" fill="currentColor" opacity=".35" />
-        <rect x="17.5" y="8" width="7.5" height="7.5" rx="2.4" fill="currentColor" />
+      <svg class="brand__fallback" viewBox="0 0 40 40" aria-hidden="true">
+        <defs>
+          <linearGradient id="qpg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#9dbcff" /><stop offset=".36" stop-color="#1f6bff" />
+            <stop offset=".68" stop-color="#12306e" /><stop offset="1" stop-color="#86adff" />
+          </linearGradient>
+        </defs>
+        <path d="M17 4A12 12 0 0 0 5 16v8a12 12 0 0 0 12 12h3v-6.5h-3a5.5 5.5 0 0 1-5.5-5.5v-8A5.5 5.5 0 0 1 17 10.5h1.5V4z" fill="url(#qpg)" />
+        <path d="M22 10v26h6.5v-7.5H33a9.25 9.25 0 0 0 0-18.5zm6.5 6.5H33a2.75 2.75 0 0 1 0 5.5h-4.5z" fill="url(#qpg)" />
       </svg>
-      <span class="brand__text"><b>Planelles</b><i>Studio</i></span>
+      <span class="brand__text"><b>QP</b><i>Studio</i></span>
     </a>
 
     <nav class="nav__links" id="menu" aria-label="Secciones">
       <a href="#trabajo"><span>Trabajo</span></a>
       <a href="#servicios"><span>Servicios</span></a>
-      <a href="#demo"><span>Antes / Después</span></a>
+      <a href="#demo"><span>Antes y después</span></a>
       <a href="#tuya"><span>Tuya</span></a>
       <a href="#estudio"><span>Estudio</span></a>
     </nav>
@@ -64,18 +69,19 @@
 <section class="hero" id="hero">
   <div class="shell hero__copy">
     <p class="kicker" data-reveal>Estudio digital independiente</p>
+    <p class="kicker kicker--sub" data-reveal data-reveal-d="1">dirigido por Quique Planelles</p>
 
     <h1 class="hero__title">
-      <span class="line"><span data-reveal data-reveal-d="1">Tu negocio ya es bueno.</span></span>
-      <span class="line"><span class="soft" data-reveal data-reveal-d="2">También debería parecerlo.</span></span>
+      <span class="line"><span data-reveal data-reveal-d="2">Tu negocio ya es bueno.</span></span>
+      <span class="line"><span class="soft" data-reveal data-reveal-d="3">También debería parecerlo.</span></span>
     </h1>
 
-    <p class="hero__sub" data-reveal data-reveal-d="4">
+    <p class="hero__sub" data-reveal data-reveal-d="5">
       Diseñamos y desarrollamos la web de negocios que valen más de lo que
       aparentan en internet.
     </p>
 
-    <div class="hero__cta" data-reveal data-reveal-d="5">
+    <div class="hero__cta" data-reveal data-reveal-d="6">
       <a class="btn btn--blue magnet" href="#hablemos"><span>Quiero mejorar mi web</span></a>
       <a class="btn btn--ghost magnet" href="#demo"><span>Ver la diferencia</span></a>
     </div>
@@ -84,49 +90,33 @@
   <canvas class="ridges ridges--hero" id="ridges-hero" aria-hidden="true"></canvas>
 </section>
 
-<!-- ══ EL COSTE ═════════════════════════════════════════════════════════ -->
-<section class="sec sec--cost" id="coste">
-  <div class="shell">
-    <h2 class="h2 cost__head" data-reveal>Pierdes clientes<br /><span class="soft">sin enterarte.</span></h2>
+<!-- ══ EL COSTE · banda a sangre, foto y frase directa ══════════════════ -->
+<section class="band" id="coste">
+  <div class="band__media" aria-hidden="true">
+    <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=70"
+         alt="" width="1800" height="1200" loading="lazy" decoding="async" />
+  </div>
 
-    <div class="costs">
-      <article class="cost" data-reveal>
-        <div class="cost__art cost__art--clock" aria-hidden="true">
-          <span class="ring"><i></i></span>
-          <b>5s</b>
-        </div>
-        <h3>No se entiende</h3>
-        <p>Cinco segundos para saber qué haces. Si no, cierra.</p>
-      </article>
+  <div class="shell band__in">
+    <h2 class="h2 h2--inv band__title" data-reveal>
+      Si tu web parece vieja,<br /><span class="soft">tu negocio también.</span>
+    </h2>
 
-      <article class="cost" data-reveal data-reveal-d="1">
-        <div class="cost__art cost__art--old" aria-hidden="true">
-          <span class="bar bar--1"></span><span class="bar bar--2"></span>
-          <span class="bar bar--3"></span><span class="bar bar--4"></span>
-        </div>
-        <h3>Parece de otra época</h3>
-        <p>Tu negocio mejoró cada año. La web se quedó en 2013.</p>
-      </article>
-
-      <article class="cost" data-reveal data-reveal-d="2">
-        <div class="cost__art cost__art--vs" aria-hidden="true">
-          <span class="pill pill--a"></span>
-          <span class="pill pill--b"></span>
-        </div>
-        <h3>Tu competencia no es mejor</h3>
-        <p>Comunica mejor. Eso se arregla en semanas.</p>
-      </article>
-    </div>
+    <ul class="band__points">
+      <li data-reveal data-reveal-d="1">Te buscan en Google antes de llamarte.</li>
+      <li data-reveal data-reveal-d="2">Deciden en cinco segundos si te toman en serio.</li>
+      <li data-reveal data-reveal-d="3">Y nunca te dicen por qué no llamaron.</li>
+    </ul>
   </div>
 </section>
 
-<!-- ══ CONSTELACIÓN DE WEBS ═════════════════════════════════════════════ -->
+<!-- ══ NUESTRO TRABAJO · webs en órbita ═════════════════════════════════ -->
 <section class="orbit" id="trabajo">
   <svg class="orbit__links" id="orbit-links" aria-hidden="true"></svg>
 
   <div class="orbit__field" id="orbit-field">
 
-    <article class="wcard" style="--x:4%;  --y:6%;  --r:-7deg;  --dur:13s; --d:-1s" data-reveal>
+    <article class="wcard">
       <div class="win">
         <span class="win__bar"><i></i><i></i><i></i></span>
         <div class="win__body win__body--photo" style="--img:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=420&q=60')">
@@ -136,18 +126,17 @@
       <p class="wcard__cap">Arquitectura</p>
     </article>
 
-    <article class="wcard wcard--sm" style="--x:13%; --y:25%; --r:5deg; --dur:11s; --d:-4s" data-reveal data-reveal-d="1">
+    <article class="wcard">
       <div class="win">
         <span class="win__bar"><i></i><i></i><i></i></span>
-        <div class="win__body win__body--ui">
-          <span class="w w-70"></span><span class="w w-40"></span>
-          <span class="cta-pill"></span>
+        <div class="win__body win__body--photo" style="--img:url('https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=420&q=60')">
+          <b>Marta Ruiz</b><u>Reservar sesión</u>
         </div>
       </div>
-      <p class="wcard__cap">Clínica dental</p>
+      <p class="wcard__cap">Fotógrafa</p>
     </article>
 
-    <article class="wcard" style="--x:2%;  --y:58%; --r:6deg;  --dur:15s; --d:-7s" data-reveal data-reveal-d="1">
+    <article class="wcard">
       <div class="win">
         <span class="win__bar"><i></i><i></i><i></i></span>
         <div class="win__body win__body--grid">
@@ -160,28 +149,17 @@
       <p class="wcard__cap">Tienda online</p>
     </article>
 
-    <article class="wcard wcard--sm" style="--x:21%; --y:80%; --r:-5deg; --dur:12s; --d:-2s" data-reveal data-reveal-d="2">
-      <div class="win win--dark">
-        <span class="win__bar"><i></i><i></i><i></i></span>
-        <div class="win__body win__body--dash">
-          <span class="spark"></span>
-          <span class="w w-50"></span>
-        </div>
-      </div>
-      <p class="wcard__cap">Panel de reservas</p>
-    </article>
-
-    <article class="wcard wcard--lg" style="--x:74%; --y:4%;  --r:5deg;  --dur:14s; --d:-5s" data-reveal data-reveal-d="1">
+    <article class="wcard">
       <div class="win">
         <span class="win__bar"><i></i><i></i><i></i></span>
-        <div class="win__body win__body--photo" style="--img:url('https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=420&q=60')">
-          <b>Marta Ruiz</b><u>Reservar sesión</u>
+        <div class="win__body win__body--photo" style="--img:url('https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=420&q=60')">
+          <b>Talleres Ribera</b><u>Pedir cita</u>
         </div>
       </div>
-      <p class="wcard__cap">Fotógrafa</p>
+      <p class="wcard__cap">Taller</p>
     </article>
 
-    <article class="wcard" style="--x:88%; --y:34%; --r:-6deg; --dur:16s; --d:-9s" data-reveal data-reveal-d="2">
+    <article class="wcard">
       <div class="win">
         <span class="win__bar"><i></i><i></i><i></i></span>
         <div class="win__body win__body--photo" style="--img:url('https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=420&q=60')">
@@ -191,7 +169,7 @@
       <p class="wcard__cap">Asesoría</p>
     </article>
 
-    <article class="wcard wcard--sm" style="--x:77%; --y:64%; --r:7deg;  --dur:10s; --d:-3s" data-reveal data-reveal-d="2">
+    <article class="wcard">
       <div class="win win--dark">
         <span class="win__bar"><i></i><i></i><i></i></span>
         <div class="win__body win__body--ui">
@@ -202,7 +180,7 @@
       <p class="wcard__cap">Gimnasio</p>
     </article>
 
-    <article class="wcard" style="--x:86%; --y:82%; --r:-4deg; --dur:13s; --d:-6s" data-reveal data-reveal-d="3">
+    <article class="wcard">
       <div class="win">
         <span class="win__bar"><i></i><i></i><i></i></span>
         <div class="win__body win__body--photo" style="--img:url('https://images.unsplash.com/photo-1493397212122-2b85dda8106b?auto=format&fit=crop&w=420&q=60')">
@@ -212,20 +190,31 @@
       <p class="wcard__cap">Restaurante</p>
     </article>
 
+    <article class="wcard">
+      <div class="win win--dark">
+        <span class="win__bar"><i></i><i></i><i></i></span>
+        <div class="win__body win__body--dash">
+          <span class="spark"></span>
+          <span class="w w-50 w-light"></span>
+        </div>
+      </div>
+      <p class="wcard__cap">Panel de reservas</p>
+    </article>
+
     <div class="orbit__core">
-      <h2 class="h2" data-reveal>Así se ve<br /><span class="soft">un negocio bien contado.</span></h2>
-      <p data-reveal data-reveal-d="2">Webs de verdad: con sus botones, sus reservas y sus enlaces funcionando.</p>
-      <a class="btn btn--blue magnet" href="#hablemos" data-reveal data-reveal-d="3"><span>Quiero la mía</span></a>
+      <h2 class="h2" data-reveal>Nuestro trabajo</h2>
+      <p data-reveal data-reveal-d="1">Webs de verdad, con sus botones y sus reservas funcionando.</p>
+      <a class="btn btn--blue magnet" href="#hablemos" data-reveal data-reveal-d="2"><span>Quiero la mía</span></a>
     </div>
   </div>
 </section>
 
-<!-- ══ SERVICIOS · fondo de cintas 3D ═══════════════════════════════════ -->
+<!-- ══ NUESTROS SERVICIOS · fondo de cintas 3D ══════════════════════════ -->
 <section class="sec sec--serv" id="servicios">
   <canvas class="ribbons" id="ribbons-serv" aria-hidden="true"></canvas>
 
   <div class="shell sec--serv__in">
-    <h2 class="h2 h2--inv" data-reveal>Cuatro cosas,<br /><span class="soft">y las cuatro bien.</span></h2>
+    <h2 class="h2 h2--inv" data-reveal>Nuestros servicios</h2>
 
     <ul class="servs">
       <li class="serv" data-reveal>
@@ -252,44 +241,55 @@
   </div>
 </section>
 
-<!-- ══ ANTES / DESPUÉS ══════════════════════════════════════════════════ -->
+<!-- ══ ANTES Y DESPUÉS ══════════════════════════════════════════════════ -->
 <section class="sec sec--demo" id="demo">
   <div class="shell">
-    <h2 class="h2 demo__head" data-reveal>Arrastra.<br /><span class="soft">El mismo negocio, dos impresiones.</span></h2>
+    <h2 class="h2 demo__head" data-reveal>Antes y después</h2>
+    <p class="demo__sub" data-reveal data-reveal-d="1">El mismo taller. Arrastra para ver la diferencia.</p>
 
-    <div class="ba" id="ba" data-reveal data-reveal-d="1">
+    <div class="ba" id="ba" data-reveal data-reveal-d="2">
       <div class="ba__frame">
 
         <p class="sr-only" id="ba__sr">
           Comparación de dos versiones de la web de un taller mecánico. La
           antigua, de 2013: fondo gris, tipografía con serifa, un titular que
           dice «bienvenidos a nuestra web», dos párrafos genéricos sin decir qué
-          hacen y un botón que solo dice «click aquí». La nueva: titular claro
-          «tu coche en manos de quien lo entiende», una frase que explica el
-          servicio, un botón de «pedir cita en 30 segundos» y tres datos de
-          confianza, treinta años abiertos, 4,9 en Google y 1.200 revisiones al
-          año.
+          hacen y un botón que solo dice «click aquí». La nueva: una foto grande
+          del taller, el titular «mecánica de precisión desde 1994», un botón de
+          «pedir cita en 30 segundos» y tres datos de confianza, treinta años
+          abiertos, 4,9 en Google y 1.200 revisiones al año.
         </p>
 
+        <!-- DESPUÉS: hero real de taller, sin una gota de azul -->
         <div class="ba__pane ba__pane--new" aria-hidden="true">
-          <div class="fake fake--new">
-            <div class="fake__nav">
-              <b>Talleres Ribera</b>
-              <u>Servicios</u><u>Taller</u><u>Contacto</u>
-              <span class="fake__btn">Pedir cita</span>
+          <div class="shop">
+            <img class="shop__bg" src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=1400&q=70"
+                 alt="" width="1400" height="900" loading="lazy" decoding="async" />
+            <div class="shop__nav">
+              <b>TALLERES RIBERA</b>
+              <u>Servicios</u><u>El taller</u><u>Contacto</u>
+              <span class="shop__btn">Pedir cita</span>
             </div>
-            <div class="fake__hero">
-              <p class="fake__kick">Mecánica de confianza desde 1994</p>
-              <h4>Tu coche en manos<br />de quien lo entiende.</h4>
-              <p class="fake__lead">Diagnóstico honesto, presupuesto por escrito y el coche listo cuando dijimos que estaría.</p>
-              <div class="fake__ctas"><span class="fake__btn fake__btn--big">Pedir cita en 30 s</span><span class="fake__link">Ver servicios</span></div>
+            <div class="shop__hero">
+              <p class="shop__kick">Mecánica multimarca · Desde 1994</p>
+              <h4>Mecánica de precisión<br />desde 1994.</h4>
+              <p class="shop__lead">Diagnóstico por escrito, presupuesto cerrado y el coche listo el día que dijimos.</p>
+              <div class="shop__ctas">
+                <span class="shop__btn shop__btn--big">Pedir cita en 30 s</span>
+                <span class="shop__link">Ver servicios</span>
+              </div>
             </div>
-            <div class="fake__strip"><i><b>4,9</b><u>en Google</u></i><i><b>1.200</b><u>revisiones/año</u></i><i><b>30</b><u>años abiertos</u></i></div>
+            <div class="shop__strip">
+              <i><b>30</b><u>años abiertos</u></i>
+              <i><b>4,9</b><u>en Google</u></i>
+              <i><b>1.200</b><u>revisiones al año</u></i>
+            </div>
           </div>
         </div>
 
+        <!-- ANTES: 2013 -->
         <div class="ba__pane ba__pane--old" aria-hidden="true">
-          <div class="fake fake--old">
+          <div class="fakeold">
             <div class="fakeold__top">
               <span class="fakeold__logo">TALLERES RIBERA S.L.</span>
               <span class="fakeold__hits">Visitas: 018342</span>
@@ -325,29 +325,37 @@
 
   <div class="shell tuya">
     <div class="tuya__copy">
-      <h2 class="h2 h2--inv" data-reveal>Y luego<br /><span class="soft">la manejas tú.</span></h2>
+      <h2 class="h2 h2--inv" data-reveal>Y luego la manejas tú</h2>
 
       <ul class="tuya__list">
-        <li data-reveal data-reveal-d="1"><b>Cambias lo que quieras</b><span>Precios, horarios y fotos. Sin llamar a nadie.</span></li>
-        <li data-reveal data-reveal-d="2"><b>Botones que hacen cosas</b><span>Reservar, comprar, WhatsApp, mapa. Conectado de verdad.</span></li>
-        <li data-reveal data-reveal-d="3"><b>No te dejo solo</b><span>Te grabo un vídeo con tu web y me tienes en el móvil.</span></li>
+        <li data-reveal data-reveal-d="1">
+          <b>Cambias lo que quieras</b>
+          <span>Precios, horarios y fotos. Sin llamar a nadie.</span>
+        </li>
+        <li data-reveal data-reveal-d="2">
+          <b>Botones funcionales con backend real</b>
+          <span>Reservas, pagos y formularios que llegan a tu correo de verdad.</span>
+        </li>
+        <li data-reveal data-reveal-d="3">
+          <b>Atención 24/7</b>
+          <span>Resolvemos tus dudas al momento, cualquier día y a cualquier hora.</span>
+        </li>
       </ul>
     </div>
 
-    <!-- maqueta: edición en directo -->
     <div class="editor" data-reveal data-reveal-d="2" aria-hidden="true">
       <div class="editor__win">
         <span class="win__bar win__bar--wide"><i></i><i></i><i></i><em>tunegocio.com</em></span>
         <div class="editor__body">
           <div class="editor__block is-editing">
             <span class="editor__tag">Editando</span>
-            <p>Menú del día <b>14,50 €</b><span class="caret"></span></p>
+            <p>Cambio de aceite <b>59 €</b><span class="caret"></span></p>
           </div>
           <div class="editor__block">
             <span class="w w-80"></span><span class="w w-55"></span>
           </div>
           <div class="editor__row">
-            <span class="editor__btn">Reservar mesa</span>
+            <span class="editor__btn">Pedir cita</span>
             <span class="editor__btn editor__btn--ghost">WhatsApp</span>
           </div>
           <div class="editor__block">
@@ -360,12 +368,12 @@
   </div>
 </section>
 
-<!-- ══ ESTUDIO ══════════════════════════════════════════════════════════ -->
+<!-- ══ EL ESTUDIO ═══════════════════════════════════════════════════════ -->
 <section class="sec sec--me" id="estudio">
   <div class="shell me">
     <figure class="me__shot" data-reveal>
       <span class="me__frame">
-        <img src="img/quique.jpg" alt="Quique Planelles, fundador de Planelles Studio" width="640" height="800"
+        <img src="img/quique.jpg" alt="Quique Planelles, fundador de QP Studio" width="640" height="800"
              onerror="this.closest('.me__frame').classList.add('is-empty'); this.remove();" />
         <span class="me__mono" aria-hidden="true">QP</span>
       </span>
@@ -373,48 +381,49 @@
     </figure>
 
     <div class="me__copy">
-      <h2 class="h2" data-reveal>Una persona.<br /><span class="soft">Siempre la misma.</span></h2>
+      <h2 class="h2" data-reveal>Aquí no hay departamentos.<br /><span class="soft">Hablas con quien lo hace.</span></h2>
+
+      <p class="me__lead" data-reveal data-reveal-d="1">
+        El que coge el teléfono es el que diseña, el que programa y el que
+        sigue respondiendo seis meses después. Sin comerciales, sin cuentas y
+        sin briefings reenviados tres veces.
+      </p>
 
       <blockquote class="me__quote" data-reveal data-reveal-d="2">
-        No te prometo un equipo de cuarenta personas. Te prometo que quien
-        diseña tu web sabe cómo se llama tu negocio.
+        En una agencia grande eres un proyecto con número. Aquí eres el negocio
+        de alguien que sabe cómo se llama.
       </blockquote>
-
-      <dl class="me__stats" data-reveal data-reveal-d="3">
-        <div><dt><span data-count="20">20</span>+</dt><dd>webs y tiendas</dd></div>
-        <div><dt><span data-count="1">1</span></dt><dd>persona al teléfono</dd></div>
-        <div><dt><span data-count="0">0</span></dt><dd>plantillas</dd></div>
-      </dl>
     </div>
   </div>
 </section>
 
-<!-- ══ FINAL · el portátil que se acerca ════════════════════════════════ -->
+<!-- ══ FINAL · el ordenador ═════════════════════════════════════════════ -->
 <section class="finale" id="hablemos">
   <div class="finale__rail">
     <div class="finale__sticky">
 
-      <!-- escena 3D -->
       <div class="finale__scene" aria-hidden="true">
-        <div class="laptop">
-          <div class="laptop__lid">
-            <div class="laptop__screen">
-              <span class="laptop__cam"></span>
-              <div class="laptop__ui">
-                <b>Planelles Studio</b>
-                <span class="w w-70"></span>
-                <span class="w w-45"></span>
-                <span class="cta-pill"></span>
+        <div class="mac">
+          <div class="mac__lid">
+            <div class="mac__screen">
+              <span class="mac__cam"></span>
+              <div class="mac__ui">
+                <b>QP Studio</b>
+                <span class="w w-70 w-light"></span>
+                <span class="w w-45 w-light"></span>
+                <span class="cta-pill cta-pill--blue"></span>
               </div>
+              <span class="mac__glare"></span>
             </div>
-            <div class="laptop__back"></div>
           </div>
-          <div class="laptop__deck"><span class="laptop__pad"></span></div>
+          <div class="mac__base">
+            <span class="mac__hinge"></span>
+            <span class="mac__lip"></span>
+          </div>
+          <span class="mac__shadow"></span>
         </div>
-        <span class="laptop__shadow"></span>
       </div>
 
-      <!-- el contacto, que aparece al entrar en la pantalla -->
       <div class="finale__panel">
         <div class="shell finale__in">
           <h2 class="finale__title">Cuéntame tu negocio<br /><span class="soft">en dos líneas.</span></h2>
@@ -432,7 +441,7 @@
             </div>
             <div class="field">
               <label for="f-msg">Tu negocio y qué quieres cambiar</label>
-              <textarea id="f-msg" name="mensaje" rows="2" required placeholder="Casa Lloret, casalloret.com. La web es de 2013."></textarea>
+              <textarea id="f-msg" name="mensaje" rows="2" required placeholder="Talleres Ribera, talleresribera.com. La web es de 2013."></textarea>
             </div>
 
             <button class="btn btn--blue btn--full magnet" type="submit"><span>Enviar y hablamos</span></button>
@@ -455,26 +464,25 @@
 <!-- ══ FOOTER ═══════════════════════════════════════════════════════════ -->
 <footer class="foot">
   <div class="shell foot__inner">
-    <a class="brand" href="#hero" aria-label="Planelles Studio, inicio">
-      <img class="brand__mark" src="img/logo.png" alt="" width="34" height="34"
+    <a class="brand" href="#hero" aria-label="QP Studio, inicio">
+      <img class="brand__mark" src="img/logo.png" alt="" width="36" height="36"
            onerror="this.closest('.brand').classList.add('no-logo'); this.remove();" />
-      <svg class="brand__fallback" viewBox="0 0 32 32" aria-hidden="true">
-        <rect x="1.25" y="1.25" width="29.5" height="29.5" rx="9" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".25" />
-        <rect x="7" y="16" width="7.5" height="7.5" rx="2.4" fill="currentColor" opacity=".4" />
-        <rect x="17.5" y="8" width="7.5" height="7.5" rx="2.4" fill="currentColor" />
+      <svg class="brand__fallback" viewBox="0 0 40 40" aria-hidden="true">
+        <path d="M17 4A12 12 0 0 0 5 16v8a12 12 0 0 0 12 12h3v-6.5h-3a5.5 5.5 0 0 1-5.5-5.5v-8A5.5 5.5 0 0 1 17 10.5h1.5V4z" fill="currentColor" />
+        <path d="M22 10v26h6.5v-7.5H33a9.25 9.25 0 0 0 0-18.5zm6.5 6.5H33a2.75 2.75 0 0 1 0 5.5h-4.5z" fill="currentColor" />
       </svg>
-      <span class="brand__text"><b>Planelles</b><i>Studio</i></span>
+      <span class="brand__text"><b>QP</b><i>Studio</i></span>
     </a>
 
     <nav class="foot__links" aria-label="Pie">
       <a href="#trabajo">Trabajo</a>
       <a href="#servicios">Servicios</a>
       <a href="#tuya">Tuya</a>
-      <a href="mailto:hola@planellesstudio.com">hola@planellesstudio.com</a>
+      <a href="mailto:hola@qpstudio.es">hola@qpstudio.es</a>
       <a href="https://wa.me/34600000000" target="_blank" rel="noopener">WhatsApp</a>
     </nav>
 
-    <p class="foot__end">© <span id="year">2026</span> Planelles Studio · Hecho a mano, sin plantilla</p>
+    <p class="foot__end">© <span id="year">2026</span> QP Studio · Dirigido por Quique Planelles</p>
   </div>
 </footer>
 

@@ -1,4 +1,6 @@
-# Planelles Studio
+# QP Studio
+
+Estudio digital independiente dirigido por Quique Planelles.
 
 Home del estudio. HTML, CSS y JavaScript planos. Cero dependencias, cero paso de
 build, cero backend.
@@ -31,7 +33,7 @@ Son tres cosas y están todas juntas a propósito.
 
 ```js
 const CONTACTO = {
-  email: 'hola@planellesstudio.com',
+  email: 'hola@qpstudio.es',
   whatsapp: '34600000000'
 };
 ```

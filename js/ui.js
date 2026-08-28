@@ -1,10 +1,10 @@
 /* ═══════════════════════════════════════════════════════════════════════
-   PLANELLES STUDIO · ui.js
+   QP STUDIO · ui.js
    Menú, comparador antes/después, botones magnéticos y formulario.
    ── CAMBIA ESTO cuando tengas los datos definitivos del estudio ──
    ═══════════════════════════════════════════════════════════════════════ */
 const CONTACTO = {
-  email: 'hola@planellesstudio.com',
+  email: 'hola@qpstudio.es',
   whatsapp: '34600000000' // sin +, sin espacios
 };
 

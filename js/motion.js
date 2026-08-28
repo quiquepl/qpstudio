@@ -1,7 +1,7 @@
 /* ═══════════════════════════════════════════════════════════════════════
-   PLANELLES STUDIO · motion.js
-   Cordilleras tramadas, cintas 3D, constelación de webs enlazadas y el
-   portátil que se acerca. Sin dependencias.
+   QP STUDIO · motion.js
+   Cordillera tramada, cintas 3D, webs en órbita y el ordenador final.
+   Sin dependencias. Un rAF por pieza y todas paradas fuera de pantalla.
    ═══════════════════════════════════════════════════════════════════════ */
 (() => {
   'use strict';
@@ -13,7 +13,6 @@
 
   /* ── 1 · Reveals ───────────────────────────────────────────────────── */
   const revealables = document.querySelectorAll('[data-reveal]');
-
   revealables.forEach((el) => {
     const d = Number(el.dataset.revealD || 0);
     if (d) el.style.setProperty('--rd', `${d * 80}ms`);
@@ -38,37 +37,7 @@
     });
   }
 
-  /* ── 2 · Contadores ────────────────────────────────────────────────── */
-  const counters = document.querySelectorAll('[data-count]');
-  const runCount = (el) => {
-    const target = Number(el.dataset.count);
-    if (!Number.isFinite(target) || quiet.matches || target === 0) {
-      el.textContent = target;
-      return;
-    }
-    const t0 = performance.now();
-    const tick = (now) => {
-      const p = clamp((now - t0) / 1100);
-      el.textContent = Math.round(target * (p === 1 ? 1 : 1 - Math.pow(2, -10 * p)));
-      if (p < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  };
-  if (counters.length) {
-    const obs = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (!e.isIntersecting) continue;
-          runCount(e.target);
-          obs.unobserve(e.target);
-        }
-      },
-      { threshold: 0.6 }
-    );
-    counters.forEach((el) => obs.observe(el));
-  }
-
-  /* ── 3 · Scroll: progreso, nav y el portátil final ─────────────────── */
+  /* ── 2 · Scroll: progreso, nav y el ordenador final ────────────────── */
   const nav = document.getElementById('nav');
   const navLinks = [...document.querySelectorAll('.nav__links a')];
   const targets = navLinks
@@ -82,7 +51,9 @@
   const rail = finale?.querySelector('.finale__rail');
   const panel = finale?.querySelector('.finale__panel');
   const use3d = finale && rail && !quiet.matches;
-  if (use3d) root.classList.remove('no-3d');
+  // el HTML arranca con .no-3d puesto: si no hay JS o hay movimiento reducido,
+  // el formulario se ve suelto y legible en vez de esconderse tras el raíl
+  if (use3d) root.classList.remove("no-3d");
 
   let queued = false;
   let lastActive = null;
@@ -93,9 +64,7 @@
     const vh = Math.max(1, innerHeight);
     const y = Math.max(0, scrollY);
 
-    const max = Math.max(1, document.body.scrollHeight - vh);
-    root.style.setProperty('--scroll', (y / max).toFixed(4));
-
+    root.style.setProperty('--scroll', (y / Math.max(1, document.body.scrollHeight - vh)).toFixed(4));
     nav.classList.toggle('is-stuck', y > 12);
 
     let active = null;
@@ -108,19 +77,17 @@
       lastActive = active;
     }
 
-    // El portátil: se abre, se acerca y nos deja dentro de la pantalla.
     if (use3d) {
       const r = rail.getBoundingClientRect();
+      // fuera de pantalla no hay nada que calcular
+      if (r.bottom < -200 || r.top > vh + 200) return;
       const travel = Math.max(1, r.height - vh);
       const p = clamp(-r.top / travel);
-      const lid = clamp(p / 0.3);
-      const zoom = clamp((p - 0.2) / 0.48);
-      const pan = clamp((p - 0.6) / 0.22);
 
-      finale.style.setProperty('--p', p.toFixed(4));
-      finale.style.setProperty('--lid', lid.toFixed(4));
-      finale.style.setProperty('--zoom', zoom.toFixed(4));
-      finale.style.setProperty('--panel', pan.toFixed(4));
+      finale.style.setProperty('--lid', clamp(p / 0.3).toFixed(3));
+      finale.style.setProperty('--zoom', clamp((p - 0.2) / 0.46).toFixed(3));
+      const pan = clamp((p - 0.58) / 0.22);
+      finale.style.setProperty('--panel', pan.toFixed(3));
 
       const live = pan > 0.85;
       if (live !== panelLive) {
@@ -139,7 +106,7 @@
   addEventListener('resize', onScroll, { passive: true });
   frame();
 
-  /* ── 4 · Puntero: inclina la constelación y la maqueta del editor ──── */
+  /* ── 3 · Puntero: solo inclina la maqueta del editor ───────────────── */
   if (!quiet.matches && !coarse.matches) {
     let raf = 0;
     addEventListener(
@@ -156,18 +123,26 @@
     );
   }
 
-  /* ═══ 5 · Constelación: líneas que enlazan las webs con el centro ════
-     Las tarjetas flotan cada una en su bucle, así que los extremos se
-     recalculan mientras la sección está a la vista. Diez líneas por
-     fotograma no cuestan nada.
-     ═══════════════════════════════════════════════════════════════════ */
-  const orbit = document.getElementById('trabajo');
-  const svg = document.getElementById('orbit-links');
-  const field = document.getElementById('orbit-field');
+  /* ═══ 4 · Webs en órbita ══════════════════════════════════════════════
+     Giran solas, siempre, sin tocar el ratón. También en móvil, con el
+     anillo más pequeño y las tarjetas más chicas.
 
-  if (orbit && svg && field && !quiet.matches) {
+     Un solo transform por tarjeta y fotograma. Las que van por abajo
+     están "delante": más grandes, más opacas y por encima del texto. Las
+     de arriba pasan por detrás.
+     ═══════════════════════════════════════════════════════════════════ */
+  const orbitSec = document.getElementById('trabajo');
+  const field = document.getElementById('orbit-field');
+  const svg = document.getElementById('orbit-links');
+
+  if (orbitSec && field && !quiet.matches) {
     const cards = [...field.querySelectorAll('.wcard')];
     const core = field.querySelector('.orbit__core');
+    const n = cards.length;
+
+    field.classList.add('is-orbiting');
+    field.appendChild(svg); // dentro del campo: coordenadas locales
+
     const ns = 'http://www.w3.org/2000/svg';
     const lines = cards.map(() => {
       const l = document.createElementNS(ns, 'line');
@@ -175,43 +150,84 @@
       return l;
     });
 
-    let alive = false;
-    let raf = 0;
+    let W = 0, H = 0, cw = 0, rx = 0, ry = 0, cx = 0, cy = 0;
+    const ch = new Float64Array(n);
+    let alive = false, raf = 0;
 
-    const paint = () => {
-      raf = 0;
-      const base = orbit.getBoundingClientRect();
-      if (base.width < 640) {
-        if (alive) raf = requestAnimationFrame(paint);
-        return;
-      }
-      svg.setAttribute('viewBox', `0 0 ${base.width} ${base.height}`);
+    const measure = () => {
+      W = field.clientWidth;
+      const small = W < 760;
+      cw = small ? Math.max(84, Math.round(W * 0.24)) : Math.round(Math.min(186, W * 0.155));
+      H = small ? Math.round(Math.min(560, W * 1.32)) : Math.round(Math.min(760, W * 0.62));
 
-      const c = core.getBoundingClientRect();
-      const cx = c.left - base.left + c.width / 2;
-      const cy = c.top - base.top + c.height / 2;
+      field.style.setProperty('--cw', cw + 'px');
+      field.style.setProperty('--field-h', H + 'px');
 
-      cards.forEach((card, i) => {
-        const w = card.querySelector('.win').getBoundingClientRect();
-        const x = w.left - base.left + w.width / 2;
-        const y = w.top - base.top + w.height / 2;
-        const l = lines[i];
-        l.setAttribute('x1', cx.toFixed(1));
-        l.setAttribute('y1', cy.toFixed(1));
-        l.setAttribute('x2', x.toFixed(1));
-        l.setAttribute('y2', y.toFixed(1));
-      });
+      // el anillo se sale un poco por los lados a propósito: llena el borde
+      rx = small ? W * 0.44 : W * 0.375;
+      ry = H * 0.36;
+      cx = W / 2;
+      cy = H / 2;
 
-      if (alive) raf = requestAnimationFrame(paint);
+      svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+      for (let i = 0; i < n; i++) ch[i] = cards[i].offsetHeight;
     };
 
-    new IntersectionObserver((entries) => {
-      alive = entries[0].isIntersecting;
-      if (alive && !raf) raf = requestAnimationFrame(paint);
-    }).observe(orbit);
+    const step = (now) => {
+      raf = 0;
+      const t = now * 0.00007; // vuelta completa en ~90 s
+      for (let i = 0; i < n; i++) {
+        const a = t + (i / n) * 6.2831853;
+        const s = Math.sin(a);
+        const depth = (s + 1) / 2;
+        const x = cx + rx * Math.cos(a) - cw / 2;
+        const y = cy + ry * s - ch[i] / 2;
+        const el = cards[i];
+        el.style.transform =
+          `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) scale(${(0.72 + depth * 0.36).toFixed(3)})`;
+        el.style.opacity = (0.4 + depth * 0.6).toFixed(2);
+        el.style.zIndex = depth > 0.52 ? 7 : 2;
+
+        const l = lines[i];
+        l.setAttribute('x1', cx.toFixed(0));
+        l.setAttribute('y1', cy.toFixed(0));
+        l.setAttribute('x2', (x + cw / 2).toFixed(1));
+        l.setAttribute('y2', (y + ch[i] / 2).toFixed(1));
+      }
+      if (alive) raf = requestAnimationFrame(step);
+    };
+
+    measure();
+    step(performance.now());
+
+    new ResizeObserver(() => {
+      measure();
+      if (!alive) step(performance.now());
+    }).observe(field);
+
+    new IntersectionObserver(
+      (e) => {
+        alive = e[0].isIntersecting;
+        if (alive && !raf) raf = requestAnimationFrame(step);
+      },
+      { rootMargin: '120px' }
+    ).observe(orbitSec);
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        alive = false;
+        if (raf) cancelAnimationFrame(raf);
+        raf = 0;
+      } else if (!raf) {
+        raf = requestAnimationFrame(step);
+      }
+    });
+
+    // el núcleo, encima de las que pasan por detrás
+    core.style.zIndex = 5;
   }
 
-  /* ═══ 6 · Cordilleras tramadas a un bit (solo el hero) ═══════════════ */
+  /* ═══ 5 · Cordillera tramada a un bit (hero) ═════════════════════════ */
 
   const BAYER = new Float32Array(
     [
@@ -231,15 +247,13 @@
     const i = Math.floor(x);
     const f = x - i;
     const a = hash(i, s);
-    const b = hash(i + 1, s);
-    return a + (b - a) * f * f * (3 - 2 * f);
+    return a + (hash(i + 1, s) - a) * f * f * (3 - 2 * f);
   };
-  // multifractal en cresta: picos afilados en vez de lomas redondas
   const ridged = (x, s) => {
     let sum = 0, w = 0, amp = 0.5, f = 1;
     for (let o = 0; o < 3; o++) {
-      const n = 1 - Math.abs(noise(x * f, s + o * 71) * 2 - 1);
-      sum += n * n * amp;
+      const nz = 1 - Math.abs(noise(x * f, s + o * 71) * 2 - 1);
+      sum += nz * nz * amp;
       w += amp;
       amp *= 0.5;
       f *= 2.07;
@@ -248,10 +262,10 @@
   };
 
   const LAYERS = [
-    { base: 0.58, amp: 0.48, freq: 0.0052, fall: 0.52, ink: 0.26, speed: 0.008, par: 0.05, seed: 11 },
-    { base: 0.74, amp: 0.46, freq: 0.0076, fall: 0.44, ink: 0.38, speed: 0.014, par: 0.08, seed: 47 },
-    { base: 0.90, amp: 0.44, freq: 0.0108, fall: 0.36, ink: 0.52, speed: 0.022, par: 0.12, seed: 83 },
-    { base: 1.04, amp: 0.42, freq: 0.0150, fall: 0.30, ink: 0.70, speed: 0.033, par: 0.17, seed: 137 }
+    { base: 0.58, amp: 0.48, freq: 0.0052, fall: 0.52, ink: 0.26, speed: 0.008, seed: 11 },
+    { base: 0.74, amp: 0.46, freq: 0.0076, fall: 0.44, ink: 0.38, speed: 0.014, seed: 47 },
+    { base: 0.90, amp: 0.44, freq: 0.0108, fall: 0.36, ink: 0.52, speed: 0.022, seed: 83 },
+    { base: 1.04, amp: 0.42, freq: 0.0150, fall: 0.30, ink: 0.70, speed: 0.033, seed: 137 }
   ];
 
   const makeRidges = (canvas, opts) => {
@@ -279,9 +293,8 @@
       tops = cfg.map(() => new Float32Array(W));
       decay = cfg.map((c) => {
         const fall = Math.max(6, c.fall * H);
-        const n = Math.ceil(fall * 4.5);
-        const table = new Float32Array(n);
-        for (let d = 0; d < n; d++) table[d] = c.ink * Math.exp(-d / fall);
+        const table = new Float32Array(Math.ceil(fall * 4.5));
+        for (let d = 0; d < table.length; d++) table[d] = c.ink * Math.exp(-d / fall);
         return table;
       });
       fade = new Float32Array(H);
@@ -350,10 +363,7 @@
   const heroRidges = document.getElementById('ridges-hero');
   if (heroRidges) makeRidges(heroRidges, { rgb: [30, 32, 40], layers: innerWidth < 620 ? 3 : 4 });
 
-  /* ═══ 7 · Cintas 3D del fondo de las secciones oscuras ═══════════════
-     Bandas onduladas trazadas con un degradado horizontal cuyo brillo
-     viaja. Superpuestas dan la sensación de pliegues con volumen.
-     ═══════════════════════════════════════════════════════════════════ */
+  /* ═══ 6 · Cintas 3D de fondo ═════════════════════════════════════════ */
 
   const makeRibbons = (canvas) => {
     const ctx = canvas.getContext('2d', { alpha: true });
@@ -388,15 +398,11 @@
         ctx.beginPath();
         for (let x = -24; x <= W + 24; x += 18) {
           const u = x / W;
-          const y =
-            y0 +
-            Math.sin(u * freq * 6.283 + ph) * amp +
-            Math.sin(u * freq * 3.1 - ph * 0.7) * amp * 0.42;
+          const y = y0 + Math.sin(u * freq * 6.283 + ph) * amp + Math.sin(u * freq * 3.1 - ph * 0.7) * amp * 0.42;
           if (x === -24) ctx.moveTo(x, y);
           else ctx.lineTo(x, y);
         }
 
-        // el brillo recorre la banda: es lo que da el relieve
         const c = 0.5 + 0.42 * Math.sin(ph * 0.55 + f * 1.7);
         const grad = ctx.createLinearGradient(0, 0, W, 0);
         const stop = (p, col) => grad.addColorStop(clamp(p), col);
