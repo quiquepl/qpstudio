@@ -17,6 +17,16 @@ const RAIZ = join(dirname(fileURLToPath(import.meta.url)), '..');
    Google vería dos direcciones para lo mismo. */
 export const SITIO = 'https://www.qpstudio.es';
 
+/* Código de verificación de Google Search Console.
+
+   Solo hace falta si se verifica por etiqueta HTML. Si la propiedad se da
+   de alta como "dominio" con un registro TXT en el DNS, esto se queda
+   vacío: ese método verifica el dominio entero, con y sin www, y no
+   depende de que la web esté desplegada.
+
+   No es un secreto: se sirve en el HTML de todas las páginas. */
+export const VERIFICACION_GOOGLE = '';
+
 const T = {
   nombre: 'QP Studio',
   fundador: 'Quique Planelles',
@@ -228,6 +238,9 @@ function jsonLdFaq(html) {
 function etiquetas(pagina, html) {
   const url = `${SITIO}${pagina.ruta}`;
   const bloques = [
+    ...(VERIFICACION_GOOGLE
+      ? [`<meta name="google-site-verification" content="${VERIFICACION_GOOGLE}" />`]
+      : []),
     `<link rel="canonical" href="${url}" />`,
     `<meta property="og:type" content="website" />`,
     `<meta property="og:locale" content="es_ES" />`,

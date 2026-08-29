@@ -17,7 +17,7 @@ const head = (title, desc) => `<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>${title} — QP Studio</title>
 <meta name="description" content="${desc}" />
-<meta name="theme-color" content="#f7f8fa" />
+<meta name="theme-color" content="#f7f8fa" />${title.__admin ? '\n<meta name="robots" content="noindex, nofollow" />' : ''}
 <link rel="icon" href="img/logo.png" />
 <link rel="preload" href="fuentes/archivo-800-latin.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="fuentes/geist-400-latin.woff2" as="font" type="font/woff2" crossorigin />
