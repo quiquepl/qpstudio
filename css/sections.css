@@ -379,7 +379,7 @@
 .servs { border-top: 1px solid oklch(100% 0 0 / .13); }
 .serv {
   display: grid;
-  grid-template-columns: 3rem minmax(0, 14rem) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 16rem) minmax(0, 1fr);
   align-items: baseline;
   gap: 0.35rem 1.5rem;
   padding: clamp(1.3rem, 2.2vw, 1.8rem) 0;
@@ -399,14 +399,7 @@
 }
 @media (hover: hover) {
   .serv:hover::before { opacity: 1; }
-  .serv:hover .serv__n { color: var(--blue-sky); }
   .serv:hover h3 { color: var(--t-00); }
-}
-.serv__n {
-  font-family: var(--display); font-weight: 700;
-  font-size: 0.78rem; color: oklch(62% 0.03 250);
-  font-variant-numeric: tabular-nums;
-  transition: color var(--t) var(--ease);
 }
 .serv h3 {
   font-size: clamp(1.3rem, 2.2vw, 1.75rem);
@@ -416,8 +409,8 @@
 .serv p { font-size: var(--fs-sm); color: oklch(70% 0.02 250); text-wrap: pretty; }
 
 @media (max-width: 720px) {
-  .serv { grid-template-columns: 2.2rem minmax(0, 1fr); }
-  .serv p { grid-column: 2; }
+  .serv { grid-template-columns: minmax(0, 1fr); }
+  .serv p { grid-column: 1; }
 }
 
 /* ═══ ANTES Y DESPUÉS ═════════════════════════════════════════════════ */
