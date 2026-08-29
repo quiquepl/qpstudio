@@ -26,9 +26,58 @@ const TYPES = {
   '.txt': 'text/plain; charset=utf-8'
 };
 
+/* Las variables de .env.local no las inyecta nadie en local, así que las
+   carga el propio servidor. En Vercel ya vienen puestas en el entorno. */
+for (const fichero of ['.env.local', '.env']) {
+  try {
+    const texto = await readFile(join(ROOT, fichero), 'utf8');
+    for (const linea of texto.split(/\r?\n/)) {
+      const m = linea.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/);
+      if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '');
+    }
+  } catch {
+    /* puede no existir */
+  }
+}
+
+/* Emula el enrutado de funciones de Vercel: /api/algo ejecuta api/algo.js.
+   Sin esto habría que usar `vercel dev` para probar el formulario, y así el
+   mismo código se prueba en local exactamente igual que se publica. */
+async function funcionApi(req, res, rel) {
+  const limpio = rel.replace(/^\/api\//, '').replace(/\.js$/, '');
+  // Nada de subir por el árbol ni de invocar los módulos internos (_db, ...)
+  if (!/^[a-z0-9-]+(\/[a-z0-9-]+)*$/.test(limpio)) return false;
+
+  const modulo = join(ROOT, 'api', ...limpio.split('/')) + '.js';
+  if (!modulo.startsWith(join(ROOT, 'api'))) return false;
+
+  try {
+    await stat(modulo);
+  } catch {
+    return false;
+  }
+
+  try {
+    // El sufijo hace que Node recargue el módulo en cada petición: así se ve
+    // el cambio al guardar sin reiniciar el servidor.
+    const { default: handler } = await import(`file://${modulo}?t=${Date.now()}`);
+    await handler(req, res);
+  } catch (e) {
+    console.error(`[api] ${limpio}:`, e);
+    if (!res.headersSent) {
+      res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
+      res.end(JSON.stringify({ error: e.message }));
+    }
+  }
+  return true;
+}
+
 createServer(async (req, res) => {
   try {
     let rel = decodeURIComponent(new URL(req.url, 'http://x').pathname);
+
+    if (rel.startsWith('/api/') && (await funcionApi(req, res, rel))) return;
+
     if (rel.endsWith('/')) rel += 'index.html';
 
     const path = join(ROOT, normalize(rel).replace(/^(\.\.[/\\])+/, ''));

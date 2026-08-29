@@ -413,9 +413,10 @@ const adminPage = () => {
       </div>
 
       <div class="notice">
-        <b>Sin servidor todavía.</b> Los cambios de texto y los bloques añadidos se guardan solo en este
-        navegador, para que puedas probar el flujo. Para que sean reales hace falta base de datos,
-        autenticación en el servidor y un endpoint que reciba el formulario.
+        <b>Los mensajes son reales; los textos todavía no.</b> La bandeja de entrada lee la base de
+        datos y el acceso se comprueba en el servidor. Los cambios de texto y los bloques añadidos
+        siguen guardándose solo en este navegador: falta llevarlos también a la base de datos y que
+        la web los lea al publicarse.
       </div>
     </div>
 

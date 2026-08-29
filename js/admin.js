@@ -4,13 +4,12 @@
    guarda en el navegador (localStorage) y sirve como maqueta funcional
    de lo que hará el panel real.
 
-   ── CAMBIAR ANTES DE PUBLICAR ────────────────────────────────────────
-   El acceso de abajo es provisional y se comprueba en el propio
-   navegador, así que NO es seguridad real: cualquiera que mire el código
-   lo ve. Sirve para trabajar mientras no haya servidor. En cuanto exista
-   backend, la comprobación tiene que hacerse allí.
+   El acceso se comprueba en el servidor (/api/admin/entrar), que devuelve
+   una cookie de sesión firmada. Aquí no hay ninguna contraseña.
+
+   Los mensajes del formulario salen de la base de datos. Los textos y los
+   bloques todavía se guardan en este navegador (localStorage).
    ═══════════════════════════════════════════════════════════════════════ */
-const ACCESO = { usuario: 'quique', clave: 'juan' };
 
 /* Secciones de la web y los textos que se pueden editar en cada una.
    El orden es el mismo que el de la home. */
@@ -138,27 +137,169 @@ const BLOQUES = [
     panel.hidden = false;
     pintarTextos();
     pintarBloques();
+    cargarMensajes();
   };
 
-  if (sessionStorage.getItem('qp-admin-ok') === '1') entrar();
+  /* ── Bandeja de entrada ─────────────────────────────────────────── */
 
-  form?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const u = $('#l-user').value.trim();
-    const c = $('#l-pass').value;
-    if (u === ACCESO.usuario && c === ACCESO.clave) {
-      sessionStorage.setItem('qp-admin-ok', '1');
-      error.textContent = '';
-      entrar();
-    } else {
-      error.textContent = 'Usuario o contraseña incorrectos.';
-      $('#l-pass').value = '';
-      $('#l-pass').focus();
+  const fecha = (iso) =>
+    new Date(iso).toLocaleString('es-ES', {
+      day: '2-digit', month: 'short', year: 'numeric',
+      hour: '2-digit', minute: '2-digit'
+    });
+
+  /* Todo lo que viene de la base de datos lo ha escrito un desconocido en
+     un formulario público, así que se pinta con textContent y nunca con
+     innerHTML: si alguien manda etiquetas, se ven como texto. */
+  const cargarMensajes = async () => {
+    const caja = document.querySelector('#tab-mensajes .inbox');
+    if (!caja) return;
+
+    let datos;
+    try {
+      const r = await fetch('/api/admin/mensajes');
+      if (!r.ok) throw new Error(String(r.status));
+      datos = await r.json();
+    } catch {
+      caja.innerHTML =
+        '<p class="inbox__head"><span>Bandeja de entrada</span><span>sin conexión</span></p>' +
+        '<div class="inbox__empty"><h3>No he podido cargar los mensajes</h3>' +
+        '<p>Comprueba la conexión y vuelve a intentarlo.</p></div>';
+      return;
     }
+
+    const { mensajes = [], total = 0, sinLeer = 0 } = datos;
+    caja.textContent = '';
+
+    const cab = document.createElement('p');
+    cab.className = 'inbox__head';
+    const izq = document.createElement('span');
+    izq.textContent = 'Bandeja de entrada';
+    const der = document.createElement('span');
+    der.textContent = total
+      ? `${total} mensaje${total === 1 ? '' : 's'}${sinLeer ? ` · ${sinLeer} sin leer` : ''}`
+      : '0 mensajes';
+    cab.append(izq, der);
+    caja.append(cab);
+
+    if (!mensajes.length) {
+      const vacio = document.createElement('div');
+      vacio.className = 'inbox__empty';
+      vacio.innerHTML =
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3zM3 7l9 6 9-6"/></svg>' +
+        '<h3>No han llegado mensajes</h3>' +
+        '<p>Aquí aparecerán las solicitudes enviadas desde el formulario de contacto.</p>';
+      caja.append(vacio);
+      return;
+    }
+
+    const lista = document.createElement('ul');
+    lista.className = 'inbox__list';
+
+    for (const m of mensajes) {
+      const li = document.createElement('li');
+      li.className = 'msg' + (m.leido ? '' : ' msg--nuevo');
+
+      const alto = document.createElement('div');
+      alto.className = 'msg__alto';
+      const quien = document.createElement('b');
+      quien.textContent = m.nombre;
+      const cuando = document.createElement('time');
+      cuando.dateTime = m.creado_en;
+      cuando.textContent = fecha(m.creado_en);
+      alto.append(quien, cuando);
+
+      const correo = document.createElement('a');
+      correo.className = 'msg__mail';
+      correo.href = `mailto:${m.email}`;
+      correo.textContent = m.email;
+
+      const texto = document.createElement('p');
+      texto.className = 'msg__texto';
+      texto.textContent = m.mensaje;
+
+      const acciones = document.createElement('div');
+      acciones.className = 'msg__acciones';
+
+      const leer = document.createElement('button');
+      leer.type = 'button';
+      leer.className = 'msg__btn';
+      leer.textContent = m.leido ? 'Marcar sin leer' : 'Marcar como leído';
+      leer.addEventListener('click', async () => {
+        leer.disabled = true;
+        await fetch('/api/admin/mensajes', {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: m.id, leido: !m.leido })
+        }).catch(() => {});
+        cargarMensajes();
+      });
+
+      const borrar = document.createElement('button');
+      borrar.type = 'button';
+      borrar.className = 'msg__btn msg__btn--baja';
+      borrar.textContent = 'Borrar';
+      borrar.addEventListener('click', async () => {
+        if (!confirm(`¿Borrar el mensaje de ${m.nombre}? No se puede deshacer.`)) return;
+        borrar.disabled = true;
+        await fetch('/api/admin/mensajes', {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: m.id })
+        }).catch(() => {});
+        cargarMensajes();
+      });
+
+      acciones.append(leer, borrar);
+      li.append(alto, correo, texto, acciones);
+      lista.append(li);
+    }
+
+    caja.append(lista);
+  };
+
+  /* ¿Hay sesión abierta? Lo dice el servidor, no el navegador. */
+  fetch('/api/admin/sesion')
+    .then((r) => r.json())
+    .then((d) => {
+      if (d.activa) entrar();
+    })
+    .catch(() => {
+      /* sin conexión se queda la pantalla de acceso, que es lo correcto */
+    });
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const boton = form.querySelector('button[type="submit"]');
+    error.textContent = '';
+    if (boton) boton.disabled = true;
+
+    try {
+      const r = await fetch('/api/admin/entrar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          usuario: $('#l-user').value.trim(),
+          clave: $('#l-pass').value
+        })
+      });
+      if (r.ok) {
+        entrar();
+        return;
+      }
+      const d = await r.json().catch(() => ({}));
+      error.textContent = d.error || 'Usuario o contraseña incorrectos.';
+    } catch {
+      error.textContent = 'No hay conexión con el servidor.';
+    }
+
+    if (boton) boton.disabled = false;
+    $('#l-pass').value = '';
+    $('#l-pass').focus();
   });
 
-  $('#salir')?.addEventListener('click', () => {
-    sessionStorage.removeItem('qp-admin-ok');
+  $('#salir')?.addEventListener('click', async () => {
+    await fetch('/api/admin/salir', { method: 'POST' }).catch(() => {});
     location.reload();
   });
 

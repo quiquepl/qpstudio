@@ -1,0 +1,19 @@
+{
+  "name": "qpstudio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Web de QP Studio. Sitio estático con funciones serverless en Vercel para el formulario y el panel de administración.",
+  "type": "module",
+  "scripts": {
+    "dev": "node server.mjs 4321",
+    "pages": "node build-pages.mjs",
+    "migrate": "node scripts/migrar.mjs"
+  },
+  "dependencies": {
+    "@vercel/functions": "^2.0.0",
+    "pg": "^8.13.0"
+  },
+  "devDependencies": {
+    "@neon/config": "^1.0.0"
+  }
+}

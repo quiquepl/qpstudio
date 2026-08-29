@@ -376,7 +376,11 @@
   background: oklch(100% 0 0);
   overflow: hidden;
 }
-.inbox__head {
+.inbox .inbox__head {
+  /* .pbody p limita a 68ch para que se lea bien, y gana por especificidad
+     a un simple .inbox__head. La cabecera es una barra, no un párrafo, y
+     tiene que llegar al borde: por eso el selector lleva el padre. */
+  max-width: none;
   display: flex; align-items: center; justify-content: space-between;
   gap: 1rem; padding: 1rem 1.2rem;
   background: var(--paper-2);
@@ -391,6 +395,61 @@
 }
 .inbox__empty h3 { margin-bottom: 0.4rem; }
 .inbox__empty p { max-width: 40ch; margin-inline: auto; font-size: var(--fs-sm); color: var(--ink-3); }
+
+/* Cada mensaje de la bandeja. Los no leídos llevan una barra azul a la
+   izquierda para que se distingan de un vistazo sin depender del color
+   del texto, que es lo primero que se pierde al imprimir o en alto
+   contraste. */
+.inbox__list { list-style: none; }
+.msg {
+  position: relative;
+  padding: 1.1rem 1.2rem 1.2rem;
+  border-bottom: 1px solid var(--line-soft);
+}
+.msg:last-child { border-bottom: 0; }
+.msg--nuevo { background: var(--blue-wash); }
+.msg--nuevo::before {
+  content: ""; position: absolute;
+  left: 0; top: 0; bottom: 0; width: 3px;
+  background: var(--blue);
+}
+.msg__alto {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 1rem; flex-wrap: wrap;
+}
+.msg__alto b {
+  font-family: var(--display); font-weight: 700;
+  font-size: 1rem; letter-spacing: -0.022em; color: var(--ink);
+}
+.msg__alto time { font-size: var(--fs-xs); color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.msg__mail {
+  display: inline-block; margin-top: 0.15rem;
+  font-size: var(--fs-sm); color: var(--blue);
+  text-decoration: underline; text-underline-offset: 0.18em;
+}
+/* El mensaje lo escribe un desconocido: se respetan sus saltos de línea
+   pero se fuerza el corte de palabras largas para que una URL enorme no
+   ensanche el panel. */
+.msg__texto {
+  margin-top: 0.7rem;
+  font-size: var(--fs-sm); line-height: 1.6; color: var(--ink-2);
+  white-space: pre-wrap; overflow-wrap: anywhere;
+}
+.msg__acciones { display: flex; gap: 0.5rem; margin-top: 0.9rem; flex-wrap: wrap; }
+.msg__btn {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--line-soft); border-radius: 999px;
+  background: oklch(100% 0 0);
+  font-size: var(--fs-xs); font-weight: 600; color: var(--ink-2);
+  cursor: pointer;
+  transition: border-color var(--t) var(--ease), color var(--t) var(--ease);
+}
+@media (hover: hover) {
+  .msg__btn:hover { border-color: var(--t-40); color: var(--ink); }
+  .msg__btn--baja:hover { border-color: oklch(58% 0.19 25); color: oklch(52% 0.21 25); }
+}
+.msg__btn:disabled { opacity: 0.5; cursor: default; }
+
 
 /* ── Piezas visuales de las páginas ────────────────────────────────── */
 

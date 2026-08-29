@@ -2,6 +2,11 @@ node_modules/
 .DS_Store
 Thumbs.db
 .vercel
-.env
-.env.local
 *.log
+.neon
+
+.env*
+
+# Enlaces simbólicos que crea el instalador de skills apuntando a
+# .agents/skills. Se regeneran solos y en Windows Git los guarda raro.
+.claude/skills

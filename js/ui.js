@@ -212,8 +212,19 @@ const CONTACTO = {
       });
     });
 
-    form.addEventListener('submit', (e) => {
+    /* El formulario ya no abre el cliente de correo: manda el mensaje a
+       /api/contacto, que lo guarda en la base de datos. Si el envío falla,
+       se ofrece el correo como salida para que nadie se quede sin poder
+       contactar por un fallo nuestro. */
+    const boton = form.querySelector('button[type="submit"]');
+    const textoBoton = boton ? boton.querySelector('span') : null;
+    const etiquetaOriginal = textoBoton ? textoBoton.textContent : '';
+    let enviando = false;
+
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      if (enviando) return;
+
       const inputs = [...form.querySelectorAll('input, textarea')];
       const bad = inputs.filter((i) => !check(i));
 
@@ -224,21 +235,40 @@ const CONTACTO = {
       }
 
       const get = (id) => form.querySelector('#' + id).value.trim();
-      const cuerpo = [
-        `Nombre: ${get('f-name')}`,
-        `Email: ${get('f-mail')}`,
-        '',
-        get('f-msg')
-      ].join('\n');
 
-      location.href =
-        `mailto:${CONTACTO.email}` +
-        `?subject=${encodeURIComponent('Quiero mejorar mi web · ' + get('f-name'))}` +
-        `&body=${encodeURIComponent(cuerpo)}`;
+      enviando = true;
+      if (boton) boton.disabled = true;
+      if (textoBoton) textoBoton.textContent = 'Enviando…';
+      status.textContent = '';
 
-      status.textContent =
-        `Te he abierto el correo con todo escrito. Dale a enviar y te contesto hoy. ` +
-        `Si no se ha abierto, escríbeme a ${CONTACTO.email}.`;
+      try {
+        const r = await fetch('/api/contacto', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            nombre: get('f-name'),
+            email: get('f-mail'),
+            mensaje: get('f-msg'),
+            origen: location.pathname
+          })
+        });
+        const datos = await r.json().catch(() => ({}));
+
+        if (r.ok) {
+          form.reset();
+          status.textContent = 'Recibido. Te contesto en menos de 48 horas.';
+        } else {
+          status.textContent =
+            datos.error || `No he podido enviarlo. Escríbeme a ${CONTACTO.email}.`;
+        }
+      } catch {
+        status.textContent =
+          `No hay conexión con el servidor. Escríbeme a ${CONTACTO.email} y lo vemos.`;
+      } finally {
+        enviando = false;
+        if (boton) boton.disabled = false;
+        if (textoBoton) textoBoton.textContent = etiquetaOriginal;
+      }
     });
   }
   /* ── Acceso al panel desde el enlace "Admin" del pie ──────────────── */
@@ -248,10 +278,19 @@ const CONTACTO = {
     const gerr = document.getElementById("gate-error");
 
     document.querySelectorAll('a[href="/admin"]').forEach((a) => {
-      a.addEventListener("click", (e) => {
-        // si ya hay sesión abierta, al panel directamente
-        if (sessionStorage.getItem("qp-admin-ok") === "1") return;
+      a.addEventListener("click", async (e) => {
         e.preventDefault();
+        // Quien manda es el servidor: si la cookie de sesión sigue valiendo
+        // se entra directo, y si no, se piden las credenciales.
+        try {
+          const r = await fetch("/api/admin/sesion");
+          if (r.ok && (await r.json()).activa) {
+            location.href = "/admin";
+            return;
+          }
+        } catch {
+          /* sin conexión: se pide igualmente y ya fallará el envío */
+        }
         gerr.textContent = "";
         gform.reset();
         gate.showModal();
@@ -264,18 +303,35 @@ const CONTACTO = {
       if (e.target === gate) gate.close();
     });
 
-    gform.addEventListener("submit", (e) => {
+    gform.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const u = document.getElementById("g-user").value.trim();
-      const c = document.getElementById("g-pass").value;
-      if (u === "quique" && c === "juan") {
-        sessionStorage.setItem("qp-admin-ok", "1");
-        location.href = "/admin";
-      } else {
-        gerr.textContent = "Usuario o contraseña incorrectos.";
-        document.getElementById("g-pass").value = "";
-        document.getElementById("g-pass").focus();
+      const pass = document.getElementById("g-pass");
+      const enviar = gform.querySelector('button[type="submit"]');
+      gerr.textContent = "";
+      if (enviar) enviar.disabled = true;
+
+      try {
+        const r = await fetch("/api/admin/entrar", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            usuario: document.getElementById("g-user").value.trim(),
+            clave: pass.value
+          })
+        });
+        if (r.ok) {
+          location.href = "/admin";
+          return;
+        }
+        const datos = await r.json().catch(() => ({}));
+        gerr.textContent = datos.error || "Usuario o contraseña incorrectos.";
+      } catch {
+        gerr.textContent = "No hay conexión con el servidor.";
       }
+
+      if (enviar) enviar.disabled = false;
+      pass.value = "";
+      pass.focus();
     });
   }
 
