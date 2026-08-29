@@ -167,6 +167,21 @@ otros sitios) y `Secure` en https. Dura ocho horas.
 `/api/admin/mensajes` comprueba la sesión **antes** de tocar la base de datos.
 Sin cookie válida devuelve 401 y no consulta nada.
 
+**Límite de intentos.** Ocho fallos desde el mismo sitio en quince minutos y
+deja de aceptar intentos, incluso el correcto. Se cuenta en la base de datos
+(tabla `intentos_acceso`) porque las funciones serverless no comparten memoria
+entre ejecuciones. Al acertar se borra el historial.
+
+Esto frena la fuerza bruta desde un sitio, pero **no convierte una contraseña
+corta en buena**: un ataque repartido entre muchas direcciones se lo salta. La
+contraseña actual son cuatro letras; súbela en cuanto puedas.
+
+Si te dejas fuera a ti mismo y no quieres esperar:
+
+```bash
+node scripts/desbloquear.mjs
+```
+
 ### Antiabuso del formulario
 
 Máximo cinco mensajes por hora desde el mismo sitio. Para contarlos no se

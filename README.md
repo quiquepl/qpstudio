@@ -16,7 +16,7 @@ aviso-legal.html · privacidad.html · cookies.html
 build-pages.mjs     genera las páginas interiores desde una plantilla común
 api/                funciones de Vercel: formulario y panel
 db/                 migraciones SQL, por orden de nombre
-scripts/            migrar, generar la clave del panel, comprobarla
+scripts/            migrar, clave del panel, comprobarla, desbloquear
 neon.ts             servicios de Neon declarados como código
 css/styles.css      tokens, reset, tipografía, nav, botones, footer
 css/sections.css    arte por sección de la home
