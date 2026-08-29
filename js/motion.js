@@ -47,16 +47,8 @@
     })
     .filter(Boolean);
 
-  const finale = document.getElementById("hablemos");
-  const seqImgs = [...document.querySelectorAll("#macseq img")];
-  let seqOn = 0;
-  let panLock = 0;
-  const rail = finale?.querySelector('.finale__rail');
-  const panel = finale?.querySelector('.finale__panel');
-  const use3d = finale && rail && !quiet.matches;
-  // el HTML arranca con .no-3d puesto: si no hay JS o hay movimiento reducido,
-  // el formulario se ve suelto y legible en vez de esconderse tras el raíl
-  if (use3d) root.classList.remove("no-3d");
+  // el final ya no lleva ordenador: es una sección normal
+  root.classList.remove("no-3d");
 
   let scrollPx = 0;
   let queued = false;
@@ -82,39 +74,6 @@
       lastActive = active;
     }
 
-    if (use3d) {
-      const r = rail.getBoundingClientRect();
-      // fuera de pantalla no hay nada que calcular
-      if (r.bottom < -200 || r.top > vh + 200) return;
-      const travel = Math.max(1, r.height - vh);
-      const p = clamp(-r.top / travel);
-
-      // Tres pasos en vez de cinco: el salto entre fotogramas parecidos se
-      // notaba como un cambiazo. Cerrado, abierto y pantalla de contacto.
-      const zoom = clamp((p - 0.46) / 0.26);
-      finale.style.setProperty("--zoom", zoom.toFixed(3));
-
-      // Pestillo: una vez se ha llegado al contacto ya no vuelve a ser un
-      // ordenador aunque se siga bajando.
-      const pan = Math.max(panLock, clamp((p - 0.6) / 0.18));
-      if (pan >= 1) panLock = 1;
-      finale.style.setProperty("--panel", pan.toFixed(3));
-
-      if (seqImgs.length) {
-        const f = p < 0.2 ? 0 : p < 0.46 ? 1 : 2;
-        if (f !== seqOn) {
-          seqImgs[seqOn].classList.remove("is-on");
-          seqImgs[f].classList.add("is-on");
-          seqOn = f;
-        }
-      }
-
-      const live = pan > 0.8;
-      if (live !== panelLive) {
-        panel.classList.toggle('is-live', live);
-        panelLive = live;
-      }
-    }
   };
 
   const onScroll = () => {
@@ -143,87 +102,24 @@
     );
   }
 
-  /* ═══ 4 · Webs en órbita ══════════════════════════════════════════════
-     Giran solas, siempre, sin tocar el ratón. También en móvil, con el
-     anillo más pequeño y las tarjetas más chicas.
-
-     Un solo transform por tarjeta y fotograma. Las que van por abajo
-     están "delante": más grandes, más opacas y por encima del texto. Las
-     de arriba pasan por detrás.
+  /* ═══ 4 · Webs en órbita ════════════════════════════════════════════
+     El giro es una animación CSS con offset-path, no un rAF. Así corre en
+     el compositor y el scroll no la afecta lo más mínimo, que era el
+     problema de la versión anterior. Aquí solo se miden el ancho de la
+     tarjeta y el alto del campo.
      ═══════════════════════════════════════════════════════════════════ */
-  const orbitSec = document.getElementById('trabajo');
-  const field = document.getElementById('orbit-field');
-  const svg = document.getElementById('orbit-links');
+  const field = document.getElementById("orbit-field");
 
-  if (orbitSec && field && !quiet.matches) {
-    const cards = [...field.querySelectorAll('.wcard')];
-    const core = field.querySelector('.orbit__core');
-    const n = cards.length;
-
-    field.classList.add('is-orbiting');
-    field.appendChild(svg); // dentro del campo: coordenadas locales
-
-    const ns = 'http://www.w3.org/2000/svg';
-    const lines = cards.map(() => {
-      const l = document.createElementNS(ns, 'line');
-      svg.appendChild(l);
-      return l;
-    });
-
-    let W = 0, H = 0, cw = 0, rx = 0, ry = 0, cx = 0, cy = 0;
-    const ch = new Float64Array(n);
-    let alive = false, raf = 0;
-
-    const measure = () => {
-      W = field.clientWidth;
+  if (field && !quiet.matches) {
+    field.classList.add("is-orbiting");
+    const medir = () => {
+      const W = field.clientWidth;
       const small = W < 760;
-      cw = small ? Math.max(84, Math.round(W * 0.24)) : Math.round(Math.min(186, W * 0.155));
-      H = small ? Math.round(Math.min(560, W * 1.32)) : Math.round(Math.min(760, W * 0.62));
-
-      field.style.setProperty('--cw', cw + 'px');
-      field.style.setProperty('--field-h', H + 'px');
-
-      // el anillo se sale un poco por los lados a propósito: llena el borde
-      rx = small ? W * 0.44 : W * 0.375;
-      ry = H * 0.36;
-      cx = W / 2;
-      cy = H / 2;
-
-      svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
-      for (let i = 0; i < n; i++) ch[i] = cards[i].offsetHeight;
+      field.style.setProperty("--cw", (small ? Math.max(88, Math.round(W * 0.25)) : Math.round(Math.min(184, W * 0.15))) + "px");
+      field.style.setProperty("--field-h", (small ? Math.round(Math.min(560, W * 1.3)) : Math.round(Math.min(770, W * 0.63))) + "px");
     };
-
-    // Composición fija. Antes giraban en un rAF continuo y, al hacer scroll
-    // al mismo tiempo, las tarjetas y las líneas daban tirones.
-    const colocar = () => {
-      for (let i = 0; i < n; i++) {
-        const a = -1.15 + (i / n) * 6.2831853;
-        const s = Math.sin(a);
-        const depth = (s + 1) / 2;
-        const x = cx + rx * Math.cos(a) - cw / 2;
-        const y = cy + ry * s - ch[i] / 2;
-        const el = cards[i];
-        el.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) scale(${(0.8 + depth * 0.26).toFixed(3)})`;
-        el.style.opacity = (0.62 + depth * 0.38).toFixed(2);
-        el.style.zIndex = depth > 0.52 ? 7 : 2;
-
-        const l = lines[i];
-        l.setAttribute("x1", cx.toFixed(0));
-        l.setAttribute("y1", cy.toFixed(0));
-        l.setAttribute("x2", (x + cw / 2).toFixed(1));
-        l.setAttribute("y2", (y + ch[i] / 2).toFixed(1));
-      }
-    };
-
-    measure();
-    colocar();
-
-    new ResizeObserver(() => {
-      measure();
-      colocar();
-    }).observe(field);
-
-    core.style.zIndex = 5;
+    medir();
+    new ResizeObserver(medir).observe(field);
   }
 
   /* ═══ 5 · Cordillera tramada a un bit (hero) ═════════════════════════ */

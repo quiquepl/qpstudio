@@ -268,7 +268,7 @@ const CONTACTO = {
       e.preventDefault();
       const u = document.getElementById("g-user").value.trim();
       const c = document.getElementById("g-pass").value;
-      if (u === "quique" && c === "qpstudio2026") {
+      if (u === "quique" && c === "juan") {
         sessionStorage.setItem("qp-admin-ok", "1");
         location.href = "admin.html";
       } else {
@@ -277,5 +277,14 @@ const CONTACTO = {
         document.getElementById("g-pass").focus();
       }
     });
+  }
+
+  /* ── Tarjetas de la banda: desplegables solo en móvil ─────────────── */
+  const bandCards = [...document.querySelectorAll("details.bandc")];
+  if (bandCards.length) {
+    const mq = matchMedia("(max-width: 620px)");
+    const ajustar = () => bandCards.forEach((c, i) => (c.open = !mq.matches || i === 0));
+    ajustar();
+    mq.addEventListener("change", ajustar);
   }
 })();

@@ -10,7 +10,7 @@
    lo ve. Sirve para trabajar mientras no haya servidor. En cuanto exista
    backend, la comprobación tiene que hacerse allí.
    ═══════════════════════════════════════════════════════════════════════ */
-const ACCESO = { usuario: 'quique', clave: 'qpstudio2026' };
+const ACCESO = { usuario: 'quique', clave: 'juan' };
 
 /* Secciones de la web y los textos que se pueden editar en cada una.
    El orden es el mismo que el de la home. */

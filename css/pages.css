@@ -244,6 +244,8 @@
    ADMINISTRACIÓN
    ═══════════════════════════════════════════════════════════════════════ */
 
+/* el acceso, centrado en la pantalla */
+.apage:has(#login:not([hidden])) { display: grid; place-items: center; min-height: calc(100svh - 4.4rem); padding: 0; }
 .login { max-width: 24rem; margin-inline: auto; }
 .login .field input { background: oklch(100% 0 0); border-color: var(--line); color: var(--ink); }
 .login .field label { color: var(--ink-3); }

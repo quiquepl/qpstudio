@@ -62,7 +62,7 @@ Alternancia claro / oscuro para que no haya dos bloques seguidos iguales.
 | 6 | Tuya de verdad | oscuro | cintas 3D + maqueta de edición |
 | 7 | El estudio | papel | retrato |
 | 8 | Preguntas frecuentes | aura viva | cuatro desplegables |
-| 9 | Final | **blanco** | secuencia real del portátil |
+| 9 | Final | aura viva | formulario de contacto |
 
 **No hay etiquetas introductorias de sección** (el `01 ——— EL COSTE INVISIBLE`
 de la versión anterior). Se quitaron todas a petición de Quique. No volver a
@@ -90,21 +90,18 @@ de parpadear. Es solo decoración: `pointer-events: none` y por debajo del texto
 degradado horizontal cuyo brillo viaja. Superpuestas dan pliegues con volumen.
 Se dibujan a 30 fps.
 
-**3. Webs en órbita.** Ocho maquetas colocadas en una composición fija alrededor
-del texto. **No se mueven.** Antes giraban en un rAF continuo y, al hacer scroll
-al mismo tiempo, las tarjetas y las líneas daban tirones. Lo que se mueve ahora
-es el aura del fondo, que no está atada al scroll y por eso no da problemas.
+**3. Webs en órbita.** Ocho maquetas girando en una elipse. **La animación es
+CSS pura**: `offset-path: ellipse()` para la trayectoria, más dos keyframes
+sincronizados para la profundidad (escala y opacidad) y para el z-index, de forma
+que la mitad de abajo pasa por delante del texto y la de arriba por detrás. Cada
+tarjeta lleva un `animation-delay` negativo para repartirlas por el anillo.
 
-**4. El ordenador final.** Tres fotogramas reales (`img/mac/`): cerrado visto
-desde arriba, abierto y el zoom sobre la pantalla de contacto. Se pasó de cinco a
-tres porque entre fotogramas parecidos el cambio se notaba como un corte; con
-tres y un fundido de 420 ms la transición es limpia.
+Se hace en CSS y no en JavaScript **a propósito**: así corre en el compositor y
+el scroll no la afecta lo más mínimo. La versión con `requestAnimationFrame`
+daba tirones al hacer scroll a la vez.
 
-Hay un **pestillo**: en cuanto el contacto llega a estar del todo visible, ya no
-vuelve a verse el ordenador aunque se siga bajando.
-
-Las imágenes venían a 1,3 MB cada una; reescaladas a 1200 px y JPEG 84 las tres
-ocupan 211 KB. Lo mismo con el logo (1,2 MB a 73 KB) y el retrato.
+**4. El final.** Ya no hay ordenador. La última sección es el formulario de
+contacto sobre el aura, sin raíl ni secuencia de imágenes.
 
 Los canvas se paran fuera de pantalla y con la pestaña oculta.
 `prefers-reduced-motion` congela las cordilleras, quita el portátil y deja el

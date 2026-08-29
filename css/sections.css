@@ -113,11 +113,11 @@
 .band__media img {
   width: 100%; height: 100%;
   object-fit: cover;
-  filter: grayscale(1) contrast(1.08) brightness(0.42);
+  filter: grayscale(1) contrast(1.02) brightness(0.62);
 }
 .band__media::after {
   content: ""; position: absolute; inset: 0;
-  background: linear-gradient(100deg, oklch(13.5% 0.026 255 / .92), oklch(13.5% 0.026 255 / .55) 62%, oklch(13.5% 0.026 255 / .8));
+  background: linear-gradient(100deg, oklch(26% 0.03 255 / .82), oklch(26% 0.03 255 / .5) 62%, oklch(26% 0.03 255 / .72));
 }
 .band__in { position: relative; z-index: 2; }
 .band__title { max-width: 22ch; }
@@ -204,15 +204,48 @@
 
 /* modo órbita */
 .orbit__field.is-orbiting {
+  --erx: 38%; --ery: 36%; --vuelta: 54s;
   display: block;
   padding-inline: 0;
   height: var(--field-h, 700px);
 }
 .is-orbiting .wcard {
   position: absolute;
-  top: 0; left: 0;
+  left: 0; top: 0;
   width: var(--cw, 176px);
-  will-change: transform;
+  /* la trayectoria y el escalonado son animación CSS: corren en el
+     compositor, así que el scroll no las toca */
+  offset-path: ellipse(var(--erx, 38%) var(--ery, 36%) at 50% 50%);
+  offset-rotate: 0deg;
+  offset-anchor: 50% 50%;
+  animation:
+    orbita var(--vuelta, 54s) linear infinite,
+    profundidad var(--vuelta, 54s) linear infinite,
+    capa var(--vuelta, 54s) linear infinite;
+  animation-delay: calc(var(--i) * (var(--vuelta, 54s) / -8));
+}
+
+@keyframes orbita { to { offset-distance: 100%; } }
+
+/* al pasar por abajo la tarjeta viene de frente: más grande y más opaca */
+@keyframes profundidad {
+  0%   { scale: 0.84; opacity: 0.72; }
+  25%  { scale: 1.04; opacity: 1; }
+  50%  { scale: 0.84; opacity: 0.72; }
+  75%  { scale: 0.7;  opacity: 0.45; }
+  100% { scale: 0.84; opacity: 0.72; }
+}
+/* la mitad de abajo pasa por delante del texto, la de arriba por detrás */
+@keyframes capa {
+  0%, 49.99%   { z-index: 7; }
+  50%, 100%    { z-index: 2; }
+}
+
+@media (hover: hover) {
+  .is-orbiting .wcard:hover { animation-play-state: paused; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .is-orbiting .wcard { animation: none; offset-distance: calc(var(--i) * 12.5%); }
 }
 .is-orbiting .orbit__core {
   position: absolute;
@@ -759,8 +792,12 @@
 }
 .faq__item { border-bottom: 1px solid var(--line-soft); border-top: 0; }
 .faq__item:last-child { border-bottom: 0; }
-.faq__item summary { padding: 1.15rem clamp(1.1rem, 2.4vw, 1.7rem); }
-.faq__item p { padding: 0 clamp(1.1rem, 2.4vw, 1.7rem) 1.3rem; }
+.faq__item summary {
+  gap: 1.5rem;
+  padding: 1.3rem clamp(1.4rem, 3vw, 2.2rem);
+}
+.faq__item summary::after { flex: 0 0 auto; margin-right: 0.2rem; }
+.faq__item p { padding: 0 clamp(1.4rem, 3vw, 2.2rem) 1.5rem; max-width: 58ch; }
 @media (hover: hover) { .faq__item summary:hover { background: var(--paper-2); } }
 .faq__head { text-align: center; margin-bottom: clamp(2rem, 3.4vw, 2.8rem); }
 
@@ -799,53 +836,15 @@
   text-wrap: pretty;
 }
 
-/* ═══ FINAL · el ordenador sobre blanco ═══════════════════════════════
-   Todo el movimiento es un único transform compuesto por elemento y
-   ninguna sombra con filtro, para que no cueste nada al desplazarse.
-   ═══════════════════════════════════════════════════════════════════ */
+/* ═══ FINAL · solo el contacto ═══════════════════════════════════════ */
 
-.finale { position: relative; background: oklch(99.2% 0.001 250); }
-.finale__rail { height: 165svh; }
-@media (max-width: 700px) { .finale__rail { height: 150svh; } }
-
-.finale__sticky {
-  position: sticky; top: 0;
-  height: 100svh;
-  overflow: hidden;
-  display: grid; place-items: center;
-}
-
-.finale__scene {
-  position: absolute; inset: 0;
-  display: grid; place-items: center;
-  perspective: 1700px;
-  perspective-origin: 50% 44%;
-}
-
-/* Secuencia real: cinco fotogramas del portátil. El scroll elige cuál se
-   ve, así que no hay 3D que calcular y va suave hasta en móvil. */
-.macseq {
+.sec--final {
   position: relative;
-  width: min(74vw, 940px);
-  aspect-ratio: 4 / 3;
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+  background: var(--paper);
+  overflow: hidden;
+  isolation: isolate;
 }
-.macseq img {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: contain;
-  opacity: 0;
-  transition: opacity 420ms var(--ease);
-}
-.macseq img.is-on { opacity: 1; }
-/* el último se acerca hasta llenar el cuadro y da paso al formulario */
-.macseq__last {
-  transform: scale(calc(1 + var(--zoom) * 0.55));
-  transform-origin: 50% 42%;
-  will-change: transform;
-}
-.finale__scene { opacity: calc(1 - var(--panel)); }
-
-@media (max-width: 620px) { .macseq { width: 96vw; } }
 
 /* el contacto, que aparece cuando ya estamos dentro de la pantalla */
 .finale__panel {
@@ -856,7 +855,7 @@
   will-change: opacity;
 }
 .finale__panel.is-live { pointer-events: auto; }
-.finale__in { text-align: center; }
+.finale__in { position: relative; z-index: 1; text-align: center; }
 
 .finale__title {
   font-family: var(--display);
@@ -909,22 +908,9 @@
 
 @media (max-width: 520px) { .form__row { grid-template-columns: 1fr; gap: 0; } }
 
-/* Sin JS o con movimiento reducido: el ordenador se aparta y el
-   formulario queda suelto y legible. */
-.no-3d .finale__rail { height: auto; }
-.no-3d .finale__sticky { position: static; height: auto; padding-block: clamp(4rem, 8vw, 6rem); contain: none; }
-.no-3d .finale__scene { display: none; }
-.no-3d .finale__panel { opacity: 1; transform: none; pointer-events: auto; }
-
-@media (prefers-reduced-motion: reduce) {
-  .finale__rail { height: auto; }
-  .finale__sticky { position: static; height: auto; padding-block: 5rem; contain: none; }
-  .finale__scene { display: none; }
-  .finale__panel { opacity: 1 !important; transform: none !important; pointer-events: auto; }
-}
-
 /* la órbita también en móvil, más pequeña y con el texto más estrecho */
 @media (max-width: 620px) {
+  .orbit__field.is-orbiting { --erx: 46%; --ery: 34%; --vuelta: 46s; }
   .is-orbiting .orbit__core { width: 62vw; }
   .is-orbiting .orbit__core .h2 { font-size: 1.65rem; }
   .is-orbiting .orbit__core p { font-size: 0.8rem; margin: 0.6rem auto 1rem; }
@@ -986,4 +972,53 @@
 @media (max-width: 420px) {
   /* en pantallas muy estrechas el comparador se apila mejor en vertical */
   .ba__frame { aspect-ratio: 3 / 4; }
+}
+
+
+/* botón fantasma para las secciones oscuras */
+.btn--ghost-inv {
+  border-color: oklch(100% 0 0 / .3);
+  color: var(--t-00);
+  background: oklch(100% 0 0 / .04);
+}
+@media (hover: hover) {
+  .btn--ghost-inv:hover { border-color: oklch(100% 0 0 / .7); background: oklch(100% 0 0 / .1); }
+}
+
+/* ── Solo escritorio / solo móvil ──────────────────────────────────── */
+.solo-mov { display: none; }
+@media (max-width: 620px) {
+  .solo-esc { display: none; }
+  .solo-mov { display: inline; }
+}
+
+/* ── Tarjetas de la banda: desplegables solo en móvil ──────────────── */
+.bandc summary {
+  display: flex; align-items: baseline; gap: 0.7rem;
+  list-style: none;
+  cursor: default;
+}
+.bandc summary::-webkit-details-marker { display: none; }
+.bandc summary h3 { margin: 0; }
+.bandc .bandc__n { margin: 0; }
+
+@media (max-width: 620px) {
+  .bandc { padding: 0; }
+  .bandc summary {
+    cursor: pointer;
+    padding: 1.1rem 1.2rem;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .bandc summary::after {
+    content: ""; margin-left: auto; flex: 0 0 auto;
+    width: 9px; height: 9px;
+    border-right: 2px solid var(--blue-sky);
+    border-bottom: 2px solid var(--blue-sky);
+    rotate: 45deg; translate: 0 -2px;
+    transition: rotate var(--t) var(--ease);
+  }
+  .bandc[open] summary::after { rotate: -135deg; translate: 0 2px; }
+  .bandc p { padding: 0 1.2rem 1.2rem; text-align: left; }
+  .bandc h3 { text-align: left; }
 }
