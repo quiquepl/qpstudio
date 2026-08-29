@@ -369,7 +369,7 @@ const adminPage = () => {
         </div>
         <button class="btn btn--blue btn--full magnet" type="submit"><span>Entrar</span></button>
         <p class="login__error" id="login-error" role="status" aria-live="polite"></p>
-        <p class="login__hint">Acceso provisional mientras no haya servidor. Se comprueba en el navegador, así que no protege de verdad: en cuanto exista backend hay que moverlo allí.</p>
+        <p class="login__hint">Acceso restringido. Las credenciales se comprueban en el servidor y la sesión dura ocho horas.</p>
       </form>
     </div>
 
