@@ -68,6 +68,9 @@ const foot = `</main>
           <a href="mailto:qpstudiocontacto@gmail.com" aria-label="Correo electrónico">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5zM4.4 6 12 11.7 19.6 6zM20 7.9l-7.4 5.6a1 1 0 0 1-1.2 0L4 7.9V18h16z"/></svg>
           </a>
+          <a href="https://wa.me/34600000000" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 1.67c2.2 0 4.27.86 5.83 2.42a8.2 8.2 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.25 8.24a8.23 8.23 0 0 1-4.19-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm-3.2 4.3c-.15 0-.4.06-.61.29-.21.23-.8.78-.8 1.9s.82 2.2.93 2.36c.12.15 1.6 2.44 3.88 3.42.54.23.96.37 1.29.48.54.17 1.04.15 1.43.09.44-.07 1.34-.55 1.53-1.08.19-.53.19-.98.13-1.08-.06-.09-.21-.15-.44-.26-.23-.12-1.34-.66-1.55-.74-.21-.08-.36-.11-.51.11-.15.23-.58.74-.71.89-.13.15-.26.17-.49.06-.23-.12-.96-.36-1.83-1.13-.68-.6-1.13-1.35-1.27-1.58-.13-.23-.01-.35.1-.47.1-.1.23-.27.35-.4.11-.14.15-.23.23-.39.08-.15.04-.29-.02-.4-.06-.12-.51-1.23-.7-1.68-.18-.44-.37-.38-.51-.39h-.43z"/></svg>
+          </a>
         </div>
       </div>
       <nav class="foot__col" aria-label="Navegación">
@@ -164,7 +167,7 @@ const foto = (id, alt) =>
 
 /* ── Servicios ─────────────────────────────────────────────────────── */
 
-const servicio = (id, titulo, lead, extra, incluye, plazo, img) => `
+const servicio = (id, titulo, lead, extra, incluye, img) => `
   <article class="svc" id="${id}">
     <div class="svc__txt">
       <h2>${titulo}</h2>
@@ -172,7 +175,6 @@ const servicio = (id, titulo, lead, extra, incluye, plazo, img) => `
       <p class="svc__extra">${extra}</p>
       <h3 class="svc__h3">Qué incluye</h3>
       <ul class="chips">${incluye.map((i) => `<li>${i}</li>`).join('')}</ul>
-      <p class="svc__plazo"><b>Plazo</b> ${plazo}</p>
     </div>
     <figure class="svc__shot">${foto(img, '')}</figure>
   </article>
@@ -191,8 +193,7 @@ ${servicio(
   'Diseño web',
   'Para negocios que parten de cero o que nunca han tenido una web a la altura de su trabajo. Definimos identidad, estructura y contenidos partiendo de tu negocio y del cliente al que quieres llegar, no de una plantilla del sector.',
   'Empezamos por una conversación sobre el negocio, no sobre la web, y terminamos con un sitio publicado, medido y tuyo. Los textos los escribimos nosotros a partir de esa conversación.',
-  ['Diseño a medida', 'Textos incluidos', 'Dominio y alojamiento', 'Velocidad y SEO', 'Panel de administración', 'Formación grabada'],
-  'De 3 a 5 semanas.',
+  ['Diseño a medida', 'Textos incluidos', 'Dominio y alojamiento', 'Velocidad y SEO', 'Panel de administración', 'Acompañamiento personal'],
   'photo-1486406146926-c627a92ad1ab'
 )}
 ${servicio(
@@ -201,7 +202,6 @@ ${servicio(
   'Para webs que ya existen pero se han quedado por detrás del negocio. Auditamos lo que tienes, conservamos el posicionamiento ganado y los contenidos que funcionan, y rehacemos solo lo que está limitando los resultados.',
   'Antes de tocar nada te decimos con sinceridad si compensa rehacerla entera o si basta con ajustes concretos. Preferimos un encargo pequeño a uno innecesario.',
   ['Auditoría previa', 'Migración sin pérdidas', 'Redirecciones', 'Contenido conservado', 'Métricas antes y después', 'Panel de administración'],
-  'De 2 a 4 semanas.',
   'photo-1552664730-d307ca884978'
 )}
 ${servicio(
@@ -210,7 +210,6 @@ ${servicio(
   'Para negocios que ya venden online o quieren empezar. Trabajamos el catálogo, la ficha de producto y el proceso de compra con un objetivo concreto: que el carrito llegue al final.',
   'Se conecta con el inventario y la facturación que ya uses. Si todavía no usas ninguno, te proponemos el que encaje con tu volumen real, no con el que te gustaría tener.',
   ['Catálogo y buscador', 'Ficha de producto', 'Pasarela de pago', 'Envíos e impuestos', 'Gestión de pedidos', 'Panel de administración'],
-  'De 4 a 8 semanas.',
   'photo-1441986300917-64674bd600d8'
 )}
 ${servicio(
@@ -219,12 +218,11 @@ ${servicio(
   'Para negocios que ya tienen web y pierden horas en tareas repetitivas. Conectamos formularios, avisos y herramientas internas para que el sitio opere sin intervención manual.',
   'Cada automatización se documenta: qué hace, cuándo se dispara y a dónde llega. Si algún día quieres cambiarla, sabrás exactamente dónde tocar.',
   ['Formularios y CRM', 'Avisos automáticos', 'Calendarios', 'Recordatorios', 'Asistentes con IA', 'Documentación'],
-  'Se presupuesta por integración.',
   'photo-1460925895917-afdab827c52f'
 )}
     <div class="notice">
       <b>Presupuestos.</b> Todavía estamos cerrando las tarifas públicas. Cada propuesta se prepara a
-      medida tras una primera conversación y se entrega por escrito con alcance y fecha cerrados.
+      medida tras una primera conversación y se entrega por escrito con el alcance cerrado.
     </div>
   </div>
 </section>
@@ -238,7 +236,7 @@ page(
   'gestion.html',
   'Gestión',
   'Panel de administración, botones con backend real y acompañamiento con soporte 24/7.',
-  phead('Gestión', 'La web es tuya.<br />También su día a día.', 'Entregamos cada proyecto preparado para que puedas mantenerlo sin depender de nosotros.') +
+  phead('Gestión', 'La web es tuya.<br />También su día a día.', 'Cada proyecto se prepara para que puedas mantenerlo sin depender de nosotros.') +
     `
 <section class="pbody gpanel">
   ${aura}
@@ -250,7 +248,7 @@ page(
           <li>Textos y titulares</li><li>Precios y tarifas</li><li>Horarios</li>
           <li>Fotografías</li><li>Servicios y productos</li><li>Secciones de temporada</li>
         </ul>
-        <p>Desde un panel propio, sin tocar código. La formación se entrega grabada con tu propia web de ejemplo.</p>
+        <p>Desde un panel propio, sin tocar código. Te acompañamos en persona sobre tu propia web hasta que lo manejes con soltura.</p>
       </div>
 
       <div class="editor" aria-hidden="true">
@@ -288,7 +286,7 @@ page(
     <div class="gcards">
       <article class="gcard gcard--blue"><b>Soporte 24/7</b><span>Dudas e incidencias resueltas cualquier día y a cualquier hora.</span></article>
       <article class="gcard"><b>Mantenimiento</b><span>Copias de seguridad, actualizaciones y vigilancia del rendimiento.</span></article>
-      <article class="gcard"><b>Cambios puntuales</b><span>Lo que no quieras hacer tú, con respuesta el mismo día.</span></article>
+      <article class="gcard"><b>Cambios puntuales</b><span>Lo que no quieras hacer tú, sin esperas ni tickets.</span></article>
       <article class="gcard"><b>Un solo interlocutor</b><span>Siempre la misma persona, que ya conoce tu proyecto.</span></article>
     </div>
   </div>
@@ -302,7 +300,7 @@ page(
 page(
   'contacto.html',
   'Contacto',
-  'Solicita una propuesta para tu proyecto web. Respondemos en menos de 24 horas.',
+  'Solicita una propuesta para tu proyecto web. Respondemos en menos de 48 horas.',
   `
 <section class="pbody gpanel">
   ${aura}
@@ -330,7 +328,7 @@ page(
     <div class="contact__aside">
       <h2>Qué ocurre después</h2>
       <ol class="pasos">
-        <li><b>Respondemos</b><span>En menos de 24 horas, siempre.</span></li>
+        <li><b>Respondemos</b><span>En menos de 48 horas, siempre.</span></li>
         <li><b>Llamada de 45 minutos</b><span>Sin compromiso, para entender el negocio.</span></li>
         <li><b>Propuesta por escrito</b><span>Alcance, fecha y presupuesto cerrados.</span></li>
         <li><b>Si no encajamos, te lo decimos</b><span>Preferimos no coger un proyecto que hacerlo a medias.</span></li>
@@ -430,54 +428,147 @@ adminPage();
 
 /* ── Legales ───────────────────────────────────────────────────────── */
 
-const legal = (file, titulo, desc, cuerpo) =>
+/* Los datos del titular viven en un solo sitio: si cambia el NIF o el
+   domicilio se toca aquí y se regeneran las tres páginas. */
+const T = {
+  nombre: 'Quique Planelles',
+  marca: 'QP Studio',
+  nif: '[NIF pendiente]',
+  dir: 'Calle Federico García Moliner 25, España',
+  email: 'qpstudiocontacto@gmail.com'
+};
+
+const legal = (file, titulo, desc, cuerpo, aviso) =>
   page(file, titulo, desc, phead(titulo, titulo, desc) + `
 <section class="pbody">
   <div class="shell prose">
 ${cuerpo}
+    <p class="prose__fecha">Última actualización: agosto de 2026.</p>
     <div class="notice">
-      <b>Documento pendiente de revisión.</b> Es una base de trabajo. Antes de publicar debe
-      completarse con los datos fiscales reales y revisarse con un profesional: afecta al
-      cumplimiento del RGPD y de la LSSI-CE.
+      <b>${aviso}</b>
     </div>
   </div>
 </section>
 `);
 
-legal('aviso-legal.html', 'Aviso legal', 'Información general y condiciones de uso del sitio web de QP Studio.',
-`    <h2>Titular</h2>
-    <p>QP Studio, marca de Quique Planelles. NIF y domicilio pendientes de completar. Correo: qpstudiocontacto@gmail.com</p>
-    <h2>Objeto</h2>
-    <p>La navegación por el sitio atribuye la condición de usuario e implica la aceptación de estas condiciones.</p>
-    <h2>Propiedad intelectual</h2>
-    <p>Los contenidos del sitio pertenecen a QP Studio o a terceros que han autorizado su uso. Queda prohibida su reproducción sin autorización expresa.</p>
-    <h2>Responsabilidad</h2>
-    <p>QP Studio no responde del uso que los usuarios hagan de los contenidos ni de las interrupciones del servicio ajenas a su control.</p>
-    <h2>Legislación aplicable</h2>
-    <p>Estas condiciones se rigen por la legislación española.</p>
-`);
+legal('aviso-legal.html', 'Aviso legal', 'Titular, condiciones de uso y responsabilidad del sitio web de QP Studio.',
+`    <h2>1. Datos del titular</h2>
+    <p>En cumplimiento del artículo 10 de la Ley 34/2002 de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE), se informa de lo siguiente:</p>
+    <ul>
+      <li><b>Titular:</b> ${T.nombre}, que opera bajo la marca ${T.marca}.</li>
+      <li><b>NIF:</b> ${T.nif}</li>
+      <li><b>Domicilio:</b> ${T.dir}</li>
+      <li><b>Correo electrónico:</b> <a href="mailto:${T.email}">${T.email}</a></li>
+      <li><b>Actividad:</b> diseño, desarrollo y mantenimiento de sitios web.</li>
+    </ul>
+
+    <h2>2. Objeto y aceptación</h2>
+    <p>Este aviso regula el acceso y el uso del sitio <b>qpstudio.es</b>. La navegación atribuye la condición de usuario e implica aceptar estas condiciones en la versión publicada en el momento del acceso. El titular puede modificarlas en cualquier momento.</p>
+
+    <h2>3. Condiciones de uso</h2>
+    <p>El usuario se compromete a usar el sitio conforme a la ley y a no emplearlo con fines ilícitos, ni para dañar los sistemas del titular o de terceros, ni para introducir contenido que vulnere derechos ajenos.</p>
+
+    <h2>4. Propiedad intelectual e industrial</h2>
+    <p>Los contenidos del sitio —textos, diseño, código, estructura, marcas y logotipos— pertenecen al titular o a terceros que han autorizado su uso. Queda prohibida su reproducción, distribución, comunicación pública o transformación sin autorización expresa y por escrito.</p>
+    <p>Las fotografías de ejemplo proceden de bancos de imágenes con licencia de uso libre y pertenecen a sus respectivos autores.</p>
+
+    <h2>5. Responsabilidad</h2>
+    <p>El titular no responde del uso que los usuarios hagan de los contenidos, ni de los daños derivados de interrupciones, virus o fallos ajenos a su control. Se compromete a mantener el sitio operativo dentro de lo razonable, sin garantizar una disponibilidad ininterrumpida.</p>
+
+    <h2>6. Enlaces a terceros</h2>
+    <p>El sitio puede contener enlaces a páginas de terceros, por ejemplo WhatsApp o LinkedIn. El titular no controla sus contenidos ni sus políticas de privacidad, y no responde de ellos.</p>
+
+    <h2>7. Legislación y jurisdicción</h2>
+    <p>Estas condiciones se rigen por la legislación española. Para cualquier controversia, las partes se someten a los juzgados y tribunales del domicilio del usuario cuando este tenga la condición de consumidor.</p>
+`,
+`Falta el NIF. Antes de dar este aviso por completo hay que sustituir el marcador por el número real: la LSSI-CE lo exige.`);
 
 legal('privacidad.html', 'Política de privacidad', 'Cómo trata QP Studio los datos personales recibidos a través del sitio web.',
-`    <h2>Responsable</h2>
-    <p>QP Studio, marca de Quique Planelles. Correo: qpstudiocontacto@gmail.com</p>
-    <h2>Qué datos recogemos</h2>
-    <ul><li>Nombre, correo y mensaje del formulario de contacto.</li><li>Datos técnicos necesarios para que el sitio funcione.</li></ul>
-    <h2>Para qué</h2>
-    <ul><li>Responder a tu solicitud y preparar una propuesta.</li><li>Mantener el contacto durante el proyecto.</li></ul>
-    <p>No enviamos comunicaciones comerciales no solicitadas ni cedemos datos a terceros salvo obligación legal.</p>
-    <h2>Tus derechos</h2>
-    <p>Puedes solicitar acceso, rectificación, supresión, limitación, portabilidad y oposición escribiendo a qpstudiocontacto@gmail.com, y reclamar ante la Agencia Española de Protección de Datos.</p>
-`);
-
-legal('cookies.html', 'Política de cookies', 'Qué cookies utiliza el sitio web de QP Studio.',
-`    <h2>Qué usamos</h2>
-    <p>Este sitio funciona sin cookies de seguimiento ni de publicidad. No hay analítica de terceros ni perfilado.</p>
+`    <h2>1. Responsable del tratamiento</h2>
     <ul>
-      <li><b>Técnicas.</b> Las imprescindibles para que el sitio se muestre. No requieren consentimiento.</li>
-      <li><b>Terceros.</b> Las tipografías se cargan desde Google Fonts y algunas imágenes desde Unsplash; esos servicios pueden registrar la dirección IP.</li>
+      <li><b>Responsable:</b> ${T.nombre} (${T.marca})</li>
+      <li><b>NIF:</b> ${T.nif}</li>
+      <li><b>Domicilio:</b> ${T.dir}</li>
+      <li><b>Contacto:</b> <a href="mailto:${T.email}">${T.email}</a></li>
     </ul>
-    <h2>Cómo gestionarlas</h2>
-    <p>Puedes bloquearlas desde tu navegador. Si en el futuro añadimos analítica o marketing, se pedirá consentimiento previo.</p>
-`);
+
+    <h2>2. Qué datos tratamos y de dónde salen</h2>
+    <p>Solo tratamos los datos que nos facilitas voluntariamente:</p>
+    <ul>
+      <li><b>Formulario de contacto:</b> nombre, correo electrónico y el contenido del mensaje.</li>
+      <li><b>Correo o WhatsApp:</b> los datos que decidas incluir en tu comunicación.</li>
+      <li><b>Datos técnicos:</b> dirección IP y datos de conexión que el servidor registra para funcionar y para su propia seguridad.</li>
+    </ul>
+    <p>No tratamos categorías especiales de datos ni datos de menores de edad.</p>
+
+    <h2>3. Para qué los usamos y con qué base legal</h2>
+    <ul>
+      <li><b>Responder a tu solicitud y preparar una propuesta.</b> Base: tu consentimiento y la aplicación de medidas precontractuales a petición tuya (arts. 6.1.a y 6.1.b del RGPD).</li>
+      <li><b>Gestionar la relación durante el proyecto.</b> Base: la ejecución del contrato (art. 6.1.b).</li>
+      <li><b>Cumplir obligaciones fiscales y contables.</b> Base: obligación legal (art. 6.1.c).</li>
+      <li><b>Mantener el sitio seguro y operativo.</b> Base: interés legítimo (art. 6.1.f).</li>
+    </ul>
+    <p>No enviamos comunicaciones comerciales no solicitadas, no elaboramos perfiles y no tomamos decisiones automatizadas.</p>
+
+    <h2>4. Cuánto tiempo los conservamos</h2>
+    <ul>
+      <li>Consultas que no acaban en proyecto: <b>un año</b> desde el último contacto.</li>
+      <li>Datos de clientes: durante la relación y, después, <b>seis años</b> por las obligaciones contables y fiscales.</li>
+    </ul>
+    <p>Cumplidos esos plazos, los datos se suprimen.</p>
+
+    <h2>5. A quién se los comunicamos</h2>
+    <p>No vendemos ni cedemos datos. Solo acceden a ellos los proveedores necesarios para prestar el servicio, que actúan como encargados del tratamiento:</p>
+    <ul>
+      <li><b>Vercel Inc.</b> — alojamiento del sitio web.</li>
+      <li><b>Supabase</b> — base de datos donde se guardan los mensajes del formulario.</li>
+      <li><b>Google (Gmail)</b> — correo electrónico.</li>
+      <li><b>IONOS</b> — registro del dominio.</li>
+    </ul>
+    <p>Alguno de estos proveedores puede tratar datos fuera del Espacio Económico Europeo. En esos casos la transferencia se ampara en las Cláusulas Contractuales Tipo aprobadas por la Comisión Europea.</p>
+
+    <h2>6. Tus derechos</h2>
+    <p>Puedes ejercer en cualquier momento los derechos de <b>acceso, rectificación, supresión, oposición, limitación del tratamiento y portabilidad</b>, y retirar el consentimiento que hayas dado, escribiendo a <a href="mailto:${T.email}">${T.email}</a> e indicando qué derecho ejerces. Respondemos en el plazo máximo de un mes.</p>
+    <p>Si consideras que no hemos atendido bien tu solicitud, puedes reclamar ante la <b>Agencia Española de Protección de Datos</b> (<a href="https://www.aepd.es" target="_blank" rel="noopener">www.aepd.es</a>), C/ Jorge Juan 6, 28001 Madrid.</p>
+
+    <h2>7. Seguridad</h2>
+    <p>Aplicamos medidas técnicas y organizativas razonables: conexión cifrada (HTTPS) en todo el sitio, acceso restringido al panel de administración y copias de seguridad de la base de datos.</p>
+`,
+`Falta el NIF y quedan pendientes los contratos de encargado de tratamiento con los proveedores citados. Revísalo con un profesional antes de darlo por cerrado.`);
+
+legal('cookies.html', 'Política de cookies', 'Qué cookies y servicios de terceros utiliza el sitio web de QP Studio.',
+`    <h2>1. Qué es una cookie</h2>
+    <p>Una cookie es un archivo pequeño que un sitio web guarda en tu navegador para recordar información sobre tu visita. Se consideran equivalentes otras tecnologías de almacenamiento local, como <i>localStorage</i>.</p>
+
+    <h2>2. Qué usa este sitio</h2>
+    <p>Este sitio <b>no utiliza cookies de publicidad, de seguimiento ni de analítica</b>. No hay Google Analytics, ni píxeles de redes sociales, ni perfilado de ningún tipo. Por eso no verás un banner de consentimiento: no hay nada que consentir.</p>
+    <p>Sí hay almacenamiento técnico en dos casos concretos, ambos exentos de consentimiento según el artículo 22.2 de la LSSI-CE:</p>
+    <ul>
+      <li><b>Sesión del panel de administración.</b> Solo si accedes al panel privado, para mantener la sesión abierta. No se crea navegando por el sitio público.</li>
+      <li><b>Preferencias de la propia página</b>, guardadas en tu navegador. No salen de tu dispositivo y no nos llegan.</li>
+    </ul>
+
+    <h2>3. Servicios de terceros</h2>
+    <p>Aunque no pongamos cookies de terceros, el sitio carga recursos externos que, por el propio funcionamiento de internet, reciben tu dirección IP:</p>
+    <ul>
+      <li><b>Google Fonts</b> — tipografías. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Política de Google</a>.</li>
+      <li><b>Unsplash</b> — algunas imágenes de ejemplo. <a href="https://unsplash.com/privacy" target="_blank" rel="noopener">Política de Unsplash</a>.</li>
+      <li><b>Vercel</b> — alojamiento. <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener">Política de Vercel</a>.</li>
+    </ul>
+
+    <h2>4. Cómo gestionarlas o eliminarlas</h2>
+    <p>Puedes bloquear o borrar el almacenamiento de este sitio desde la configuración de tu navegador:</p>
+    <ul>
+      <li><b>Chrome:</b> Configuración → Privacidad y seguridad → Cookies y otros datos de sitios.</li>
+      <li><b>Edge:</b> Configuración → Cookies y permisos del sitio.</li>
+      <li><b>Firefox:</b> Ajustes → Privacidad y seguridad → Cookies y datos del sitio.</li>
+      <li><b>Safari:</b> Preferencias → Privacidad → Gestionar datos de sitios web.</li>
+    </ul>
+    <p>Bloquearlo no te impide navegar. Como mucho tendrías que volver a identificarte en el panel de administración.</p>
+
+    <h2>5. Cambios</h2>
+    <p>Si en el futuro añadimos analítica o cualquier cookie no exenta, se implantará un banner de consentimiento previo y se actualizará esta página antes de activarla.</p>
+`,
+`Redactado sobre el funcionamiento actual del sitio. Si algún día se añade analítica, hay que actualizar esta página y poner banner de consentimiento antes de activarla.`);
 
 console.log('Listo.');

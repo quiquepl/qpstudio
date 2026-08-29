@@ -84,9 +84,12 @@ Vercel emite el certificado solo.
 
 - **Datos de contacto reales.** `js/ui.js`, objeto `CONTACTO` (correo y
   WhatsApp), y los mismos valores escritos a mano en el HTML.
-- **Textos legales.** `aviso-legal.html`, `privacidad.html` y `cookies.html`
-  están redactados como base, sin NIF ni domicilio. Hay que completarlos y
-  revisarlos.
+- **El NIF de los textos legales.** El aviso legal y la política de privacidad
+  ya llevan domicilio y están desarrollados, pero el NIF sigue como
+  `[NIF pendiente]`. Se cambia en un solo sitio: la constante `T` de
+  `build-pages.mjs`, y luego `node build-pages.mjs`. La LSSI-CE exige ese dato.
+  Conviene además que un profesional revise los tres textos antes de darlos por
+  cerrados.
 - **El formulario.** Ahora abre el cliente de correo. Para recibir los mensajes
   de verdad hace falta un endpoint (Formspree, o una función en `api/` de Vercel
   con Resend).

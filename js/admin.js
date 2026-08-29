@@ -85,7 +85,7 @@ const SECCIONES = [
     campos: [
       { k: 'est.t1', et: 'Titular, primera línea', v: 'Un solo responsable:' },
       { k: 'est.t2', et: 'Titular, segunda línea', v: 'Quique Planelles.' },
-      { k: 'est.p', et: 'Párrafo', v: 'La persona con la que hablas es la que diseña, la que programa y la que sigue respondiendo meses después de la entrega.', larga: true },
+      { k: 'est.p', et: 'Párrafo', v: 'La persona con la que hablas es la que diseña, la que programa y la que sigue respondiendo meses después.', larga: true },
       { k: 'est.cita', et: 'Cita destacada', v: 'Trabajar con un estudio pequeño no significa renunciar a nada. Significa que quien decide sobre tu proyecto lo conoce de principio a fin.', larga: true }
     ]
   },
@@ -94,10 +94,10 @@ const SECCIONES = [
     nombre: 'Preguntas frecuentes',
     campos: [
       { k: 'faq.t', et: 'Titular', v: 'Preguntas frecuentes' },
-      { k: 'faq.1', et: 'Pregunta 1', v: '¿Cuánto se tarda en tenerla lista?' },
+      { k: 'faq.1', et: 'Pregunta 1', v: '¿Cómo se empieza?' },
       { k: 'faq.2', et: 'Pregunta 2', v: '¿Trabajáis con cualquier tipo de negocio?' },
       { k: 'faq.3', et: 'Pregunta 3', v: '¿Podré modificar la web yo mismo?' },
-      { k: 'faq.4', et: 'Pregunta 4', v: '¿Qué ocurre después de la entrega?' }
+      { k: 'faq.4', et: 'Pregunta 4', v: '¿Qué ocurre cuando la web ya está publicada?' }
     ]
   },
   {
@@ -105,7 +105,7 @@ const SECCIONES = [
     nombre: 'Contacto final',
     campos: [
       { k: 'con.t1', et: 'Titular, primera línea', v: 'Hablemos de tu proyecto.' },
-      { k: 'con.t2', et: 'Titular, segunda línea', v: 'Respondemos en menos de 24 horas.' },
+      { k: 'con.t2', et: 'Titular, segunda línea', v: 'Respondemos en menos de 48 horas.' },
       { k: 'con.cta', et: 'Botón de envío', v: 'Enviar solicitud' }
     ]
   }
