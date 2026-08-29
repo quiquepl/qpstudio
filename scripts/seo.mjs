@@ -28,7 +28,7 @@ export const SITIO = 'https://www.qpstudio.es';
 
    No la quites aunque la verificación ya esté hecha: Google la vuelve a
    comprobar cada cierto tiempo y si desaparece pierdes la propiedad. */
-export const VERIFICACION_GOOGLE = 'HXn2Ot7IPy7Zt__mrQxpazlKBfdfgyzJPNPAds0u2UI';
+export const VERIFICACION_GOOGLE = 'QBvAUidL9GEBSni_bPFn5w6azvIRbNriep8Oyj5xf1k';
 
 const T = {
   nombre: 'QP Studio',
