@@ -103,23 +103,38 @@
   }
 
   /* ═══ 4 · Webs en órbita ════════════════════════════════════════════
-     El giro es una animación CSS con offset-path, no un rAF. Así corre en
-     el compositor y el scroll no la afecta lo más mínimo, que era el
-     problema de la versión anterior. Aquí solo se miden el ancho de la
-     tarjeta y el alto del campo.
+     El giro entero es CSS (ver sections.css). Aquí solo se calculan el
+     tamaño de la tarjeta, el alto del campo y el radio, para que el
+     anillo no pise el bloque de texto ni se salga por arriba o por abajo.
      ═══════════════════════════════════════════════════════════════════ */
-  const field = document.getElementById("orbit-field");
+  const field = document.getElementById('orbit-field');
 
   if (field && !quiet.matches) {
-    field.classList.add("is-orbiting");
+    field.classList.add('is-orbiting');
+    const core = field.querySelector('.orbit__core');
+
     const medir = () => {
-      const W = field.clientWidth;
-      const small = W < 760;
-      field.style.setProperty("--cw", (small ? Math.max(88, Math.round(W * 0.25)) : Math.round(Math.min(184, W * 0.15))) + "px");
-      field.style.setProperty("--field-h", (small ? Math.round(Math.min(560, W * 1.3)) : Math.round(Math.min(770, W * 0.63))) + "px");
+      const disp = Math.min(field.parentElement.clientWidth || innerWidth, innerWidth);
+      const small = disp < 760;
+
+      const W = small ? disp : Math.min(1040, disp * 0.94);
+      const H = Math.round(small ? Math.min(680, W * 1.62) : W * 0.86);
+      const cw = small ? Math.max(84, Math.round(W * 0.235)) : Math.round(Math.min(178, W * 0.19));
+
+      field.style.setProperty('--field-w', Math.round(W) + 'px');
+      field.style.setProperty('--field-h', H + 'px');
+      field.style.setProperty('--cw', cw + 'px');
+
+      // radio: fuera del texto por los lados y dentro del campo por arriba
+      const media = core.getBoundingClientRect().width / 2;
+      const alto = cw * 0.92; // alto aproximado de la tarjeta
+      const min = media + cw * 0.55 + 18;
+      const max = H / 2 - alto * 0.58;
+      field.style.setProperty('--radio', Math.round(Math.max(min, Math.min(max, H * 0.4))) + 'px');
     };
+
     medir();
-    new ResizeObserver(medir).observe(field);
+    new ResizeObserver(medir).observe(field.parentElement);
   }
 
   /* ═══ 5 · Cordillera tramada a un bit (hero) ═════════════════════════ */

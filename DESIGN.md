@@ -90,15 +90,26 @@ de parpadear. Es solo decoración: `pointer-events: none` y por debajo del texto
 degradado horizontal cuyo brillo viaja. Superpuestas dan pliegues con volumen.
 Se dibujan a 30 fps.
 
-**3. Webs en órbita.** Ocho maquetas girando en una elipse. **La animación es
-CSS pura**: `offset-path: ellipse()` para la trayectoria, más dos keyframes
-sincronizados para la profundidad (escala y opacidad) y para el z-index, de forma
-que la mitad de abajo pasa por delante del texto y la de arriba por detrás. Cada
-tarjeta lleva un `animation-delay` negativo para repartirlas por el anillo.
+**3. Webs en órbita.** Ocho maquetas girando en círculo alrededor del texto,
+**sin parar y sin pausa al pasar el ratón**.
 
-Se hace en CSS y no en JavaScript **a propósito**: así corre en el compositor y
-el scroll no la afecta lo más mínimo. La versión con `requestAnimationFrame`
-daba tirones al hacer scroll a la vez.
+La técnica es rotación anidada: un brazo de tamaño cero gira desde el centro y
+la tarjeta gira lo mismo al revés, así que orbita pero se mantiene derecha. Dos
+animaciones más, con la misma duración y el mismo retardo, se encargan de la
+profundidad (escala y opacidad) y del z-index, para que la mitad de abajo pase
+por delante del texto y la de arriba por detrás.
+
+Todo son animaciones CSS **a propósito**: corren en el compositor y el scroll no
+las afecta. La versión con `requestAnimationFrame` daba tirones.
+
+Antes de esto se probó con `offset-path: ellipse()`, y **no sirve**:
+`offset-distance` avanza por longitud de arco, no por ángulo, así que en una
+elipse alargada las tarjetas se amontonaban en unos sitios y dejaban huecos en
+otros. Por eso la órbita es circular: en un círculo el arco y el ángulo
+coinciden y el reparto sale exacto sin cuentas.
+
+El radio lo calcula `motion.js` para que el anillo no pise el bloque de texto
+por los lados ni se salga del campo por arriba y por abajo.
 
 **4. El final.** Ya no hay ordenador. La última sección es el formulario de
 contacto sobre el aura, sin raíl ni secuencia de imágenes.

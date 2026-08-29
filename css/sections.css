@@ -204,47 +204,63 @@
 
 /* modo órbita */
 .orbit__field.is-orbiting {
-  --erx: 39%; --ery: 34%; --vuelta: 54s;
+  --vuelta: 54s;
   display: block;
   padding-inline: 0;
   height: var(--field-h, 700px);
+  width: var(--field-w, 100%);
+  margin-inline: auto;
 }
-.is-orbiting .wcard {
+/* Órbita circular por rotación anidada. El brazo gira, la tarjeta gira lo
+   mismo al revés y así se mantiene derecha. Es exacta por construcción:
+   ángulos repartidos a partes iguales, sin sorpresas de arco.
+
+   Todo son animaciones CSS, o sea que corren en el compositor y el scroll
+   no las afecta lo más mínimo. */
+.is-orbiting .orb {
   position: absolute;
-  left: 0; top: 0;
+  left: 50%; top: 50%;
+  width: 0; height: 0;
+  animation: gira var(--vuelta, 54s) linear infinite;
+  animation-delay: calc(var(--vuelta, 54s) / -8 * var(--i));
+}
+.is-orbiting .orb__fix {
+  position: absolute;
+  left: 0; top: calc(var(--radio, 340px) * -1);
+  translate: -50% -50%;
+  animation: gira var(--vuelta, 54s) linear infinite reverse;
+  animation-delay: calc(var(--vuelta, 54s) / -8 * var(--i));
+}
+@keyframes gira { to { rotate: 360deg; } }
+
+.is-orbiting .wcard {
   width: var(--cw, 176px);
-  /* la trayectoria y el escalonado son animación CSS: corren en el
-     compositor, así que el scroll no las toca */
-  offset-path: ellipse(var(--erx, 38%) var(--ery, 36%) at 50% 50%);
-  offset-rotate: 0deg;
-  offset-anchor: 50% 50%;
   animation:
-    orbita var(--vuelta, 54s) linear infinite,
     profundidad var(--vuelta, 54s) linear infinite,
     capa var(--vuelta, 54s) linear infinite;
-  animation-delay: calc(var(--i) * (var(--vuelta, 54s) / -8));
+  animation-delay: calc(var(--vuelta, 54s) / -8 * var(--i));
 }
 
-@keyframes orbita { to { offset-distance: 100%; } }
-
-/* al pasar por abajo la tarjeta viene de frente: más grande y más opaca */
+/* arriba pasa por detrás y pequeña; abajo, de frente y grande */
 @keyframes profundidad {
-  0%   { scale: 0.84; opacity: 0.72; }
-  25%  { scale: 1.04; opacity: 1; }
-  50%  { scale: 0.84; opacity: 0.72; }
-  75%  { scale: 0.7;  opacity: 0.45; }
-  100% { scale: 0.84; opacity: 0.72; }
+  0%   { scale: 0.7;  opacity: 0.45; }
+  50%  { scale: 1.04; opacity: 1; }
+  100% { scale: 0.7;  opacity: 0.45; }
 }
-/* la mitad de abajo pasa por delante del texto, la de arriba por detrás */
 @keyframes capa {
-  0%, 49.99%   { z-index: 7; }
-  50%, 100%    { z-index: 2; }
+  0%, 24.99%  { z-index: 2; }
+  25%, 74.99% { z-index: 7; }
+  75%, 100%   { z-index: 2; }
 }
 
-/* el giro no se detiene nunca, tampoco al pasar el ratón */
 @media (prefers-reduced-motion: reduce) {
-  .is-orbiting .wcard { animation: none; offset-distance: calc(var(--i) * 12.5%); }
+  .is-orbiting .orb,
+  .is-orbiting .orb__fix,
+  .is-orbiting .wcard { animation: none; }
+  .is-orbiting .orb { rotate: calc(var(--i) * 45deg); }
+  .is-orbiting .orb__fix { rotate: calc(var(--i) * -45deg); }
 }
+
 .is-orbiting .orbit__core {
   position: absolute;
   top: 50%; left: 50%;
@@ -956,8 +972,8 @@
 
 /* la órbita también en móvil, más pequeña y con el texto más estrecho */
 @media (max-width: 620px) {
-  .orbit__field.is-orbiting { --erx: 45%; --ery: 33%; --vuelta: 46s; }
-  .is-orbiting .orbit__core { width: 62vw; }
+  .orbit__field.is-orbiting { --vuelta: 46s; }
+  .is-orbiting .orbit__core { width: 56vw; }
   .is-orbiting .orbit__core .h2 { font-size: 1.65rem; }
   .is-orbiting .orbit__core p { font-size: 0.8rem; margin: 0.6rem auto 1rem; }
   .is-orbiting .orbit__core .btn { padding: 0.6rem 1.1rem; font-size: 0.8rem; }
