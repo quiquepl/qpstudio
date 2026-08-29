@@ -40,9 +40,15 @@
   /* ── 2 · Scroll: progreso, nav y el ordenador final ────────────────── */
   const nav = document.getElementById('nav');
   const navLinks = [...document.querySelectorAll('.nav__links a')];
+  // Solo los enlaces internos (#algo) son selectores válidos. Con las URLs
+  // limpias el nav apunta a /servicios y compañía, y pasarle eso a
+  // querySelector lanza una excepción que se llevaba por delante todo lo
+  // que viene después: ni órbita, ni montañas, ni cintas de fondo.
   const targets = navLinks
     .map((a) => {
-      const el = document.querySelector(a.getAttribute('href'));
+      const href = a.getAttribute('href') || '';
+      if (href.length < 2 || href[0] !== '#') return null;
+      const el = document.querySelector(href);
       return el ? { a, el } : null;
     })
     .filter(Boolean);
@@ -271,8 +277,15 @@
     document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
   };
 
-  const heroRidges = document.getElementById('ridges-hero');
-  if (heroRidges) makeRidges(heroRidges, { rgb: [30, 32, 40], layers: innerWidth < 620 ? 3 : 4 });
+  // Cada pieza va aislada: si una falla, las demás siguen. Un solo error
+  // sin capturar dejó la web publicada sin órbita, sin montañas y sin
+  // cintas, porque tumbaba el archivo entero.
+  try {
+    const heroRidges = document.getElementById('ridges-hero');
+    if (heroRidges) makeRidges(heroRidges, { rgb: [30, 32, 40], layers: innerWidth < 620 ? 3 : 4 });
+  } catch (e) {
+    console.warn('cordillera:', e);
+  }
 
     /* ═══ 6 · Cintas 3D de fondo ═════════════════════════════════════════ */
 
@@ -354,8 +367,12 @@
     document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
   };
 
-  ['ribbons-serv', 'ribbons-tuya'].forEach((id) => {
-    const el = document.getElementById(id);
-    if (el) makeRibbons(el);
-  });
+  try {
+    ['ribbons-serv', 'ribbons-tuya'].forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) makeRibbons(el);
+    });
+  } catch (e) {
+    console.warn('cintas:', e);
+  }
 })();
