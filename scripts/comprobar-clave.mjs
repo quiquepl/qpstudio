@@ -3,18 +3,11 @@
    en la contraseña, en el hash o en cómo se leen las variables.
 
    Uso:  node scripts/comprobar-clave.mjs */
-import { readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
 import { claveCorrecta } from '../api/_sesion.js';
+import { cargarEnv } from './_comun.mjs';
 
-const RAIZ = join(dirname(fileURLToPath(import.meta.url)), '..');
-const env = {};
-for (const linea of readFileSync(join(RAIZ, '.env.local'), 'utf8').split(/\r?\n/)) {
-  const m = linea.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/);
-  if (m) env[m[1]] = m[2].replace(/^["']|["']$/g, '');
-}
-
+cargarEnv();
+const env = process.env;
 const clave = env.ADMIN_CLAVE;
 const hash = env.ADMIN_CLAVE_HASH;
 

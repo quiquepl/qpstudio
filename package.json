@@ -6,8 +6,10 @@
   "type": "module",
   "scripts": {
     "dev": "node server.mjs 4321",
-    "pages": "node build-pages.mjs",
-    "migrate": "node scripts/migrar.mjs"
+    "build": "node scripts/build.mjs",
+    "migrate": "node scripts/migrar.mjs",
+    "clave-admin": "node scripts/clave-admin.mjs",
+    "desbloquear": "node scripts/desbloquear.mjs"
   },
   "dependencies": {
     "@vercel/functions": "^2.0.0",

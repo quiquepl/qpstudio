@@ -343,4 +343,30 @@ const CONTACTO = {
     ajustar();
     mq.addEventListener("change", ajustar);
   }
+
+  /* ── Aviso de visita ─────────────────────────────────────────────── */
+  /* Analítica propia: sin cookies, sin terceros y sin nada que
+     identifique a nadie. Va con sendBeacon para que el navegador lo mande
+     en segundo plano y no retrase la página; si no existe, se usa fetch
+     con keepalive, que aguanta aunque el visitante cambie de página al
+     momento. Cualquier fallo se traga en silencio: es una estadística, no
+     puede estropearle la visita a nadie. */
+  try {
+    const datos = JSON.stringify({
+      ruta: location.pathname,
+      referente: document.referrer || null
+    });
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon("/api/visita", new Blob([datos], { type: "application/json" }));
+    } else {
+      fetch("/api/visita", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: datos,
+        keepalive: true
+      }).catch(() => {});
+    }
+  } catch {
+    /* sin analítica, la web funciona igual */
+  }
 })();

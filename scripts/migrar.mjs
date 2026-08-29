@@ -8,34 +8,20 @@
    Cada fichero se envuelve en una transacción y se anota en la tabla
    migraciones, así que ejecutarlo dos veces no repite trabajo. */
 import { readFileSync, readdirSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
+import { join } from 'node:path';
 import pg from 'pg';
+import { RAIZ, cadenaDirecta } from './_comun.mjs';
 
-const AQUI = dirname(fileURLToPath(import.meta.url));
-const DB = join(AQUI, '..', 'db');
+const DB = join(RAIZ, 'db');
 
-// carga .env.local sin dependencias: solo CLAVE=valor, ignorando comentarios
-for (const fichero of ['.env.local', '.env']) {
-  try {
-    for (const linea of readFileSync(join(AQUI, '..', fichero), 'utf8').split(/\r?\n/)) {
-      const m = linea.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/);
-      if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '');
-    }
-  } catch {
-    /* el fichero puede no existir; en producción las variables ya vienen puestas */
-  }
-}
-
-const cadena = process.env.DATABASE_URL_UNPOOLED || process.env.DATABASE_URL;
+const cadena = cadenaDirecta();
 if (!cadena) {
-  console.error('Falta DATABASE_URL_UNPOOLED. Ejecuta: npx neon env pull');
+  console.error('Falta DATABASE_URL. Ejecuta: npx neon env pull');
   process.exit(1);
 }
 if (cadena.includes('-pooler.')) {
   console.warn('Aviso: estás migrando por el pooler. Mejor DATABASE_URL_UNPOOLED.');
 }
-
 const cliente = new pg.Client({ connectionString: cadena });
 await cliente.connect();
 

@@ -74,10 +74,19 @@
         <button type="button" class="linkish" id="salir">Cerrar sesión</button>
       </div>
 
+      <div class="pubar" id="publicar-barra" hidden>
+        <p><b>Hay cambios sin publicar.</b> Están guardados, pero la web todavía enseña la versión anterior.</p>
+        <div class="pubar__acciones">
+          <span class="ebox__estado" id="publicar-estado" role="status"></span>
+          <button type="button" class="btn btn--blue btn--sm magnet" id="publicar"><span>Publicar en la web</span></button>
+        </div>
+      </div>
+
       <div class="tabs" role="tablist">
         <button class="tabs__btn" role="tab" aria-selected="true" data-tab="tab-textos">Editar textos</button>
         <button class="tabs__btn" role="tab" aria-selected="false" data-tab="tab-bloques">Añadir secciones</button>
         <button class="tabs__btn" role="tab" aria-selected="false" data-tab="tab-mensajes">Mensajes recibidos</button>
+        <button class="tabs__btn" role="tab" aria-selected="false" data-tab="tab-analitica">Visitas</button>
       </div>
 
       <div class="tabs__panel" id="tab-textos" role="tabpanel">
@@ -101,6 +110,10 @@
             <p>Aquí aparecerán las solicitudes enviadas desde el formulario de contacto, con fecha, datos y estado.</p>
           </div>
         </div>
+      </div>
+
+      <div class="tabs__panel" id="tab-analitica" role="tabpanel" hidden>
+        <div id="analitica"></div>
       </div>
 
       <div class="notice">

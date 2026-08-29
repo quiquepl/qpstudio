@@ -11,101 +11,113 @@
    bloques todavía se guardan en este navegador (localStorage).
    ═══════════════════════════════════════════════════════════════════════ */
 
-/* Secciones de la web y los textos que se pueden editar en cada una.
-   El orden es el mismo que el de la home. */
+/* Las secciones de la home y los campos editables de cada una.
+
+   Aquí SOLO está la estructura: qué campos hay, cómo se llaman y en qué
+   orden. El texto de cada uno NO se guarda aquí, sale de
+   contenidos-base.json, que se genera leyendo los data-txt de index.html.
+
+   Antes esta lista llevaba también una copia de cada texto y bastaba con
+   retocar la web para que las dos versiones dejaran de coincidir: el panel
+   ofrecía "restaurar" a un texto que ya no estaba en ninguna parte. */
 const SECCIONES = [
   {
     id: 'hero',
-    nombre: 'Cabecera (hero)',
+    nombre: 'Cabecera',
     campos: [
-      { k: 'hero.kicker', et: 'Etiqueta superior', v: 'Estudio digital independiente' },
-      { k: 'hero.sub', et: 'Segunda línea', v: 'Dirigido por Quique Planelles' },
-      { k: 'hero.t1', et: 'Titular, primera línea', v: 'Haz que tu web refleje' },
-      { k: 'hero.t2', et: 'Titular, segunda línea', v: 'el valor real de tu negocio.' },
-      { k: 'hero.p', et: 'Párrafo', v: 'Diseño, desarrollo y mantenimiento web para negocios de cualquier sector. Desde proyectos sencillos y directos hasta desarrollos con integraciones a medida.', larga: true },
-      { k: 'hero.cta1', et: 'Botón principal', v: 'Solicitar propuesta' },
-      { k: 'hero.cta2', et: 'Botón secundario', v: 'Ver servicios' }
+      { k: 'hero.kicker', et: 'Etiqueta superior' },
+      { k: 'hero.sub', et: 'Segunda línea' },
+      { k: 'hero.t1', et: 'Titular, primera línea' },
+      { k: 'hero.t2', et: 'Titular, segunda línea' },
+      { k: 'hero.p', et: 'Párrafo', larga: true },
+      { k: 'hero.pm', et: 'Párrafo en móvil', larga: true },
+      { k: 'hero.cta1', et: 'Botón principal' },
+      { k: 'hero.cta2', et: 'Botón secundario' }
     ]
   },
   {
-    id: 'impresion',
+    id: 'imp',
     nombre: 'La primera impresión',
     campos: [
-      { k: 'imp.t1', et: 'Titular, primera línea', v: 'Tu web es la primera reunión.' },
-      { k: 'imp.t2', et: 'Titular, segunda línea', v: 'Y decide más de lo que parece.' },
-      { k: 'imp.p', et: 'Entradilla', v: 'Tanto si partes de cero como si arrastras una web antigua, el resultado se juzga igual: en los primeros segundos y sin que nadie te explique por qué.', larga: true },
-      { k: 'imp.b1', et: 'Motivo 1, titular', v: 'Te buscan antes de contactarte' },
-      { k: 'imp.b2', et: 'Motivo 2, titular', v: 'Deciden en segundos' },
-      { k: 'imp.b3', et: 'Motivo 3, titular', v: 'Nunca sabrás el motivo' }
+      { k: 'imp.t1', et: 'Titular, primera línea', larga: true },
+      { k: 'imp.t2', et: 'Titular, segunda línea' },
+      { k: 'imp.b1', et: 'Tarjeta 1 · título' },
+      { k: 'imp.p1', et: 'Tarjeta 1 · texto', larga: true },
+      { k: 'imp.b2', et: 'Tarjeta 2 · título' },
+      { k: 'imp.p2', et: 'Tarjeta 2 · texto', larga: true },
+      { k: 'imp.b3', et: 'Tarjeta 3 · título' },
+      { k: 'imp.p3', et: 'Tarjeta 3 · texto', larga: true }
     ]
   },
   {
-    id: 'trabajo',
+    id: 'tra',
     nombre: 'Nuestro trabajo',
     campos: [
-      { k: 'tra.t', et: 'Titular', v: 'Nuestro trabajo' },
-      { k: 'tra.p', et: 'Párrafo', v: 'Diseñamos y desarrollamos cada proyecto a medida: arquitectura, contenidos, rendimiento e integraciones. Sin plantillas adaptadas ni funciones a medio terminar.', larga: true },
-      { k: 'tra.cta', et: 'Botón', v: 'Ver un caso completo' }
+      { k: 'tra.t', et: 'Titular' },
+      { k: 'tra.p', et: 'Párrafo', larga: true },
+      { k: 'tra.cta', et: 'Botón' }
     ]
   },
   {
-    id: 'servicios',
-    nombre: 'Nuestros servicios',
+    id: 'ser',
+    nombre: 'Servicios',
     campos: [
-      { k: 'ser.t', et: 'Titular', v: 'Nuestros servicios' },
-      { k: 'ser.p', et: 'Entradilla', v: 'Trabajamos con negocios de cualquier sector y tamaño. Ajustamos el nivel de sofisticación a cada caso.', larga: true },
-      { k: 'ser.1', et: 'Servicio 01', v: 'Diseño web' },
-      { k: 'ser.2', et: 'Servicio 02', v: 'Rediseño web' },
-      { k: 'ser.3', et: 'Servicio 03', v: 'Comercio electrónico' },
-      { k: 'ser.4', et: 'Servicio 04', v: 'Automatización e integraciones' }
+      { k: 'ser.t', et: 'Titular' },
+      { k: 'ser.p', et: 'Introducción', larga: true },
+      { k: 'ser.pm', et: 'Introducción en móvil', larga: true },
+      { k: 'ser.1', et: 'Servicio 1' },
+      { k: 'ser.2', et: 'Servicio 2' },
+      { k: 'ser.3', et: 'Servicio 3' },
+      { k: 'ser.4', et: 'Servicio 4' }
     ]
   },
   {
-    id: 'demo',
+    id: 'dem',
     nombre: 'Antes y después',
     campos: [
-      { k: 'dem.t', et: 'Titular', v: 'Antes y después' },
-      { k: 'dem.p', et: 'Subtítulo', v: 'Un taller mecánico real. Arrastra para comparar.' }
+      { k: 'dem.t', et: 'Titular' },
+      { k: 'dem.p', et: 'Pie' }
     ]
   },
   {
-    id: 'gestion',
+    id: 'ges',
     nombre: 'Autonomía sobre tu web',
     campos: [
-      { k: 'ges.t', et: 'Titular', v: 'Autonomía total sobre tu web' },
-      { k: 'ges.1', et: 'Punto 1, titular', v: 'Contenidos editables' },
-      { k: 'ges.2', et: 'Punto 2, titular', v: 'Botones funcionales con backend real' },
-      { k: 'ges.3', et: 'Punto 3, titular', v: 'Soporte 24/7' }
+      { k: 'ges.t', et: 'Titular' },
+      { k: 'ges.1', et: 'Punto 1' },
+      { k: 'ges.2', et: 'Punto 2' },
+      { k: 'ges.3', et: 'Punto 3' }
     ]
   },
   {
-    id: 'estudio',
+    id: 'est',
     nombre: 'El estudio',
     campos: [
-      { k: 'est.t1', et: 'Titular, primera línea', v: 'Un solo responsable:' },
-      { k: 'est.t2', et: 'Titular, segunda línea', v: 'Quique Planelles.' },
-      { k: 'est.p', et: 'Párrafo', v: 'La persona con la que hablas es la que diseña, la que programa y la que sigue respondiendo meses después.', larga: true },
-      { k: 'est.cita', et: 'Cita destacada', v: 'Trabajar con un estudio pequeño no significa renunciar a nada. Significa que quien decide sobre tu proyecto lo conoce de principio a fin.', larga: true }
+      { k: 'est.t1', et: 'Titular, primera línea' },
+      { k: 'est.t2', et: 'Titular, segunda línea' },
+      { k: 'est.p', et: 'Párrafo', larga: true },
+      { k: 'est.cita', et: 'Cita destacada', larga: true }
     ]
   },
   {
     id: 'faq',
     nombre: 'Preguntas frecuentes',
     campos: [
-      { k: 'faq.t', et: 'Titular', v: 'Preguntas frecuentes' },
-      { k: 'faq.1', et: 'Pregunta 1', v: '¿Cómo se empieza?' },
-      { k: 'faq.2', et: 'Pregunta 2', v: '¿Trabajáis con cualquier tipo de negocio?' },
-      { k: 'faq.3', et: 'Pregunta 3', v: '¿Podré modificar la web yo mismo?' },
-      { k: 'faq.4', et: 'Pregunta 4', v: '¿Qué ocurre cuando la web ya está publicada?' }
+      { k: 'faq.t1', et: 'Titular, primera palabra' },
+      { k: 'faq.t2', et: 'Titular, segunda palabra' },
+      { k: 'faq.1', et: 'Pregunta 1' },
+      { k: 'faq.2', et: 'Pregunta 2' },
+      { k: 'faq.3', et: 'Pregunta 3' },
+      { k: 'faq.4', et: 'Pregunta 4' }
     ]
   },
   {
-    id: 'contacto',
+    id: 'con',
     nombre: 'Contacto final',
     campos: [
-      { k: 'con.t1', et: 'Titular, primera línea', v: 'Hablemos de tu proyecto.' },
-      { k: 'con.t2', et: 'Titular, segunda línea', v: 'Respondemos en menos de 48 horas.' },
-      { k: 'con.cta', et: 'Botón de envío', v: 'Enviar solicitud' }
+      { k: 'con.t1', et: 'Titular, primera línea' },
+      { k: 'con.t2', et: 'Titular, segunda línea' },
+      { k: 'con.cta', et: 'Botón' }
     ]
   }
 ];
@@ -123,7 +135,6 @@ const BLOQUES = [
   'use strict';
 
   const $ = (s, r = document) => r.querySelector(s);
-  const LS = 'qp-admin-textos';
   const LS_BLOQUES = 'qp-admin-bloques';
 
   /* ── Acceso ──────────────────────────────────────────────────────── */
@@ -138,6 +149,7 @@ const BLOQUES = [
     pintarTextos();
     pintarBloques();
     cargarMensajes();
+    pintarAnalitica();
   };
 
   /* ── Bandeja de entrada ─────────────────────────────────────────── */
@@ -314,20 +326,52 @@ const BLOQUES = [
   });
 
   /* ── Editar textos ───────────────────────────────────────────────── */
-  const leer = () => {
-    try {
-      return JSON.parse(localStorage.getItem(LS) || '{}');
-    } catch {
-      return {};
-    }
-  };
-  const guardar = (o) => localStorage.setItem(LS, JSON.stringify(o));
 
-  const pintarTextos = () => {
+  /* Dos fuentes: contenidos-base.json trae el texto de fábrica de cada campo
+     (extraído de index.html al construir) y la base de datos trae lo que se
+     haya cambiado. El campo muestra el cambio si existe y el original si no.
+
+     Nada se guarda ya en este navegador: antes los cambios vivían en
+     localStorage, así que solo los veía quien los había escrito y no llegaban
+     a la web nunca. */
+  let BASE = {};
+  let CAMBIOS = {};
+  let PENDIENTE = false;
+
+  const esc = (s) =>
+    String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+
+  const aviso = (el, txt, malo) => {
+    if (!el) return;
+    el.textContent = txt;
+    el.classList.toggle('is-mal', Boolean(malo));
+    el.classList.add('is-on');
+    clearTimeout(el._t);
+    el._t = setTimeout(() => el.classList.remove('is-on'), 3200);
+  };
+
+  const cargarTextos = async () => {
+    const [base, guardado] = await Promise.all([
+      fetch('/contenidos-base.json').then((r) => (r.ok ? r.json() : {})).catch(() => ({})),
+      fetch('/api/admin/contenidos').then((r) => (r.ok ? r.json() : null)).catch(() => null)
+    ]);
+    BASE = base;
+    CAMBIOS = guardado?.cambios || {};
+    PENDIENTE = Boolean(guardado?.pendiente);
+  };
+
+  const pintarPublicar = () => {
+    const barra = $('#publicar-barra');
+    if (!barra) return;
+    barra.hidden = !PENDIENTE;
+  };
+
+  const pintarTextos = async () => {
     const cont = $('#textos');
-    if (!cont || cont.dataset.listo) return;
-    cont.dataset.listo = '1';
-    const datos = leer();
+    if (!cont) return;
+
+    await cargarTextos();
+    pintarPublicar();
 
     cont.innerHTML = SECCIONES.map(
       (s) => `
@@ -338,62 +382,205 @@ const BLOQUES = [
         </header>
         <div class="ebox__body">
           ${s.campos
-            .map(
-              (c) => `
-            <label class="efield">
-              <span class="efield__et">${c.et}</span>
+            .map((c) => {
+              const original = BASE[c.k] ?? '';
+              const valor = CAMBIOS[c.k] ?? original;
+              const cambiado = c.k in CAMBIOS;
+              const attrs = `data-k="${c.k}" data-def="${esc(original)}"`;
+              return `
+            <label class="efield${cambiado ? ' is-cambiado' : ''}">
+              <span class="efield__et">${c.et}${cambiado ? '<i>cambiado</i>' : ''}</span>
               ${
                 c.larga
-                  ? `<textarea rows="3" data-k="${c.k}" data-def="${esc(c.v)}">${esc(datos[c.k] ?? c.v)}</textarea>`
-                  : `<input type="text" data-k="${c.k}" data-def="${esc(c.v)}" value="${esc(datos[c.k] ?? c.v)}" />`
+                  ? `<textarea rows="3" ${attrs}>${esc(valor)}</textarea>`
+                  : `<input type="text" ${attrs} value="${esc(valor)}" />`
               }
-            </label>`
-            )
+            </label>`;
+            })
             .join('')}
         </div>
         <footer class="ebox__foot">
           <span class="ebox__estado" role="status"></span>
           <div class="ebox__acciones">
-            <button type="button" class="btn btn--ghost btn--sm" data-accion="restaurar"><span>Restaurar por defecto</span></button>
-            <button type="button" class="btn btn--blue btn--sm" data-accion="guardar"><span>Guardar cambios</span></button>
+            <button type="button" class="btn btn--ghost btn--sm" data-accion="restaurar"><span>Restaurar original</span></button>
+            <button type="button" class="btn btn--blue btn--sm" data-accion="guardar"><span>Guardar</span></button>
           </div>
         </footer>
       </section>`
     ).join('');
 
-    cont.addEventListener('click', (e) => {
+    if (cont.dataset.listo) return;
+    cont.dataset.listo = '1';
+
+    cont.addEventListener('click', async (e) => {
       const b = e.target.closest('[data-accion]');
       if (!b) return;
+
       const box = b.closest('.ebox');
       const campos = [...box.querySelectorAll('[data-k]')];
       const estado = box.querySelector('.ebox__estado');
-      const datos = leer();
+      const restaurar = b.dataset.accion === 'restaurar';
 
-      if (b.dataset.accion === 'restaurar') {
-        campos.forEach((c) => {
-          c.value = c.dataset.def;
-          delete datos[c.dataset.k];
+      if (restaurar) campos.forEach((c) => (c.value = c.dataset.def));
+
+      const cambios = {};
+      campos.forEach((c) => {
+        cambios[c.dataset.k] = {
+          valor: restaurar ? '' : c.value,
+          original: c.dataset.def
+        };
+      });
+
+      b.disabled = true;
+      try {
+        const r = await fetch('/api/admin/contenidos', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ cambios })
         });
-        guardar(datos);
-        aviso(estado, 'Textos restaurados.');
-      } else {
-        campos.forEach((c) => (datos[c.dataset.k] = c.value));
-        guardar(datos);
-        aviso(estado, 'Cambios guardados en este navegador.');
+        const d = await r.json().catch(() => ({}));
+        if (!r.ok) throw new Error(d.error || 'no guardado');
+
+        // Se refresca el estado local para que las marcas de "cambiado" y el
+        // aviso de publicación cuadren sin recargar la página.
+        campos.forEach((c) => {
+          const v = restaurar ? '' : c.value.trim();
+          if (!v || v === c.dataset.def) delete CAMBIOS[c.dataset.k];
+          else CAMBIOS[c.dataset.k] = v;
+        });
+        PENDIENTE = true;
+        pintarPublicar();
+
+        campos.forEach((c) => {
+          const et = c.closest('.efield');
+          const cambiado = c.dataset.k in CAMBIOS;
+          et.classList.toggle('is-cambiado', cambiado);
+          const marca = et.querySelector('.efield__et i');
+          if (cambiado && !marca) et.querySelector('.efield__et').insertAdjacentHTML('beforeend', '<i>cambiado</i>');
+          if (!cambiado && marca) marca.remove();
+        });
+
+        aviso(estado, restaurar ? 'Textos originales restaurados.' : 'Guardado. Pulsa Publicar para que salga en la web.');
+      } catch (err) {
+        aviso(estado, err.message || 'No he podido guardar.', true);
       }
+      b.disabled = false;
     });
   };
 
-  const aviso = (el, txt) => {
-    el.textContent = txt;
-    el.classList.add('is-on');
-    clearTimeout(el._t);
-    el._t = setTimeout(() => el.classList.remove('is-on'), 2600);
-  };
+  /* ── Publicar ────────────────────────────────────────────────────── */
+  $('#publicar')?.addEventListener('click', async (e) => {
+    const boton = e.currentTarget;
+    const estado = $('#publicar-estado');
+    boton.disabled = true;
+    aviso(estado, 'Lanzando la publicación…');
+    try {
+      const r = await fetch('/api/admin/publicar', { method: 'POST' });
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(d.error || 'no se ha podido publicar');
+      PENDIENTE = false;
+      pintarPublicar();
+      aviso(estado, d.mensaje || 'Publicando.');
+    } catch (err) {
+      aviso(estado, err.message, true);
+    }
+    boton.disabled = false;
+  });
 
-  function esc(s) {
-    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
-  }
+  /* ── Analítica ───────────────────────────────────────────────────── */
+
+  /* Los números salen de la propia base de datos: no hay Google Analytics ni
+     ningún tercero, y no se guarda nada que identifique a nadie. El gráfico
+     se dibuja con divs, sin librerías. */
+  let DIAS = 30;
+
+  const pintarAnalitica = async () => {
+    const cont = $('#analitica');
+    if (!cont) return;
+    cont.innerHTML = '<p class="ana__cargando">Cargando…</p>';
+
+    let d;
+    try {
+      const r = await fetch(`/api/admin/analitica?dias=${DIAS}`);
+      if (!r.ok) throw new Error(String(r.status));
+      d = await r.json();
+    } catch {
+      cont.innerHTML = '<p class="ana__cargando">No he podido cargar los números.</p>';
+      return;
+    }
+
+    const n = (v) => Number(v || 0).toLocaleString('es-ES');
+    const dia = (iso) =>
+      new Date(iso).toLocaleDateString('es-ES', { day: '2-digit', month: 'short' });
+
+    // El gráfico se apoya en el día de más tráfico; si no hay ninguno, se usa
+    // 1 para no dividir entre cero y pintar barras infinitas.
+    const tope = Math.max(1, ...d.porDia.map((x) => x.paginas));
+
+    const barras = d.porDia
+      .map(
+        (x) => `
+      <div class="ana__barra" style="--alto:${Math.round((x.paginas / tope) * 100)}%"
+           title="${dia(x.dia)}: ${n(x.paginas)} páginas, ${n(x.visitantes)} visitantes">
+        <span></span>
+      </div>`
+      )
+      .join('');
+
+    const filas = (lista, campo, vacio) =>
+      lista.length
+        ? `<ul class="ana__lista">${lista
+            .map(
+              (x) => `<li><span>${esc(x[campo])}</span><b>${n(x.paginas)}</b></li>`
+            )
+            .join('')}</ul>`
+        : `<p class="ana__vacio">${vacio}</p>`;
+
+    cont.innerHTML = `
+      <div class="ana__rango" role="group" aria-label="Periodo">
+        ${[7, 30, 90]
+          .map(
+            (v) =>
+              `<button type="button" class="ana__rango-b${v === d.dias ? ' is-on' : ''}" data-dias="${v}">${v} días</button>`
+          )
+          .join('')}
+      </div>
+
+      <div class="ana__cifras">
+        <div class="ana__c"><b>${n(d.visitantes)}</b><span>visitantes</span></div>
+        <div class="ana__c"><b>${n(d.paginas)}</b><span>páginas vistas</span></div>
+        <div class="ana__c"><b>${n(d.visitantes_hoy)}</b><span>visitantes hoy</span></div>
+        <div class="ana__c"><b>${n(d.paginas_hoy)}</b><span>páginas hoy</span></div>
+      </div>
+
+      ${
+        d.porDia.length
+          ? `<div class="ana__grafico" aria-label="Páginas vistas por día">${barras}</div>
+             <p class="ana__pie"><span>${dia(d.porDia[0].dia)}</span><span>${dia(d.porDia[d.porDia.length - 1].dia)}</span></p>`
+          : '<p class="ana__vacio">Todavía no hay visitas registradas.</p>'
+      }
+
+      <div class="ana__cols">
+        <div>
+          <h3>Páginas más vistas</h3>
+          ${filas(d.porRuta, 'ruta', 'Sin datos aún.')}
+        </div>
+        <div>
+          <h3>De dónde llegan</h3>
+          ${filas(d.porReferente, 'referente', 'Nadie ha llegado desde otra web todavía.')}
+        </div>
+      </div>
+
+      <p class="ana__nota">Sin cookies y sin terceros. El identificador de visitante cambia cada día, así que sirve para contar cuánta gente entra pero no para seguir a nadie.</p>
+    `;
+
+    cont.querySelectorAll('[data-dias]').forEach((b) =>
+      b.addEventListener('click', () => {
+        DIAS = Number(b.dataset.dias);
+        pintarAnalitica();
+      })
+    );
+  };
 
   /* ── Añadir secciones ────────────────────────────────────────────── */
   const pintarBloques = () => {

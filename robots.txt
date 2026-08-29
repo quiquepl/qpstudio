@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# El panel es privado y no tiene nada que indexar.
+Disallow: /admin
+
+Sitemap: https://www.qpstudio.es/sitemap.xml

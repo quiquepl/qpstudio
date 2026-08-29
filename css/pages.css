@@ -610,3 +610,99 @@ h2.gsep { margin-top: clamp(2.8rem, 5vw, 4.2rem); }
 @media (max-width: 620px) {
   .lead-max { margin-inline: auto; }
 }
+
+/* ── Panel: barra de publicar ──────────────────────────────────────── */
+
+.pubar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; flex-wrap: wrap;
+  margin-bottom: 1.4rem; padding: 0.95rem 1.2rem;
+  border: 1px solid var(--blue); border-radius: var(--r-lg);
+  background: var(--blue-wash);
+}
+.pubar p { margin: 0; font-size: var(--fs-sm); color: var(--ink-2); max-width: 52ch; }
+.pubar b { color: var(--ink); }
+.pubar__acciones { display: flex; align-items: center; gap: 0.8rem; }
+
+/* marca de campo con cambios sin publicar */
+.efield__et i {
+  font-style: normal; margin-left: 0.5rem;
+  font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--blue);
+}
+.efield.is-cambiado input, .efield.is-cambiado textarea { border-color: var(--blue); }
+.ebox__estado.is-mal { color: oklch(52% 0.21 25); }
+
+/* ── Panel: visitas ────────────────────────────────────────────────── */
+
+.ana__cargando, .ana__vacio {
+  padding: 1.4rem 0; font-size: var(--fs-sm); color: var(--ink-3);
+}
+.ana__rango { display: flex; gap: 0.4rem; margin-bottom: 1.4rem; }
+.ana__rango-b {
+  padding: 0.42rem 0.85rem;
+  border: 1px solid var(--line-soft); border-radius: 999px;
+  background: oklch(100% 0 0);
+  font-size: var(--fs-xs); font-weight: 600; color: var(--ink-2);
+  cursor: pointer; transition: border-color var(--t) var(--ease);
+}
+.ana__rango-b.is-on { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+
+.ana__cifras {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.8rem; margin-bottom: 1.6rem;
+}
+.ana__c {
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--line-soft); border-radius: var(--r-lg);
+  background: oklch(100% 0 0);
+}
+.ana__c b {
+  display: block;
+  font-family: var(--display); font-weight: 800;
+  font-size: clamp(1.5rem, 3vw, 2rem); letter-spacing: -0.035em;
+  color: var(--ink); font-variant-numeric: tabular-nums;
+}
+.ana__c span { font-size: var(--fs-xs); color: var(--ink-3); }
+
+/* El gráfico son divs con una altura en porcentaje: para veinte barras no
+   compensa cargar una librería de gráficas. */
+.ana__grafico {
+  display: flex; align-items: flex-end; gap: 2px;
+  height: 130px; padding: 0 0.2rem;
+  border-bottom: 1px solid var(--line-soft);
+}
+.ana__barra { flex: 1 1 0; height: 100%; display: flex; align-items: flex-end; }
+.ana__barra span {
+  display: block; width: 100%;
+  height: var(--alto, 0%); min-height: 2px;
+  border-radius: 3px 3px 0 0;
+  background: var(--blue); opacity: 0.75;
+}
+@media (hover: hover) { .ana__barra:hover span { opacity: 1; } }
+.ana__pie {
+  display: flex; justify-content: space-between;
+  margin: 0.5rem 0 1.8rem;
+  font-size: var(--fs-xs); color: var(--ink-3);
+}
+
+.ana__cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.6rem; }
+.ana__cols h3 { font-size: 1rem; margin-bottom: 0.7rem; }
+.ana__lista { list-style: none; }
+.ana__lista li {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 1rem; padding: 0.55rem 0;
+  border-bottom: 1px solid var(--line-soft);
+  font-size: var(--fs-sm);
+}
+.ana__lista li:last-child { border-bottom: 0; }
+/* una ruta larga no debe empujar la cifra fuera de la caja */
+.ana__lista span { color: var(--ink-2); overflow-wrap: anywhere; }
+.ana__lista b { color: var(--ink); font-variant-numeric: tabular-nums; flex: 0 0 auto; }
+.ana__nota { margin-top: 1.6rem; font-size: var(--fs-xs); color: var(--ink-3); max-width: 60ch; }
+
+@media (max-width: 720px) {
+  .ana__cifras { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ana__cols { grid-template-columns: 1fr; }
+  .pubar { flex-direction: column; align-items: stretch; }
+}

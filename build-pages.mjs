@@ -383,10 +383,19 @@ const adminPage = () => {
         <button type="button" class="linkish" id="salir">Cerrar sesión</button>
       </div>
 
+      <div class="pubar" id="publicar-barra" hidden>
+        <p><b>Hay cambios sin publicar.</b> Están guardados, pero la web todavía enseña la versión anterior.</p>
+        <div class="pubar__acciones">
+          <span class="ebox__estado" id="publicar-estado" role="status"></span>
+          <button type="button" class="btn btn--blue btn--sm magnet" id="publicar"><span>Publicar en la web</span></button>
+        </div>
+      </div>
+
       <div class="tabs" role="tablist">
         <button class="tabs__btn" role="tab" aria-selected="true" data-tab="tab-textos">Editar textos</button>
         <button class="tabs__btn" role="tab" aria-selected="false" data-tab="tab-bloques">Añadir secciones</button>
         <button class="tabs__btn" role="tab" aria-selected="false" data-tab="tab-mensajes">Mensajes recibidos</button>
+        <button class="tabs__btn" role="tab" aria-selected="false" data-tab="tab-analitica">Visitas</button>
       </div>
 
       <div class="tabs__panel" id="tab-textos" role="tabpanel">
@@ -410,6 +419,10 @@ const adminPage = () => {
             <p>Aquí aparecerán las solicitudes enviadas desde el formulario de contacto, con fecha, datos y estado.</p>
           </div>
         </div>
+      </div>
+
+      <div class="tabs__panel" id="tab-analitica" role="tabpanel" hidden>
+        <div id="analitica"></div>
       </div>
 
       <div class="notice">
@@ -510,7 +523,7 @@ page(
 const T = {
   nombre: 'Quique Planelles',
   marca: 'QP Studio',
-  nif: '[NIF pendiente]',
+  nif: '54020797F',
   dir: 'Calle Federico García Moliner 25, España',
   email: 'qpstudiocontacto@gmail.com'
 };
@@ -575,6 +588,7 @@ legal('privacidad.html', 'Política de privacidad', 'Cómo trata QP Studio los d
       <li><b>Formulario de contacto:</b> nombre, correo electrónico y el contenido del mensaje.</li>
       <li><b>Correo o WhatsApp:</b> los datos que decidas incluir en tu comunicación.</li>
       <li><b>Datos técnicos:</b> dirección IP y datos de conexión que el servidor registra para funcionar y para su propia seguridad.</li>
+      <li><b>Recuento de visitas:</b> página visitada, dominio de procedencia y un identificador que se recalcula cada día a partir de la IP y el navegador. No se guarda la IP y el identificador no permite seguir a nadie de un día para otro.</li>
     </ul>
     <p>No tratamos categorías especiales de datos ni datos de menores de edad.</p>
 
@@ -584,6 +598,7 @@ legal('privacidad.html', 'Política de privacidad', 'Cómo trata QP Studio los d
       <li><b>Gestionar la relación durante el proyecto.</b> Base: la ejecución del contrato (art. 6.1.b).</li>
       <li><b>Cumplir obligaciones fiscales y contables.</b> Base: obligación legal (art. 6.1.c).</li>
       <li><b>Mantener el sitio seguro y operativo.</b> Base: interés legítimo (art. 6.1.f).</li>
+      <li><b>Saber cuánta gente visita el sitio.</b> Base: interés legítimo (art. 6.1.f), con datos que no identifican a nadie.</li>
     </ul>
     <p>No enviamos comunicaciones comerciales no solicitadas, no elaboramos perfiles y no tomamos decisiones automatizadas.</p>
 
@@ -591,6 +606,7 @@ legal('privacidad.html', 'Política de privacidad', 'Cómo trata QP Studio los d
     <ul>
       <li>Consultas que no acaban en proyecto: <b>un año</b> desde el último contacto.</li>
       <li>Datos de clientes: durante la relación y, después, <b>seis años</b> por las obligaciones contables y fiscales.</li>
+      <li>Recuento de visitas: <b>un año</b>, y en forma que no identifica a nadie desde el primer momento.</li>
     </ul>
     <p>Cumplidos esos plazos, los datos se suprimen.</p>
 
@@ -618,7 +634,8 @@ legal('cookies.html', 'Política de cookies', 'Qué cookies y servicios de terce
     <p>Una cookie es un archivo pequeño que un sitio web guarda en tu navegador para recordar información sobre tu visita. Se consideran equivalentes otras tecnologías de almacenamiento local, como <i>localStorage</i>.</p>
 
     <h2>2. Qué usa este sitio</h2>
-    <p>Este sitio <b>no utiliza cookies de publicidad, de seguimiento ni de analítica</b>. No hay Google Analytics, ni píxeles de redes sociales, ni perfilado de ningún tipo. Por eso no verás un banner de consentimiento: no hay nada que consentir.</p>
+    <p>Este sitio <b>no utiliza cookies de publicidad ni de seguimiento</b>. No hay Google Analytics, ni píxeles de redes sociales, ni perfilado de ningún tipo. Por eso no verás un banner de consentimiento: no hay nada que consentir.</p>
+    <p>Sí llevamos un <b>recuento de visitas propio</b>, que no usa cookies ni servicios de terceros. Al cargar una página se anota la dirección visitada, el dominio desde el que se llegó y un identificador calculado a partir de la dirección IP y del navegador <b>mezclados con la fecha del día</b>. Como la fecha entra en el cálculo, ese identificador cambia cada jornada: sirve para saber cuánta gente entró hoy, pero no permite reconocer a nadie mañana ni relacionar dos visitas de días distintos. No se guarda la dirección IP.</p>
     <p>Sí hay almacenamiento técnico en dos casos concretos, ambos exentos de consentimiento según el artículo 22.2 de la LSSI-CE:</p>
     <ul>
       <li><b>Sesión del panel de administración.</b> Solo si accedes al panel privado, para mantener la sesión abierta. No se crea navegando por el sitio público.</li>
