@@ -102,6 +102,111 @@ Vercel emite el certificado solo.
   dispositivo son práctica común, pero Apple restringe el uso de su marca en
   material comercial. Decide si las dejas o las cambias por un render genérico.
 
+## Cómo se construye la web
+
+`npm run build` es lo único que hay que ejecutar, y es lo que corre Vercel
+en cada despliegue. Hace cuatro cosas **en este orden**, que importa:
+
+1. **`extraer-textos`** lee los `data-txt` de `index.html` y guarda el texto
+   original de cada uno en `contenidos-base.json`. Es lo que el panel enseña
+   como "texto de fábrica" y lo que restaura el botón de Restaurar.
+2. **`build-pages`** regenera las páginas interiores desde la plantilla común.
+3. **`aplicar-contenidos`** mete en `index.html` los textos cambiados desde el
+   panel. Va después del paso 1 para que el original extraído sea el del
+   fichero y no uno ya sustituido.
+4. **`seo`** pone canonical, Open Graph, JSON-LD y genera `sitemap.xml` y
+   `robots.txt`. Va el último porque el paso 2 reescribe las páginas
+   interiores enteras y borraría sus etiquetas.
+
+Ningún paso que hable con la base de datos puede tumbar el despliegue: si
+Neon no contesta, la web sale con los textos del fichero. Es preferible
+publicar el contenido de ayer que no publicar nada.
+
+### Cuidado con index.html
+
+`index.html` guarda los textos de fábrica y vive en Git. El paso 3 solo lo
+reescribe **dentro del despliegue** (Vercel pone `VERCEL=1`); en local avisa
+de lo que haría pero no toca el fichero. Si lo sobrescribieras aquí, el
+siguiente commit subiría como "original" un texto que solo era un cambio del
+panel, y el de verdad se perdería.
+
+Para reproducirlo en local y comprobarlo:
+
+```bash
+node scripts/aplicar-contenidos.mjs --forzar
+```
+
+Y después **deshaz el cambio**, o perderás el original.
+
+### Añadir un texto editable
+
+Dos pasos:
+
+1. En `index.html`, ponle `data-txt="seccion.clave"` al elemento.
+2. En `js/admin.js`, añade `{ k: 'seccion.clave', et: 'Etiqueta' }` a la
+   sección que toque. Si el texto es largo, añade `larga: true`.
+
+El valor no se escribe en ningún sitio: sale del propio HTML.
+
+### Publicar desde el panel
+
+Los textos se guardan al instante, pero la web es estática: el HTML lleva el
+texto ya escrito dentro. Eso es lo que la hace rápida y lo que permite que
+Google lea el contenido definitivo sin ejecutar JavaScript. El precio es que
+hay que reconstruir, y de eso se encarga el botón **Publicar**.
+
+Ese botón llama a un **Deploy Hook** de Vercel. Para crearlo:
+
+1. Vercel → proyecto `qpstudio` → **Settings → Git → Deploy Hooks**
+2. Nombre `panel`, rama `main`, **Create Hook**
+3. Copia la URL y ponla como variable `VERCEL_DEPLOY_HOOK` en los tres
+   entornos.
+
+Sin esa variable el panel guarda igual y lo dice claramente: los cambios
+saldrán en la siguiente publicación, que ocurre en cada `git push`.
+
+## SEO
+
+Todo sale de `scripts/seo.mjs`, de una sola lista de páginas. Añadir una
+página es añadir una línea ahí.
+
+- **Dominio canónico:** `https://www.qpstudio.es`. El dominio sin `www`
+  redirige, así que anunciar esa versión costaría un salto de más en cada
+  enlace y Google vería dos direcciones para lo mismo.
+- **Datos estructurados:** un solo grafo JSON-LD enlazado por `@id`
+  (ProfessionalService, WebSite, WebPage y BreadcrumbList en las interiores).
+  La portada añade `FAQPage`, sacado de las propias preguntas del HTML, que
+  es lo que puede darte el desplegable de preguntas en los resultados.
+- **`admin` queda fuera** del sitemap y bloqueada en `robots.txt`.
+- El paso es **idempotente**: quita sus propias etiquetas antes de volver a
+  ponerlas, así que ejecutarlo mil veces no duplica nada.
+
+### La imagen de portada
+
+`img/og.jpg`, 1200×630. Se compuso a partir de `img/cartel.png`, que es
+vertical y no vale tal cual para redes. Está dibujada en un lienzo y no
+capturada de pantalla: la captura sale al tamaño de la ventana y quedaría
+borrosa. En JPEG son 82 KB; el mismo PNG pesaba 791 KB.
+
+Si algún día cambia el cartel o el mensaje, hay que rehacerla.
+
+## Analítica
+
+Propia, en la pestaña **Visitas** del panel. Sin cookies, sin terceros y sin
+nada que identifique a nadie.
+
+No se guarda la IP: se guarda un HMAC de la IP y el navegador **mezclado con
+la fecha del día**. Como la fecha entra en el cálculo, el mismo visitante da
+un valor distinto mañana. Sirve para contar cuánta gente entra hoy y no para
+seguir a nadie, y por eso no hace falta banner de consentimiento.
+
+Las visitas a `/admin` no se cuentan: no son tráfico y ensucian los números.
+
+**Lo que cuesta:** cada página vista es una escritura en Postgres, y con
+scale-to-zero eso despierta el cómputo. Con el tráfico de hoy son céntimos.
+Si algún día el sitio recibe miles de visitas diarias, habrá que agregarlas
+en vez de guardar una fila por visita.
+
 ## Base de datos (Neon)
 
 El proyecto es `lingering-shadow-50729060`, en la organización `qpstudio`,
