@@ -62,5 +62,11 @@
     }
   ],
   "buildCommand": "node scripts/build.mjs",
-  "outputDirectory": "."
+  "outputDirectory": ".",
+  "rewrites": [
+    {
+      "source": "/googleceab0136240ea06d.html",
+      "destination": "/googleceab0136240ea06d.txt"
+    }
+  ]
 }
