@@ -155,12 +155,18 @@ texto ya escrito dentro. Eso es lo que la hace rápida y lo que permite que
 Google lea el contenido definitivo sin ejecutar JavaScript. El precio es que
 hay que reconstruir, y de eso se encarga el botón **Publicar**.
 
-Ese botón llama a un **Deploy Hook** de Vercel. Para crearlo:
+Ese botón llama a un **Deploy Hook** de Vercel, cuya URL está en la variable
+`VERCEL_DEPLOY_HOOK`, ya configurada en los tres entornos.
+
+Quien tenga esa URL puede lanzar despliegues del sitio. No da acceso a nada
+más —ni a la base de datos, ni a los mensajes— pero si alguna vez se filtra,
+se borra el hook en Vercel, se crea otro y se actualiza la variable.
+
+Para rehacerlo desde cero:
 
 1. Vercel → proyecto `qpstudio` → **Settings → Git → Deploy Hooks**
 2. Nombre `panel`, rama `main`, **Create Hook**
-3. Copia la URL y ponla como variable `VERCEL_DEPLOY_HOOK` en los tres
-   entornos.
+3. Copia la URL a `VERCEL_DEPLOY_HOOK` en los tres entornos.
 
 Sin esa variable el panel guarda igual y lo dice claramente: los cambios
 saldrán en la siguiente publicación, que ocurre en cada `git push`.
