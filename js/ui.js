@@ -4,7 +4,7 @@
    ── CAMBIA ESTO cuando tengas los datos definitivos del estudio ──
    ═══════════════════════════════════════════════════════════════════════ */
 const CONTACTO = {
-  email: 'hola@qpstudio.es',
+  email: 'qpstudiocontacto@gmail.com',
   whatsapp: '34600000000' // sin +, sin espacios
 };
 

@@ -12,29 +12,29 @@
 .aura span {
   position: absolute;
   border-radius: 50%;
-  filter: blur(52px);
-  opacity: 0.9;
+  filter: blur(64px);
+  opacity: 0.42;
   will-change: transform;
 }
 .aura span:nth-child(1) {
   width: 46%; aspect-ratio: 1; top: -12%; left: 6%;
-  background: radial-gradient(circle, oklch(66% 0.19 252 / .95), transparent 68%);
-  animation: aura-a 26s ease-in-out infinite alternate;
+  background: radial-gradient(circle, oklch(80% 0.075 250 / .8), transparent 68%);
+  animation: aura-a 13s ease-in-out infinite alternate;
 }
 .aura span:nth-child(2) {
   width: 38%; aspect-ratio: 1; top: 22%; right: 2%;
-  background: radial-gradient(circle, oklch(72% 0.16 232 / .9), transparent 68%);
-  animation: aura-b 32s ease-in-out infinite alternate;
+  background: radial-gradient(circle, oklch(85% 0.055 232 / .75), transparent 68%);
+  animation: aura-b 16s ease-in-out infinite alternate;
 }
 .aura span:nth-child(3) {
   width: 42%; aspect-ratio: 1; bottom: -14%; left: 24%;
-  background: radial-gradient(circle, oklch(60% 0.21 260 / .85), transparent 70%);
-  animation: aura-c 29s ease-in-out infinite alternate;
+  background: radial-gradient(circle, oklch(78% 0.085 258 / .7), transparent 70%);
+  animation: aura-c 14s ease-in-out infinite alternate;
 }
 .aura span:nth-child(4) {
   width: 26%; aspect-ratio: 1; top: 44%; left: 38%;
-  background: radial-gradient(circle, oklch(80% 0.12 200 / .7), transparent 70%);
-  animation: aura-d 36s ease-in-out infinite alternate;
+  background: radial-gradient(circle, oklch(88% 0.05 205 / .6), transparent 70%);
+  animation: aura-d 18s ease-in-out infinite alternate;
 }
 @keyframes aura-a { to { transform: translate3d(14%, 22%, 0) scale(1.18); } }
 @keyframes aura-b { to { transform: translate3d(-18%, 16%, 0) scale(0.86); } }
@@ -44,7 +44,7 @@
 /* el grano es lo que le da el acabado de la referencia */
 .aura::after {
   content: ""; position: absolute; inset: -60%;
-  opacity: 0.22;
+  opacity: 0.13;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -120,58 +120,47 @@
   background: linear-gradient(100deg, oklch(13.5% 0.026 255 / .92), oklch(13.5% 0.026 255 / .55) 62%, oklch(13.5% 0.026 255 / .8));
 }
 .band__in { position: relative; z-index: 2; }
-.band__title { max-width: 18ch; }
+.band__title { max-width: 22ch; }
 
-.band__lead {
-  margin-top: clamp(1.1rem, 2vw, 1.6rem);
-  max-width: 44ch;
-  font-size: var(--fs-lead);
-  line-height: 1.6;
-  color: oklch(78% 0.012 250);
-  text-wrap: pretty;
-}
-
-.band__points {
+.band__cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  margin-top: clamp(1.9rem, 3.4vw, 2.8rem);
-  border-top: 1px solid oklch(100% 0 0 / .2);
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: clamp(0.9rem, 1.8vw, 1.4rem);
+  margin-top: clamp(2rem, 3.6vw, 3rem);
 }
-.band__points li {
-  padding: 1.4rem 1.7rem 1.4rem 0;
-  border-right: 1px solid oklch(100% 0 0 / .16);
+.bandc {
+  padding: clamp(1.4rem, 2.4vw, 1.9rem);
+  border: 1px solid oklch(100% 0 0 / .16);
+  border-radius: var(--r-lg);
+  background: oklch(100% 0 0 / .06);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: border-color var(--t) var(--ease), background var(--t) var(--ease);
 }
-.band__points b {
+@media (hover: hover) {
+  .bandc:hover { border-color: oklch(100% 0 0 / .34); background: oklch(100% 0 0 / .1); }
+}
+.bandc__n {
   display: block;
-  font-family: var(--display);
-  font-size: clamp(0.98rem, 1.4vw, 1.14rem);
-  font-weight: 700;
-  letter-spacing: -0.026em;
-  color: oklch(97% 0.004 250);
-  margin-bottom: 0.35rem;
+  font-family: var(--display); font-weight: 700;
+  font-size: 0.74rem; letter-spacing: 0.1em;
+  color: var(--blue-sky);
+  margin-bottom: 0.9rem;
+  font-variant-numeric: tabular-nums;
 }
-.band__points span {
+.bandc h3 {
+  font-size: clamp(1.02rem, 1.5vw, 1.2rem);
+  color: oklch(98% 0.004 250);
+  margin-bottom: 0.5rem;
+  text-wrap: balance;
+}
+.bandc p {
   font-size: var(--fs-sm);
-  line-height: 1.55;
-  color: oklch(72% 0.012 250);
+  line-height: 1.6;
+  color: oklch(76% 0.014 250);
   text-wrap: pretty;
 }
-.band__points li:last-child { border-right: 0; }
-.band__points li + li { padding-left: 1.7rem; }
 
-.band__foot {
-  margin-top: clamp(1.4rem, 2.4vw, 2rem);
-  font-family: var(--display);
-  font-size: clamp(1rem, 1.6vw, 1.25rem);
-  font-weight: 600;
-  letter-spacing: -0.026em;
-  color: var(--blue-sky);
-}
-
-@media (max-width: 700px) {
-  .band__points li { border-right: 0; border-bottom: 1px solid oklch(100% 0 0 / .16); padding-inline: 0 !important; }
-  .band__points li:last-child { border-bottom: 0; }
-}
 
 /* ═══ NUESTRO TRABAJO · webs en órbita ════════════════════════════════
    Sin JS es una rejilla normal. motion.js añade .is-orbiting y a partir
@@ -630,6 +619,11 @@
 }
 .tuya__list span { font-size: var(--fs-sm); color: oklch(70% 0.02 250); }
 
+.tuya__cta {
+  margin-top: clamp(1.8rem, 3vw, 2.4rem);
+  box-shadow: 0 14px 34px -16px oklch(0% 0 0 / .7);
+}
+
 .editor { position: relative; }
 .editor__win {
   border-radius: var(--r-lg);
@@ -951,8 +945,7 @@
   .band__title, .band__lead, .serv__intro { max-width: none; margin-inline: auto; }
 
   .band { min-height: 0; padding-block: clamp(3rem, 9vw, 4rem); }
-  .band__points li { padding-block: 1.1rem; }
-  .band__points b, .band__points span { text-align: center; }
+  .bandc { text-align: center; }
 
   /* servicios: número encima del título, sin rejilla de tres columnas */
   .serv {

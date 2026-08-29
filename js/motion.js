@@ -393,7 +393,7 @@
         const y0 = H * (-0.12 + f * 1.24);
         const amp = H * (0.045 + f * 0.085);
         const freq = 1.2 + f * 0.55;
-        const ph = t * (0.10 + f * 0.055) + i * 0.34;
+        const ph = t * (0.19 + f * 0.1) + i * 0.34;
 
         ctx.beginPath();
         for (let x = -24; x <= W + 24; x += 18) {
@@ -407,11 +407,11 @@
         const grad = ctx.createLinearGradient(0, 0, W, 0);
         const stop = (p, col) => grad.addColorStop(clamp(p), col);
         stop(0, 'rgba(16, 22, 38, 0.9)');
-        stop(c - 0.3, 'rgba(24, 34, 60, 0.9)');
-        stop(c - 0.09, `rgba(58, 84, 148, ${0.5 + f * 0.35})`);
-        stop(c, `rgba(96, 132, 210, ${0.55 + f * 0.35})`);
-        stop(c + 0.09, `rgba(58, 84, 148, ${0.5 + f * 0.35})`);
-        stop(c + 0.3, 'rgba(24, 34, 60, 0.9)');
+        stop(c - 0.3, 'rgba(20, 27, 46, 0.9)');
+        stop(c - 0.09, `rgba(46, 62, 104, ${0.34 + f * 0.2})`);
+        stop(c, `rgba(64, 88, 146, ${0.38 + f * 0.22})`);
+        stop(c + 0.09, `rgba(46, 62, 104, ${0.34 + f * 0.2})`);
+        stop(c + 0.3, 'rgba(20, 27, 46, 0.9)');
         stop(1, 'rgba(16, 22, 38, 0.9)');
 
         ctx.strokeStyle = grad;

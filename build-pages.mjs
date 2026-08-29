@@ -65,7 +65,7 @@ const foot = `</main>
           <a href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0zM.5 8h4V24h-4zM8 8h3.8v2.2h.06c.53-1 1.83-2.2 3.77-2.2C19.6 8 21 10.3 21 14.1V24h-4v-8.9c0-2.1-.04-4.8-3-4.8s-3.4 2.3-3.4 4.65V24H8z"/></svg>
           </a>
-          <a href="mailto:hola@qpstudio.es" aria-label="Correo electrónico">
+          <a href="mailto:qpstudiocontacto@gmail.com" aria-label="Correo electrónico">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5zM4.4 6 12 11.7 19.6 6zM20 7.9l-7.4 5.6a1 1 0 0 1-1.2 0L4 7.9V18h16z"/></svg>
           </a>
         </div>
@@ -89,7 +89,7 @@ const foot = `</main>
         <a href="aviso-legal.html">Aviso legal</a>
         <a href="privacidad.html">Política de privacidad</a>
         <a href="cookies.html">Política de cookies</a>
-        <a href="mailto:hola@qpstudio.es">hola@qpstudio.es</a>
+        <a href="mailto:qpstudiocontacto@gmail.com">qpstudiocontacto@gmail.com</a>
       </nav>
     </div>
     <div class="foot__end">
@@ -164,12 +164,15 @@ const foto = (id, alt) =>
 
 /* ── Servicios ─────────────────────────────────────────────────────── */
 
-const servicio = (id, n, titulo, lead, incluye, img) => `
+const servicio = (id, titulo, lead, extra, incluye, plazo, img) => `
   <article class="svc" id="${id}">
-    <div>
-      <div class="svc__label"><span class="svc__n">${n}</span><h2>${titulo}</h2></div>
+    <div class="svc__txt">
+      <h2>${titulo}</h2>
       <p class="svc__lead">${lead}</p>
+      <p class="svc__extra">${extra}</p>
+      <h3 class="svc__h3">Qué incluye</h3>
       <ul class="chips">${incluye.map((i) => `<li>${i}</li>`).join('')}</ul>
+      <p class="svc__plazo"><b>Plazo</b> ${plazo}</p>
     </div>
     <figure class="svc__shot">${foto(img, '')}</figure>
   </article>
@@ -183,11 +186,42 @@ page(
     `
 <section class="pbody">
   <div class="shell">
-${servicio('diseno', '01', 'Diseño web', 'Identidad, estructura y contenidos definidos desde cero a partir de tu negocio.', ['Diseño a medida', 'Textos incluidos', 'Dominio y alojamiento', 'Velocidad y SEO', 'Panel de administración'], 'photo-1486406146926-c627a92ad1ab')}
-${servicio('rediseno', '02', 'Rediseño web', 'Conservamos el posicionamiento ganado y rehacemos lo que está limitando los resultados.', ['Auditoría previa', 'Migración sin pérdidas', 'Redirecciones', 'Métricas antes y después'], 'photo-1552664730-d307ca884978')}
-${servicio('ecommerce', '03', 'Comercio electrónico', 'Catálogo, ficha de producto y proceso de compra pensados para que el carrito llegue al final.', ['Catálogo y buscador', 'Pasarela de pago', 'Envíos e impuestos', 'Gestión de pedidos'], 'photo-1441986300917-64674bd600d8')}
-${servicio('automatizacion', '04', 'Automatización e integraciones', 'La web opera sola: formularios, avisos y procesos conectados a tus herramientas.', ['Formularios y CRM', 'Avisos automáticos', 'Calendarios', 'Asistentes con IA'], 'photo-1460925895917-afdab827c52f')}
-
+${servicio(
+  'diseno',
+  'Diseño web',
+  'Para negocios que parten de cero o que nunca han tenido una web a la altura de su trabajo. Definimos identidad, estructura y contenidos partiendo de tu negocio y del cliente al que quieres llegar, no de una plantilla del sector.',
+  'Empezamos por una conversación sobre el negocio, no sobre la web, y terminamos con un sitio publicado, medido y tuyo. Los textos los escribimos nosotros a partir de esa conversación.',
+  ['Diseño a medida', 'Textos incluidos', 'Dominio y alojamiento', 'Velocidad y SEO', 'Panel de administración', 'Formación grabada'],
+  'De 3 a 5 semanas.',
+  'photo-1486406146926-c627a92ad1ab'
+)}
+${servicio(
+  'rediseno',
+  'Rediseño web',
+  'Para webs que ya existen pero se han quedado por detrás del negocio. Auditamos lo que tienes, conservamos el posicionamiento ganado y los contenidos que funcionan, y rehacemos solo lo que está limitando los resultados.',
+  'Antes de tocar nada te decimos con sinceridad si compensa rehacerla entera o si basta con ajustes concretos. Preferimos un encargo pequeño a uno innecesario.',
+  ['Auditoría previa', 'Migración sin pérdidas', 'Redirecciones', 'Contenido conservado', 'Métricas antes y después', 'Panel de administración'],
+  'De 2 a 4 semanas.',
+  'photo-1552664730-d307ca884978'
+)}
+${servicio(
+  'ecommerce',
+  'Comercio electrónico',
+  'Para negocios que ya venden online o quieren empezar. Trabajamos el catálogo, la ficha de producto y el proceso de compra con un objetivo concreto: que el carrito llegue al final.',
+  'Se conecta con el inventario y la facturación que ya uses. Si todavía no usas ninguno, te proponemos el que encaje con tu volumen real, no con el que te gustaría tener.',
+  ['Catálogo y buscador', 'Ficha de producto', 'Pasarela de pago', 'Envíos e impuestos', 'Gestión de pedidos', 'Panel de administración'],
+  'De 4 a 8 semanas.',
+  'photo-1441986300917-64674bd600d8'
+)}
+${servicio(
+  'automatizacion',
+  'Automatización e integraciones',
+  'Para negocios que ya tienen web y pierden horas en tareas repetitivas. Conectamos formularios, avisos y herramientas internas para que el sitio opere sin intervención manual.',
+  'Cada automatización se documenta: qué hace, cuándo se dispara y a dónde llega. Si algún día quieres cambiarla, sabrás exactamente dónde tocar.',
+  ['Formularios y CRM', 'Avisos automáticos', 'Calendarios', 'Recordatorios', 'Asistentes con IA', 'Documentación'],
+  'Se presupuesta por integración.',
+  'photo-1460925895917-afdab827c52f'
+)}
     <div class="notice">
       <b>Presupuestos.</b> Todavía estamos cerrando las tarifas públicas. Cada propuesta se prepara a
       medida tras una primera conversación y se entrega por escrito con alcance y fecha cerrados.
@@ -250,7 +284,7 @@ page(
       <article class="gcard"><b>Enlaces externos</b><span>WhatsApp, mapas, redes y plataformas de terceros.</span></article>
     </div>
 
-    <h2>Acompañamiento</h2>
+    <h2 class="gsep">Acompañamiento</h2>
     <div class="gcards">
       <article class="gcard gcard--blue"><b>Soporte 24/7</b><span>Dudas e incidencias resueltas cualquier día y a cualquier hora.</span></article>
       <article class="gcard"><b>Mantenimiento</b><span>Copias de seguridad, actualizaciones y vigilancia del rendimiento.</span></article>
@@ -412,7 +446,7 @@ ${cuerpo}
 
 legal('aviso-legal.html', 'Aviso legal', 'Información general y condiciones de uso del sitio web de QP Studio.',
 `    <h2>Titular</h2>
-    <p>QP Studio, marca de Quique Planelles. NIF y domicilio pendientes de completar. Correo: hola@qpstudio.es</p>
+    <p>QP Studio, marca de Quique Planelles. NIF y domicilio pendientes de completar. Correo: qpstudiocontacto@gmail.com</p>
     <h2>Objeto</h2>
     <p>La navegación por el sitio atribuye la condición de usuario e implica la aceptación de estas condiciones.</p>
     <h2>Propiedad intelectual</h2>
@@ -425,14 +459,14 @@ legal('aviso-legal.html', 'Aviso legal', 'Información general y condiciones de 
 
 legal('privacidad.html', 'Política de privacidad', 'Cómo trata QP Studio los datos personales recibidos a través del sitio web.',
 `    <h2>Responsable</h2>
-    <p>QP Studio, marca de Quique Planelles. Correo: hola@qpstudio.es</p>
+    <p>QP Studio, marca de Quique Planelles. Correo: qpstudiocontacto@gmail.com</p>
     <h2>Qué datos recogemos</h2>
     <ul><li>Nombre, correo y mensaje del formulario de contacto.</li><li>Datos técnicos necesarios para que el sitio funcione.</li></ul>
     <h2>Para qué</h2>
     <ul><li>Responder a tu solicitud y preparar una propuesta.</li><li>Mantener el contacto durante el proyecto.</li></ul>
     <p>No enviamos comunicaciones comerciales no solicitadas ni cedemos datos a terceros salvo obligación legal.</p>
     <h2>Tus derechos</h2>
-    <p>Puedes solicitar acceso, rectificación, supresión, limitación, portabilidad y oposición escribiendo a hola@qpstudio.es, y reclamar ante la Agencia Española de Protección de Datos.</p>
+    <p>Puedes solicitar acceso, rectificación, supresión, limitación, portabilidad y oposición escribiendo a qpstudiocontacto@gmail.com, y reclamar ante la Agencia Española de Protección de Datos.</p>
 `);
 
 legal('cookies.html', 'Política de cookies', 'Qué cookies utiliza el sitio web de QP Studio.',

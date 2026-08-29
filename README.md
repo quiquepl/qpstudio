@@ -45,7 +45,7 @@ Son tres cosas y están todas juntas a propósito.
 
 ```js
 const CONTACTO = {
-  email: 'hola@qpstudio.es',
+  email: 'qpstudiocontacto@gmail.com',
   whatsapp: '34600000000'
 };
 ```
