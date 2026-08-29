@@ -11,9 +11,13 @@ servicios.html      detalle de los cuatro servicios y presupuestos
 gestion.html        panel, botones con backend y acompañamiento
 mantenimiento.html  qué incluye, qué es del cliente y cómo se entrega
 contacto.html       formulario en página propia
-admin.html          panel de administración (maqueta, sin backend)
+admin.html          panel de administración: mensajes reales, textos aún en el navegador
 aviso-legal.html · privacidad.html · cookies.html
 build-pages.mjs     genera las páginas interiores desde una plantilla común
+api/                funciones de Vercel: formulario y panel
+db/                 migraciones SQL, por orden de nombre
+scripts/            migrar, generar la clave del panel, comprobarla
+neon.ts             servicios de Neon declarados como código
 css/styles.css      tokens, reset, tipografía, nav, botones, footer
 css/sections.css    arte por sección de la home
 css/pages.css       páginas interiores
