@@ -97,3 +97,20 @@ Vercel emite el certificado solo.
 - **Imágenes del portátil.** Son un MacBook con el logo de Apple. Los mockups de
   dispositivo son práctica común, pero Apple restringe el uso de su marca en
   material comercial. Decide si las dejas o las cambias por un render genérico.
+
+## Caché
+
+`vercel.json` fija cuánto tiempo guarda el navegador cada cosa:
+
+- **`/css/` y `/js/`** → `max-age=0, must-revalidate`. En cada visita el
+  navegador pregunta y Vercel contesta `304 Not Modified` si nada ha
+  cambiado (respuesta vacía, coste casi nulo). Así, en cuanto despliegas,
+  todo el mundo ve la versión nueva. Los ficheros no llevan hash en el
+  nombre, así que sin esto un cambio tardaba hasta una hora en llegar a
+  quien ya hubiera entrado.
+- **`/img/`** → un año e `immutable`. Las imágenes no cambian; si algún
+  día sustituyes una, renómbrala (`logo-2.png`) en vez de sobrescribirla.
+
+Si algún día la web crece y el CSS pesa, la solución no es subir el
+`max-age`, es poner un hash en el nombre del fichero y entonces sí
+cachearlo un año.
