@@ -19,13 +19,16 @@ export const SITIO = 'https://www.qpstudio.es';
 
 /* Código de verificación de Google Search Console.
 
-   Solo hace falta si se verifica por etiqueta HTML. Si la propiedad se da
-   de alta como "dominio" con un registro TXT en el DNS, esto se queda
-   vacío: ese método verifica el dominio entero, con y sin www, y no
-   depende de que la web esté desplegada.
+   Se usa la etiqueta y no el fichero HTML que ofrece Google, porque con
+   cleanUrls la ruta del fichero devuelve un 308 y Google rechaza la
+   verificación con "el archivo redirige a una ubicación no autorizada".
+   La etiqueta no depende de rutas.
 
-   No es un secreto: se sirve en el HTML de todas las páginas. */
-export const VERIFICACION_GOOGLE = '';
+   No es un secreto: se sirve en el HTML de todas las páginas.
+
+   No la quites aunque la verificación ya esté hecha: Google la vuelve a
+   comprobar cada cierto tiempo y si desaparece pierdes la propiedad. */
+export const VERIFICACION_GOOGLE = 'HXn2Ot7IPy7Zt__mrQxpazlKBfdfgyzJPNPAds0u2UI';
 
 const T = {
   nombre: 'QP Studio',
@@ -337,7 +340,10 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
          quitan también: si no, convivirían con las que pone este paso y
          cada red social elegiría una de las dos sin criterio. */
       .replace(/\n?\s*<meta property="og:[^"]*"[^>]*>/g, '')
-      .replace(/\n?\s*<meta name="twitter:[^"]*"[^>]*>/g, '');
+      .replace(/\n?\s*<meta name="twitter:[^"]*"[^>]*>/g, '')
+      /* Y la de verificación, para poder cambiar el código sin que queden
+         dos etiquetas peleándose. */
+      .replace(/\n?\s*<meta name="google-site-verification"[^>]*>/g, '');
 
     const bloque =
       '\n<!-- seo -->\n' + etiquetas(pagina, limpio).join('\n') + '\n<!-- /seo -->';
