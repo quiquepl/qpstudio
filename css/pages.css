@@ -706,3 +706,8 @@ h2.gsep { margin-top: clamp(2.8rem, 5vw, 4.2rem); }
   .ana__cols { grid-template-columns: 1fr; }
   .pubar { flex-direction: column; align-items: stretch; }
 }
+
+/* Las tarjetas del 404 son enlaces, no artículos: necesitan quitarse el
+   subrayado y avisar de que se puede pulsar. */
+a.gcard { text-decoration: none; transition: border-color var(--t) var(--ease), transform var(--t) var(--ease); }
+@media (hover: hover) { a.gcard:hover { border-color: var(--blue); transform: translateY(-2px); } }

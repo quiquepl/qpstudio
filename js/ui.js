@@ -5,7 +5,7 @@
    ═══════════════════════════════════════════════════════════════════════ */
 const CONTACTO = {
   email: 'qpstudiocontacto@gmail.com',
-  whatsapp: '34600000000' // sin +, sin espacios
+  whatsapp: '34684759883' // sin +, sin espacios
 };
 
 (() => {

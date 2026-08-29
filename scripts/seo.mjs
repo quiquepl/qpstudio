@@ -26,16 +26,87 @@ const T = {
   nif: '54020797F'
 };
 
-/* prioridad y frecuencia según lo que cambia cada página */
+/* Título y descripción de cada página viven aquí, no en el generador.
+
+   El título es lo primero que se lee en Google y lo que más pesa: se
+   escribe con la palabra por la que quieres que te encuentren delante y la
+   marca detrás, sin pasar de unos 60 caracteres, que es donde corta.
+
+   La descripción no posiciona, pero decide si hacen clic. Entre 120 y 155
+   caracteres, diciendo qué se van a encontrar y no lo buenos que somos. */
 export const PAGINAS = [
-  { ruta: '/', archivo: 'index.html', prioridad: '1.0', frecuencia: 'weekly' },
-  { ruta: '/servicios', archivo: 'servicios.html', prioridad: '0.9', frecuencia: 'monthly' },
-  { ruta: '/gestion', archivo: 'gestion.html', prioridad: '0.8', frecuencia: 'monthly' },
-  { ruta: '/mantenimiento', archivo: 'mantenimiento.html', prioridad: '0.8', frecuencia: 'monthly' },
-  { ruta: '/contacto', archivo: 'contacto.html', prioridad: '0.9', frecuencia: 'monthly' },
-  { ruta: '/aviso-legal', archivo: 'aviso-legal.html', prioridad: '0.2', frecuencia: 'yearly' },
-  { ruta: '/privacidad', archivo: 'privacidad.html', prioridad: '0.2', frecuencia: 'yearly' },
-  { ruta: '/cookies', archivo: 'cookies.html', prioridad: '0.2', frecuencia: 'yearly' }
+  {
+    ruta: '/',
+    archivo: 'index.html',
+    prioridad: '1.0',
+    frecuencia: 'weekly',
+    titulo: 'Diseño y desarrollo web para negocios — QP Studio',
+    descripcion:
+      'Estudio digital independiente en España. Diseñamos, desarrollamos y mantenemos webs para negocios de cualquier sector, con panel para que las gestiones tú.'
+  },
+  {
+    ruta: '/servicios',
+    archivo: 'servicios.html',
+    prioridad: '0.9',
+    frecuencia: 'monthly',
+    titulo: 'Servicios: diseño, rediseño y tiendas online — QP Studio',
+    descripcion:
+      'Diseño web desde cero, rediseño conservando el posicionamiento, comercio electrónico y automatización. Qué incluye cada servicio y cómo trabajamos.'
+  },
+  {
+    ruta: '/gestion',
+    archivo: 'gestion.html',
+    prioridad: '0.8',
+    frecuencia: 'monthly',
+    titulo: 'Gestiona tu web tú mismo, sin tocar código — QP Studio',
+    descripcion:
+      'Cambia textos, precios, horarios e imágenes desde un panel propio. Formularios, reservas y pagos conectados de verdad, con acompañamiento y soporte.'
+  },
+  {
+    ruta: '/mantenimiento',
+    archivo: 'mantenimiento.html',
+    prioridad: '0.8',
+    frecuencia: 'monthly',
+    titulo: 'Mantenimiento web sin ataduras — QP Studio',
+    descripcion:
+      'Qué incluye el mantenimiento, qué es tuyo desde el primer día y cómo te lo entregamos todo el día que decidas seguir por tu cuenta. Sin permanencia.'
+  },
+  {
+    ruta: '/contacto',
+    archivo: 'contacto.html',
+    prioridad: '0.9',
+    frecuencia: 'monthly',
+    titulo: 'Pide presupuesto para tu web — QP Studio',
+    descripcion:
+      'Cuéntanos qué necesita tu negocio y te enviamos una propuesta por escrito, sin compromiso y sin coste. Respondemos en menos de 48 horas.'
+  },
+  {
+    ruta: '/aviso-legal',
+    archivo: 'aviso-legal.html',
+    prioridad: '0.2',
+    frecuencia: 'yearly',
+    titulo: 'Aviso legal y datos del titular — QP Studio',
+    descripcion:
+      'Datos del titular, condiciones de uso, propiedad intelectual y responsabilidad del sitio web de QP Studio, conforme a la LSSI-CE.'
+  },
+  {
+    ruta: '/privacidad',
+    archivo: 'privacidad.html',
+    prioridad: '0.2',
+    frecuencia: 'yearly',
+    titulo: 'Política de privacidad — QP Studio',
+    descripcion:
+      'Qué datos tratamos, con qué base legal, cuánto los conservamos, a quién se comunican y cómo ejercer tus derechos según el RGPD.'
+  },
+  {
+    ruta: '/cookies',
+    archivo: 'cookies.html',
+    prioridad: '0.2',
+    frecuencia: 'yearly',
+    titulo: 'Política de cookies — QP Studio',
+    descripcion:
+      'Este sitio no usa cookies de publicidad ni de seguimiento. Qué almacenamiento técnico hay, qué terceros ven tu IP y cómo bloquearlo desde el navegador.'
+  }
   // admin.html queda fuera a propósito: es privada y no debe indexarse.
 ];
 
@@ -158,15 +229,20 @@ function etiquetas(pagina, html) {
   const url = `${SITIO}${pagina.ruta}`;
   const bloques = [
     `<link rel="canonical" href="${url}" />`,
-    `<meta property="og:url" content="${url}" />`,
+    `<meta property="og:type" content="website" />`,
+    `<meta property="og:locale" content="es_ES" />`,
     `<meta property="og:site_name" content="${T.nombre}" />`,
+    `<meta property="og:url" content="${url}" />`,
+    `<meta property="og:title" content="${atributo(pagina.titulo)}" />`,
+    `<meta property="og:description" content="${atributo(pagina.descripcion)}" />`,
     `<meta property="og:image" content="${SITIO}/img/og.jpg" />`,
     `<meta property="og:image:width" content="1200" />`,
     `<meta property="og:image:height" content="630" />`,
+    `<meta property="og:image:type" content="image/jpeg" />`,
     `<meta property="og:image:alt" content="QP Studio · diseño y desarrollo web" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
-    `<meta name="twitter:title" content="${pagina.titulo}" />`,
-    `<meta name="twitter:description" content="${pagina.descripcion}" />`,
+    `<meta name="twitter:title" content="${atributo(pagina.titulo)}" />`,
+    `<meta name="twitter:description" content="${atributo(pagina.descripcion)}" />`,
     `<meta name="twitter:image" content="${SITIO}/img/og.jpg" />`,
     `<script type="application/ld+json">${jsonLd(pagina)}</script>`
   ];
@@ -178,6 +254,10 @@ function etiquetas(pagina, html) {
 
   return bloques;
 }
+
+/* Comillas y ampersands fuera, que estos textos van dentro de un atributo. */
+const atributo = (t) =>
+  String(t ?? '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 
 /* ── Sitemap y robots ──────────────────────────────────────────────── */
 
@@ -229,17 +309,22 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
       continue;
     }
 
-    pagina.titulo = (/<title>([^<]*)<\/title>/.exec(html)?.[1] || T.nombre).replace(
-      / — QP Studio$/,
-      ''
-    );
-    pagina.descripcion = /<meta name="description" content="([^"]*)"/.exec(html)?.[1] || '';
-
-    // Se quitan primero las etiquetas que puso una ejecución anterior, para
-    // que volver a ejecutarlo no las duplique.
+    /* El título y la descripción los manda esta lista, no lo que hubiera en
+       el fichero: así hay un solo sitio donde revisarlos todos juntos y
+       comprobar que ninguno se repite ni se pasa de largo. */
     let limpio = html
+      .replace(/<title>[^<]*<\/title>/, `<title>${atributo(pagina.titulo)}</title>`)
+      .replace(
+        /<meta name="description" content="[^"]*"\s*\/?>/,
+        `<meta name="description" content="${atributo(pagina.descripcion)}" />`
+      )
       .replace(/\n?\s*<!-- seo -->[\s\S]*?<!-- \/seo -->/g, '')
-      .replace(/\n?\s*<link rel="canonical"[^>]*>/g, '');
+      .replace(/\n?\s*<link rel="canonical"[^>]*>/g, '')
+      /* Las og: y twitter: que quedaran escritas a mano en el fichero se
+         quitan también: si no, convivirían con las que pone este paso y
+         cada red social elegiría una de las dos sin criterio. */
+      .replace(/\n?\s*<meta property="og:[^"]*"[^>]*>/g, '')
+      .replace(/\n?\s*<meta name="twitter:[^"]*"[^>]*>/g, '');
 
     const bloque =
       '\n<!-- seo -->\n' + etiquetas(pagina, limpio).join('\n') + '\n<!-- /seo -->';

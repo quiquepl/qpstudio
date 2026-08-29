@@ -19,9 +19,9 @@ const head = (title, desc) => `<!DOCTYPE html>
 <meta name="description" content="${desc}" />
 <meta name="theme-color" content="#f7f8fa" />
 <link rel="icon" href="img/logo.png" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Geist:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="preload" href="fuentes/archivo-800-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="fuentes/geist-400-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="css/fuentes.css" />
 <link rel="stylesheet" href="css/styles.css" />
 <link rel="stylesheet" href="css/sections.css" />
 <link rel="stylesheet" href="css/pages.css" />${title.__admin ? '<script src="js/admin.js" defer></script>' : ''}
@@ -68,7 +68,7 @@ const foot = `</main>
           <a href="mailto:qpstudiocontacto@gmail.com" aria-label="Correo electrónico">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5zM4.4 6 12 11.7 19.6 6zM20 7.9l-7.4 5.6a1 1 0 0 1-1.2 0L4 7.9V18h16z"/></svg>
           </a>
-          <a href="https://wa.me/34600000000" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <a href="https://wa.me/34684759883" target="_blank" rel="noopener" aria-label="WhatsApp">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 1.67c2.2 0 4.27.86 5.83 2.42a8.2 8.2 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.25 8.24a8.23 8.23 0 0 1-4.19-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm-3.2 4.3c-.15 0-.4.06-.61.29-.21.23-.8.78-.8 1.9s.82 2.2.93 2.36c.12.15 1.6 2.44 3.88 3.42.54.23.96.37 1.29.48.54.17 1.04.15 1.43.09.44-.07 1.34-.55 1.53-1.08.19-.53.19-.98.13-1.08-.06-.09-.21-.15-.44-.26-.23-.12-1.34-.66-1.55-.74-.21-.08-.36-.11-.51.11-.15.23-.58.74-.71.89-.13.15-.26.17-.49.06-.23-.12-.96-.36-1.83-1.13-.68-.6-1.13-1.35-1.27-1.58-.13-.23-.01-.35.1-.47.1-.1.23-.27.35-.4.11-.14.15-.23.23-.39.08-.15.04-.29-.02-.4-.06-.12-.51-1.23-.7-1.68-.18-.44-.37-.38-.51-.39h-.43z"/></svg>
           </a>
         </div>
@@ -302,7 +302,12 @@ page(
   'contacto.html',
   'Contacto',
   'Solicita una propuesta para tu proyecto web. Respondemos en menos de 48 horas.',
-  `
+  phead(
+    'Contacto',
+    'Cuéntanos qué necesita tu negocio.',
+    'Te enviamos una propuesta por escrito con el alcance cerrado, sin compromiso y sin coste. Respondemos en menos de 48 horas.'
+  ) +
+    `
 <section class="pbody gpanel">
   ${aura}
   <div class="shell contact gpanel__in">
@@ -322,7 +327,7 @@ page(
         <textarea id="f-msg" name="mensaje" rows="5" required placeholder="Taller mecánico en Alicante. Web de 2013, queremos rehacerla y añadir cita online."></textarea>
       </div>
       <button class="btn btn--blue btn--full magnet" type="submit"><span>Enviar solicitud</span></button>
-      <p class="form__alt">También por <a href="https://wa.me/34600000000" target="_blank" rel="noopener">WhatsApp</a></p>
+      <p class="form__alt">También por <a href="https://wa.me/34684759883" target="_blank" rel="noopener">WhatsApp</a></p>
       <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
     </form>
 
@@ -643,9 +648,8 @@ legal('cookies.html', 'Política de cookies', 'Qué cookies y servicios de terce
     </ul>
 
     <h2>3. Servicios de terceros</h2>
-    <p>Aunque no pongamos cookies de terceros, el sitio carga recursos externos que, por el propio funcionamiento de internet, reciben tu dirección IP:</p>
+    <p>Las tipografías se sirven desde este mismo sitio, así que no se las pedimos a nadie. Quedan estos recursos externos que, por el propio funcionamiento de internet, reciben tu dirección IP:</p>
     <ul>
-      <li><b>Google Fonts</b> — tipografías. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Política de Google</a>.</li>
       <li><b>Unsplash</b> — algunas imágenes de ejemplo. <a href="https://unsplash.com/privacy" target="_blank" rel="noopener">Política de Unsplash</a>.</li>
       <li><b>Vercel</b> — alojamiento. <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener">Política de Vercel</a>.</li>
     </ul>

@@ -375,4 +375,59 @@
   } catch (e) {
     console.warn('cintas:', e);
   }
+
+  /* ── Fondos que esperan a hacer falta ────────────────────────────── */
+
+  /* Las fotos de las tarjetas son fondos CSS, y un fondo CSS no admite
+     loading="lazy": el navegador se los descarga todos nada más leer la
+     hoja de estilos, aunque estén tres pantallas más abajo. Once fotos
+     compitiendo por el ancho de banda con lo que sí se está viendo retrasan
+     el primer pintado, y eso Google lo mide.
+
+     Así que la URL viaja en data-img y solo se convierte en fondo cuando la
+     tarjeta se acerca. El margen de 400px hace que llegue cargada antes de
+     entrar en pantalla, así que no se ve aparecer. */
+  try {
+    const conFoto = document.querySelectorAll('[data-img]');
+    if (conFoto.length) {
+      const cargar = (el) => {
+        el.style.setProperty('--img', `url("${el.dataset.img}")`);
+        el.removeAttribute('data-img');
+      };
+
+      if (!('IntersectionObserver' in window)) {
+        conFoto.forEach(cargar);
+      } else {
+        const ojo = new IntersectionObserver(
+          (entradas, obs) => {
+            entradas.forEach((e) => {
+              if (!e.isIntersecting) return;
+              cargar(e.target);
+              obs.unobserve(e.target);
+            });
+          },
+          { rootMargin: '400px' }
+        );
+        conFoto.forEach((el) => ojo.observe(el));
+
+        /* Red de seguridad. El observador solo avisa cuando la página se
+           pinta de verdad; si el navegador la tiene congelada por lo que
+           sea, las tarjetas se quedarían sin foto para siempre, que es
+           mucho peor que cargarlas tarde.
+
+           Esto espera a que la carga haya terminado y a un hueco de
+           inactividad, así que ya se ha medido el primer pintado y no
+           quita rendimiento a nada. */
+        const rescatar = () => {
+          const tarde = () => document.querySelectorAll('[data-img]').forEach(cargar);
+          if ('requestIdleCallback' in window) requestIdleCallback(tarde, { timeout: 4000 });
+          else setTimeout(tarde, 3000);
+        };
+        if (document.readyState === 'complete') rescatar();
+        else addEventListener('load', rescatar, { once: true });
+      }
+    }
+  } catch (e) {
+    console.warn('fondos:', e);
+  }
 })();
