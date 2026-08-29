@@ -104,6 +104,24 @@ const foot = `</main>
   </div>
 </footer>
 
+<dialog class="gate" id="gate" aria-labelledby="gate-t">
+  <form class="gate__box" id="gate-form" method="dialog" novalidate>
+    <img class="gate__logo" src="img/logo.png" alt="QP Studio" width="56" height="56" />
+    <h2 class="gate__t" id="gate-t">Panel de administración</h2>
+    <div class="field">
+      <label for="g-user">Usuario</label>
+      <input id="g-user" type="text" autocomplete="username" required />
+    </div>
+    <div class="field">
+      <label for="g-pass">Contraseña</label>
+      <input id="g-pass" type="password" autocomplete="current-password" required />
+    </div>
+    <button class="btn btn--blue btn--full magnet" type="submit"><span>Entrar</span></button>
+    <p class="gate__error" id="gate-error" role="status" aria-live="polite"></p>
+    <button class="gate__close" type="button" id="gate-close" aria-label="Cerrar">Cancelar</button>
+  </form>
+</dialog>
+
 <script src="js/motion.js" defer></script>
 <script src="js/ui.js" defer></script>
 </body>
@@ -251,8 +269,7 @@ page(
   'contacto.html',
   'Contacto',
   'Solicita una propuesta para tu proyecto web. Respondemos en menos de 24 horas.',
-  phead('Contacto', 'Hablemos de tu proyecto.', 'Cuéntanos en qué punto está tu negocio y qué necesitas.') +
-    `
+  `
 <section class="pbody gpanel">
   ${aura}
   <div class="shell contact gpanel__in">
@@ -284,11 +301,6 @@ page(
         <li><b>Propuesta por escrito</b><span>Alcance, fecha y presupuesto cerrados.</span></li>
         <li><b>Si no encajamos, te lo decimos</b><span>Preferimos no coger un proyecto que hacerlo a medias.</span></li>
       </ol>
-      <dl>
-        <dt>Correo</dt><dd><a href="mailto:hola@qpstudio.es">hola@qpstudio.es</a></dd>
-        <dt>WhatsApp</dt><dd><a href="https://wa.me/34600000000" target="_blank" rel="noopener">Escribir ahora</a></dd>
-        <dt>Horario</dt><dd>Lunes a viernes, 9:00 a 19:00. Incidencias 24/7.</dd>
-      </dl>
     </div>
   </div>
 </section>
@@ -305,18 +317,14 @@ const adminPage = () => {
     'admin.html',
     head(t, 'Panel de administración de QP Studio.') +
       `
-<section class="phead">
-  <div class="shell phead__in">
-    <p class="crumb"><a href="index.html">Inicio</a> · Administración</p>
-    <h1>Panel de administración</h1>
-    <p>Edita los textos de la web, añade secciones nuevas y consulta los mensajes recibidos.</p>
-  </div>
-</section>
-
-<section class="pbody">
+<section class="pbody apage">
   <div class="shell">
 
     <div id="login">
+      <div class="apage__top">
+        <img src="img/logo.png" alt="QP Studio" width="52" height="52" />
+        <h1>Panel de administración</h1>
+      </div>
       <form class="form login" id="login-form" novalidate>
         <div class="field">
           <label for="l-user">Usuario</label>
@@ -333,6 +341,10 @@ const adminPage = () => {
     </div>
 
     <div id="panel" hidden>
+      <div class="apage__top">
+        <img src="img/logo.png" alt="QP Studio" width="52" height="52" />
+        <h1>Panel de administración</h1>
+      </div>
       <div class="abar">
         <p class="abar__who">Sesión iniciada como <b>quique</b></p>
         <button type="button" class="linkish" id="salir">Cerrar sesión</button>

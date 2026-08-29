@@ -213,8 +213,8 @@ const BLOQUES = [
         <footer class="ebox__foot">
           <span class="ebox__estado" role="status"></span>
           <div class="ebox__acciones">
-            <button type="button" class="btn btn--ghost btn--sm" data-accion="restaurar">Restaurar por defecto</button>
-            <button type="button" class="btn btn--blue btn--sm" data-accion="guardar">Guardar cambios</button>
+            <button type="button" class="btn btn--ghost btn--sm" data-accion="restaurar"><span>Restaurar por defecto</span></button>
+            <button type="button" class="btn btn--blue btn--sm" data-accion="guardar"><span>Guardar cambios</span></button>
           </div>
         </footer>
       </section>`
@@ -266,7 +266,7 @@ const BLOQUES = [
         <span class="bcard__ico"><svg viewBox="0 0 24 24" aria-hidden="true">${b.icono}</svg></span>
         <h3>${b.nombre}</h3>
         <p>${b.desc}</p>
-        <button type="button" class="btn btn--ghost btn--sm" data-add="${b.id}">Añadir a la web</button>
+        <button type="button" class="btn btn--ghost btn--sm" data-add="${b.id}"><span>Añadir a la web</span></button>
       </article>`
     ).join('');
 

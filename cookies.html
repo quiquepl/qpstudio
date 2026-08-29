@@ -120,6 +120,24 @@
   </div>
 </footer>
 
+<dialog class="gate" id="gate" aria-labelledby="gate-t">
+  <form class="gate__box" id="gate-form" method="dialog" novalidate>
+    <img class="gate__logo" src="img/logo.png" alt="QP Studio" width="56" height="56" />
+    <h2 class="gate__t" id="gate-t">Panel de administración</h2>
+    <div class="field">
+      <label for="g-user">Usuario</label>
+      <input id="g-user" type="text" autocomplete="username" required />
+    </div>
+    <div class="field">
+      <label for="g-pass">Contraseña</label>
+      <input id="g-pass" type="password" autocomplete="current-password" required />
+    </div>
+    <button class="btn btn--blue btn--full magnet" type="submit"><span>Entrar</span></button>
+    <p class="gate__error" id="gate-error" role="status" aria-live="polite"></p>
+    <button class="gate__close" type="button" id="gate-close" aria-label="Cerrar">Cancelar</button>
+  </form>
+</dialog>
+
 <script src="js/motion.js" defer></script>
 <script src="js/ui.js" defer></script>
 </body>

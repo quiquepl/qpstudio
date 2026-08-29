@@ -50,6 +50,7 @@
   const finale = document.getElementById("hablemos");
   const seqImgs = [...document.querySelectorAll("#macseq img")];
   let seqOn = 0;
+  let panLock = 0;
   const rail = finale?.querySelector('.finale__rail');
   const panel = finale?.querySelector('.finale__panel');
   const use3d = finale && rail && !quiet.matches;
@@ -88,22 +89,25 @@
       const travel = Math.max(1, r.height - vh);
       const p = clamp(-r.top / travel);
 
-      // la secuencia: cerrado, se abre en tres pasos, y al último fotograma
-      // la cámara entra en la pantalla y aparece el formulario
-      const zoom = clamp((p - 0.5) / 0.24);
+      // Tres pasos en vez de cinco: el salto entre fotogramas parecidos se
+      // notaba como un cambiazo. Cerrado, abierto y pantalla de contacto.
+      const zoom = clamp((p - 0.46) / 0.26);
       finale.style.setProperty("--zoom", zoom.toFixed(3));
-      const pan = clamp((p - 0.62) / 0.16);
+
+      // Pestillo: una vez se ha llegado al contacto ya no vuelve a ser un
+      // ordenador aunque se siga bajando.
+      const pan = Math.max(panLock, clamp((p - 0.6) / 0.18));
+      if (pan >= 1) panLock = 1;
       finale.style.setProperty("--panel", pan.toFixed(3));
 
       if (seqImgs.length) {
-        const f = p < 0.13 ? 0 : p < 0.26 ? 1 : p < 0.38 ? 2 : p < 0.5 ? 3 : 4;
+        const f = p < 0.2 ? 0 : p < 0.46 ? 1 : 2;
         if (f !== seqOn) {
           seqImgs[seqOn].classList.remove("is-on");
           seqImgs[f].classList.add("is-on");
           seqOn = f;
         }
       }
-      finale.style.setProperty('--panel', pan.toFixed(3));
 
       const live = pan > 0.8;
       if (live !== panelLive) {
@@ -189,57 +193,36 @@
       for (let i = 0; i < n; i++) ch[i] = cards[i].offsetHeight;
     };
 
-    const step = (now) => {
-      raf = 0;
-      const t = now * 0.00007; // vuelta completa en ~90 s
+    // Composición fija. Antes giraban en un rAF continuo y, al hacer scroll
+    // al mismo tiempo, las tarjetas y las líneas daban tirones.
+    const colocar = () => {
       for (let i = 0; i < n; i++) {
-        const a = t + (i / n) * 6.2831853;
+        const a = -1.15 + (i / n) * 6.2831853;
         const s = Math.sin(a);
         const depth = (s + 1) / 2;
         const x = cx + rx * Math.cos(a) - cw / 2;
         const y = cy + ry * s - ch[i] / 2;
         const el = cards[i];
-        el.style.transform =
-          `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) scale(${(0.72 + depth * 0.36).toFixed(3)})`;
-        el.style.opacity = (0.4 + depth * 0.6).toFixed(2);
+        el.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) scale(${(0.8 + depth * 0.26).toFixed(3)})`;
+        el.style.opacity = (0.62 + depth * 0.38).toFixed(2);
         el.style.zIndex = depth > 0.52 ? 7 : 2;
 
         const l = lines[i];
-        l.setAttribute('x1', cx.toFixed(0));
-        l.setAttribute('y1', cy.toFixed(0));
-        l.setAttribute('x2', (x + cw / 2).toFixed(1));
-        l.setAttribute('y2', (y + ch[i] / 2).toFixed(1));
+        l.setAttribute("x1", cx.toFixed(0));
+        l.setAttribute("y1", cy.toFixed(0));
+        l.setAttribute("x2", (x + cw / 2).toFixed(1));
+        l.setAttribute("y2", (y + ch[i] / 2).toFixed(1));
       }
-      if (alive) raf = requestAnimationFrame(step);
     };
 
     measure();
-    step(performance.now());
+    colocar();
 
     new ResizeObserver(() => {
       measure();
-      if (!alive) step(performance.now());
+      colocar();
     }).observe(field);
 
-    new IntersectionObserver(
-      (e) => {
-        alive = e[0].isIntersecting;
-        if (alive && !raf) raf = requestAnimationFrame(step);
-      },
-      { rootMargin: '120px' }
-    ).observe(orbitSec);
-
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) {
-        alive = false;
-        if (raf) cancelAnimationFrame(raf);
-        raf = 0;
-      } else if (!raf) {
-        raf = requestAnimationFrame(step);
-      }
-    });
-
-    // el núcleo, encima de las que pasan por detrás
     core.style.zIndex = 5;
   }
 

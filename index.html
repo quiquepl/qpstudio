@@ -194,15 +194,13 @@
     </article>
 
     <article class="wcard">
-      <div class="win win--dark">
+      <div class="win">
         <span class="win__bar"><i></i><i></i><i></i></span>
-        <div class="win__body win__body--panel">
-          <span class="panel__row"><b>Reservas de hoy</b><i>14</i></span>
-          <span class="panel__chart"><u style="--v:38%"></u><u style="--v:62%"></u><u style="--v:44%"></u><u style="--v:88%"></u><u style="--v:71%"></u><u style="--v:96%"></u></span>
-          <span class="panel__row panel__row--sm"><b>Ocupación</b><i>92 %</i></span>
+        <div class="win__body win__body--photo" style="--img:url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=420&q=60')">
+          <b>Clínica Nova</b><u>Pedir cita</u>
         </div>
       </div>
-      <p class="wcard__cap">Panel de reservas</p>
+      <p class="wcard__cap">Clínica dental</p>
     </article>
 
     <div class="orbit__core">
@@ -438,8 +436,6 @@
       <div class="finale__scene" aria-hidden="true">
         <div class="macseq" id="macseq">
           <img src="img/mac/mac-1.jpg" alt="" width="1200" height="900" class="is-on" />
-          <img src="img/mac/mac-2.jpg" alt="" width="1200" height="900" />
-          <img src="img/mac/mac-3.jpg" alt="" width="1200" height="900" />
           <img src="img/mac/mac-4.jpg" alt="" width="1200" height="900" />
           <img src="img/mac/mac-5.jpg" alt="" width="1200" height="900" class="macseq__last" />
         </div>
@@ -481,6 +477,27 @@
 </section>
 
 </main>
+
+<!-- ── Acceso al panel ─────────────────────────────────────────────────── -->
+<dialog class="gate" id="gate" aria-labelledby="gate-t">
+  <form class="gate__box" id="gate-form" method="dialog" novalidate>
+    <img class="gate__logo" src="img/logo.png" alt="QP Studio" width="56" height="56" />
+    <h2 class="gate__t" id="gate-t">Panel de administración</h2>
+
+    <div class="field">
+      <label for="g-user">Usuario</label>
+      <input id="g-user" type="text" autocomplete="username" required />
+    </div>
+    <div class="field">
+      <label for="g-pass">Contraseña</label>
+      <input id="g-pass" type="password" autocomplete="current-password" required />
+    </div>
+
+    <button class="btn btn--blue btn--full magnet" type="submit"><span>Entrar</span></button>
+    <p class="gate__error" id="gate-error" role="status" aria-live="polite"></p>
+    <button class="gate__close" type="button" id="gate-close" aria-label="Cerrar">Cancelar</button>
+  </form>
+</dialog>
 
 <!-- ══ FOOTER ═══════════════════════════════════════════════════════════ -->
 <footer class="foot">

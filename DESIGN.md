@@ -90,28 +90,21 @@ de parpadear. Es solo decoración: `pointer-events: none` y por debajo del texto
 degradado horizontal cuyo brillo viaja. Superpuestas dan pliegues con volumen.
 Se dibujan a 30 fps.
 
-**3. Webs en órbita.** Ocho maquetas girando de verdad alrededor del texto,
-solas y siempre, sin tocar el ratón. Un solo transform por tarjeta y fotograma.
-Las que pasan por abajo van delante (más grandes, más opacas, z-index 7); las de
-arriba pasan por detrás del texto (z-index 2). Un SVG dentro del propio campo
-redibuja las ocho líneas que las unen al centro.
+**3. Webs en órbita.** Ocho maquetas colocadas en una composición fija alrededor
+del texto. **No se mueven.** Antes giraban en un rAF continuo y, al hacer scroll
+al mismo tiempo, las tarjetas y las líneas daban tirones. Lo que se mueve ahora
+es el aura del fondo, que no está atada al scroll y por eso no da problemas.
 
-La geometría del anillo garantiza que ninguna tarjeta pise el bloque central: en
-la franja vertical del texto el coseno del ángulo es siempre mayor que 0,93, así
-que las tarjetas están en los extremos. Si se cambia rx, ry o el ancho del texto,
-hay que rehacer esa cuenta.
+**4. El ordenador final.** Tres fotogramas reales (`img/mac/`): cerrado visto
+desde arriba, abierto y el zoom sobre la pantalla de contacto. Se pasó de cinco a
+tres porque entre fotogramas parecidos el cambio se notaba como un corte; con
+tres y un fundido de 420 ms la transición es limpia.
 
-En móvil sigue orbitando, con el anillo más ancho que la pantalla a propósito
-(las tarjetas entran y salen de cuadro) y el texto más estrecho.
+Hay un **pestillo**: en cuanto el contacto llega a estar del todo visible, ya no
+vuelve a verse el ordenador aunque se siga bajando.
 
-**4. El ordenador final.** Cinco fotogramas reales del portátil (`img/mac/`),
-del cerrado visto desde arriba al zoom sobre la pantalla de contacto. El scroll
-elige cuál se muestra, así que no hay 3D que calcular y va suave hasta en móvil.
-El quinto se acerca con `scale` y da paso al formulario real, que entra por
-encima como capa aparte.
-
-Las imágenes venían a 1,3 MB cada una; reescaladas a 1200 px y JPEG 84 ocupan
-334 KB las cinco. Lo mismo con el logo (1,2 MB a 73 KB) y el retrato.
+Las imágenes venían a 1,3 MB cada una; reescaladas a 1200 px y JPEG 84 las tres
+ocupan 211 KB. Lo mismo con el logo (1,2 MB a 73 KB) y el retrato.
 
 Los canvas se paran fuera de pantalla y con la pestaña oculta.
 `prefers-reduced-motion` congela las cordilleras, quita el portátil y deja el
@@ -160,3 +153,11 @@ añadir secciones (seis tipos de bloque) y mensajes recibidos.
 para trabajar mientras no haya servidor. Los cambios se guardan en
 `localStorage`. En cuanto exista backend, la comprobación y el guardado tienen
 que moverse allí.
+
+
+## Acceso al panel
+
+El enlace «Admin» del pie no lleva directamente a la página: abre una ventana
+centrada con el logo y el formulario de acceso. Si las credenciales son
+correctas, guarda la sesión y entra. `admin.html` va sin cabecera de página:
+logo, título y directo al panel.

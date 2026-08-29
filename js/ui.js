@@ -241,4 +241,41 @@ const CONTACTO = {
         `Si no se ha abierto, escríbeme a ${CONTACTO.email}.`;
     });
   }
+  /* ── Acceso al panel desde el enlace "Admin" del pie ──────────────── */
+  const gate = document.getElementById("gate");
+  if (gate) {
+    const gform = document.getElementById("gate-form");
+    const gerr = document.getElementById("gate-error");
+
+    document.querySelectorAll('a[href="admin.html"]').forEach((a) => {
+      a.addEventListener("click", (e) => {
+        // si ya hay sesión abierta, al panel directamente
+        if (sessionStorage.getItem("qp-admin-ok") === "1") return;
+        e.preventDefault();
+        gerr.textContent = "";
+        gform.reset();
+        gate.showModal();
+        document.getElementById("g-user").focus();
+      });
+    });
+
+    document.getElementById("gate-close")?.addEventListener("click", () => gate.close());
+    gate.addEventListener("click", (e) => {
+      if (e.target === gate) gate.close();
+    });
+
+    gform.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const u = document.getElementById("g-user").value.trim();
+      const c = document.getElementById("g-pass").value;
+      if (u === "quique" && c === "qpstudio2026") {
+        sessionStorage.setItem("qp-admin-ok", "1");
+        location.href = "admin.html";
+      } else {
+        gerr.textContent = "Usuario o contraseña incorrectos.";
+        document.getElementById("g-pass").value = "";
+        document.getElementById("g-pass").focus();
+      }
+    });
+  }
 })();
