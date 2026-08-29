@@ -8,8 +8,8 @@ build, cero backend.
 ```
 index.html          home
 servicios.html      detalle de los cuatro servicios y presupuestos
-proceso.html        el rediseño del taller, paso a paso
 gestion.html        panel, botones con backend y acompañamiento
+mantenimiento.html  qué incluye, qué es del cliente y cómo se entrega
 contacto.html       formulario en página propia
 admin.html          panel de administración (maqueta, sin backend)
 aviso-legal.html · privacidad.html · cookies.html

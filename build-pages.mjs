@@ -78,6 +78,7 @@ const foot = `</main>
         <a href="/">Inicio</a>
         <a href="/servicios">Servicios</a>
         <a href="/gestion">Gestión</a>
+        <a href="/mantenimiento">Mantenimiento</a>
         <a href="/contacto">Contacto</a>
       </nav>
       <nav class="foot__col" aria-label="Servicios">
@@ -425,6 +426,81 @@ const adminPage = () => {
   console.log('escrito admin.html');
 };
 adminPage();
+
+/* ── Mantenimiento y propiedad ─────────────────────────────────────── */
+
+page(
+  'mantenimiento.html',
+  'Mantenimiento',
+  'Qué incluye el mantenimiento, qué es tuyo desde el primer día y qué pasa el día que decidas seguir por tu cuenta.',
+  phead('Mantenimiento', 'Tu web es tuya.<br />También el día que te vayas.', 'La mayoría de estudios te entrega una web y se queda con las llaves. Aquí no funciona así, y esta página explica exactamente cómo funciona.') +
+    `
+<section class="pbody">
+  <div class="shell">
+    <h2>Qué incluye el mantenimiento</h2>
+    <div class="gcards">
+      <article class="gcard"><b>Copias de seguridad</b><span>De la web y de la base de datos, para poder volver atrás si algo se rompe.</span></article>
+      <article class="gcard"><b>Actualizaciones y seguridad</b><span>Certificado, dependencias y vigilancia de que todo sigue en pie.</span></article>
+      <article class="gcard"><b>Cambios puntuales</b><span>Lo que no quieras hacer tú desde el panel, sin esperas ni tickets.</span></article>
+      <article class="gcard gcard--blue"><b>Soporte 24/7</b><span>Dudas e incidencias resueltas cualquier día y a cualquier hora.</span></article>
+      <article class="gcard"><b>Rendimiento</b><span>Velocidad de carga y comportamiento en móvil, revisados de forma periódica.</span></article>
+      <article class="gcard"><b>Un solo interlocutor</b><span>Siempre la misma persona, que ya conoce tu proyecto.</span></article>
+    </div>
+  </div>
+</section>
+
+<section class="pbody sec--tuyo">
+  ${aura}
+  <div class="shell">
+    <h2>Qué es tuyo desde el primer día</h2>
+    <p class="lead-max">No hay nada que tengas que reclamar más adelante. Estas cuatro cosas son tuyas desde que empezamos, no desde que terminamos.</p>
+    <div class="gcards">
+      <article class="gcard"><b>El dominio</b><span>Registrado a tu nombre desde el principio. Nosotros solo tenemos el acceso técnico para configurarlo.</span></article>
+      <article class="gcard"><b>Los contenidos</b><span>Textos, fotografías y todo lo que se publique. Descargables en cualquier momento.</span></article>
+      <article class="gcard"><b>El código</b><span>Sin plantillas cerradas ni sistemas propietarios. Cualquier desarrollador puede continuarlo.</span></article>
+      <article class="gcard"><b>La base de datos</b><span>PostgreSQL estándar. Se exporta entera con un comando y se restaura donde quieras.</span></article>
+    </div>
+  </div>
+</section>
+
+<section class="pbody">
+  <div class="shell">
+    <h2>Si algún día decides seguir por tu cuenta</h2>
+    <p class="lead-max">Sin permanencia y sin penalización. Nos lo dices y te lo entregamos todo. El proceso completo es de una tarde, y <b>la web no deja de funcionar en ningún momento</b>.</p>
+
+    <ol class="pasos">
+      <li>
+        <b>Nos avisas</b>
+        <span>No hace falta motivo ni preaviso largo. Preferimos que te quedes porque quieres, no porque no puedas salir.</span>
+      </li>
+      <li>
+        <b>Creas tus cuentas</b>
+        <span>Una de alojamiento y otra de base de datos, a tu nombre. Te guiamos por teléfono: son unos quince minutos.</span>
+      </li>
+      <li>
+        <b>Transferimos el proyecto</b>
+        <span>La web y la base de datos pasan a tus cuentas con la transferencia oficial de cada plataforma. Sin cortes de servicio.</span>
+      </li>
+      <li>
+        <b>Te entregamos el código</b>
+        <span>El repositorio pasa a tu nombre, con la documentación de cómo está montado y cómo se publica.</span>
+      </li>
+      <li>
+        <b>Salimos de tus cuentas</b>
+        <span>Dejamos de tener acceso. El dominio ni se toca, porque ya era tuyo.</span>
+      </li>
+    </ol>
+
+    <div class="notice">
+      <b>Con total transparencia:</b> a partir de ese momento pagas el alojamiento y la base de datos
+      directamente al proveedor, sin intermediarios. Para una web de negocio suele ser cuestión de unos
+      pocos euros al mes. Te decimos las cifras exactas de tu caso antes de que decidas nada.
+    </div>
+  </div>
+</section>
+` +
+    pcta('¿Hablamos de tu proyecto?', 'Te contamos cómo quedaría el tuyo, sin compromiso y sin coste.')
+);
 
 /* ── Legales ───────────────────────────────────────────────────────── */
 

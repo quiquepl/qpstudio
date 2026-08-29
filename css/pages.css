@@ -72,7 +72,7 @@
   text-underline-offset: 0.18em;
   transition: color var(--t) var(--ease);
 }
-@media (hover: hover) { .prose a:hover, .pbody p a:hover { color: var(--ink-1); } }
+@media (hover: hover) { .prose a:hover, .pbody p a:hover { color: var(--ink); } }
 
 .prose__fecha {
   margin-top: clamp(1.8rem, 3vw, 2.4rem);
@@ -529,4 +529,25 @@ h2.gsep { margin-top: clamp(2.8rem, 5vw, 4.2rem); }
   font-family: var(--display);
   font-size: clamp(1.5rem, 3vw, 2.1rem);
   font-weight: 800; letter-spacing: -0.038em;
+}
+
+/* ── Mantenimiento ─────────────────────────────────────────────────── */
+
+/* Los pasos de la entrega reutilizan el componente .pasos que ya usaba
+   la página de contacto. Aquí solo van las piezas propias. */
+
+.lead-max { max-width: 60ch; }
+
+/* la sección intermedia va sobre fondo tintado para romper el blanco
+   entre dos rejillas de tarjetas seguidas */
+.sec--tuyo {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--paper), var(--blue-wash) 55%, var(--paper));
+}
+.sec--tuyo .shell { position: relative; z-index: 1; }
+
+@media (max-width: 620px) {
+  .lead-max { margin-inline: auto; }
 }
