@@ -37,7 +37,19 @@ createServer(async (req, res) => {
       return;
     }
 
-    const info = await stat(path);
+    // mismo comportamiento que cleanUrls de Vercel: /servicios sirve
+    // servicios.html, para que en local se navegue igual que publicado
+    let info;
+    try {
+      info = await stat(path);
+    } catch {
+      const alt = path + ".html";
+      await stat(alt);
+      const body = await readFile(alt);
+      res.writeHead(200, { "Content-Type": TYPES[".html"], "Cache-Control": "no-store" });
+      res.end(body);
+      return;
+    }
     const file = info.isDirectory() ? join(path, 'index.html') : path;
     const body = await readFile(file);
 

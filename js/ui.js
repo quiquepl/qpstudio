@@ -247,7 +247,7 @@ const CONTACTO = {
     const gform = document.getElementById("gate-form");
     const gerr = document.getElementById("gate-error");
 
-    document.querySelectorAll('a[href="admin.html"]').forEach((a) => {
+    document.querySelectorAll('a[href="/admin"]').forEach((a) => {
       a.addEventListener("click", (e) => {
         // si ya hay sesión abierta, al panel directamente
         if (sessionStorage.getItem("qp-admin-ok") === "1") return;
@@ -270,7 +270,7 @@ const CONTACTO = {
       const c = document.getElementById("g-pass").value;
       if (u === "quique" && c === "juan") {
         sessionStorage.setItem("qp-admin-ok", "1");
-        location.href = "admin.html";
+        location.href = "/admin";
       } else {
         gerr.textContent = "Usuario o contraseña incorrectos.";
         document.getElementById("g-pass").value = "";
