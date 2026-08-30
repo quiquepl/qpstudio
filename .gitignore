@@ -10,3 +10,7 @@ Thumbs.db
 # Enlaces simbólicos que crea el instalador de skills apuntando a
 # .agents/skills. Se regeneran solos y en Windows Git los guarda raro.
 .claude/skills
+
+# Listas de prospectos: son datos de trabajo con notas tuyas sobre
+# negocios reales. No tienen por qué acabar en un repositorio.
+prospectos/
