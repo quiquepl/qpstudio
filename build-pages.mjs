@@ -525,12 +525,19 @@ page(
 
 /* Los datos del titular viven en un solo sitio: si cambia el NIF o el
    domicilio se toca aquí y se regeneran las tres páginas. */
+/* Quien factura es GEST26; QP Studio es la marca comercial con la que se
+   presenta el servicio. Es lo normal: una sociedad puede operar bajo un
+   nombre distinto del suyo legal, y es el legal el que tiene que salir en
+   el aviso legal y en la factura.
+
+   Solo estos dos sitios. En el resto de la web la marca es QP Studio. */
 const T = {
-  nombre: 'Quique Planelles',
+  sociedad: 'GEST26',
   marca: 'QP Studio',
-  nif: '54020797F',
-  dir: 'Calle Federico García Moliner 25, España',
-  email: 'qpstudiocontacto@gmail.com'
+  cif: '[CIF pendiente]',
+  dir: '[Domicilio social pendiente]',
+  email: 'qpstudiocontacto@gmail.com',
+  responsable: 'Quique Planelles'
 };
 
 const legal = (file, titulo, desc, cuerpo, aviso) =>
@@ -550,9 +557,10 @@ legal('aviso-legal.html', 'Aviso legal', 'Titular, condiciones de uso y responsa
 `    <h2>1. Datos del titular</h2>
     <p>En cumplimiento del artículo 10 de la Ley 34/2002 de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE), se informa de lo siguiente:</p>
     <ul>
-      <li><b>Titular:</b> ${T.nombre}, que opera bajo la marca ${T.marca}.</li>
-      <li><b>NIF:</b> ${T.nif}</li>
-      <li><b>Domicilio:</b> ${T.dir}</li>
+      <li><b>Titular:</b> ${T.sociedad}, que presta este servicio bajo la marca comercial <b>${T.marca}</b>.</li>
+      <li><b>CIF:</b> ${T.cif}</li>
+      <li><b>Domicilio social:</b> ${T.dir}</li>
+      <li><b>Responsable del servicio:</b> ${T.responsable}</li>
       <li><b>Correo electrónico:</b> <a href="mailto:${T.email}">${T.email}</a></li>
       <li><b>Actividad:</b> diseño, desarrollo y mantenimiento de sitios web.</li>
     </ul>
@@ -581,9 +589,9 @@ legal('aviso-legal.html', 'Aviso legal', 'Titular, condiciones de uso y responsa
 legal('privacidad.html', 'Política de privacidad', 'Cómo trata QP Studio los datos personales recibidos a través del sitio web.',
 `    <h2>1. Responsable del tratamiento</h2>
     <ul>
-      <li><b>Responsable:</b> ${T.nombre} (${T.marca})</li>
-      <li><b>NIF:</b> ${T.nif}</li>
-      <li><b>Domicilio:</b> ${T.dir}</li>
+      <li><b>Responsable del tratamiento:</b> ${T.sociedad}, que opera bajo la marca ${T.marca}</li>
+      <li><b>CIF:</b> ${T.cif}</li>
+      <li><b>Domicilio social:</b> ${T.dir}</li>
       <li><b>Contacto:</b> <a href="mailto:${T.email}">${T.email}</a></li>
     </ul>
 

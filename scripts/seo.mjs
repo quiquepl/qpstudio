@@ -30,13 +30,17 @@ export const SITIO = 'https://www.qpstudio.es';
    comprobar cada cierto tiempo y si desaparece pierdes la propiedad. */
 export const VERIFICACION_GOOGLE = 'QBvAUidL9GEBSni_bPFn5w6azvIRbNriep8Oyj5xf1k';
 
+/* En schema.org la marca y la sociedad son campos distintos: "name" es el
+   nombre con el que se conoce el servicio y "legalName" la sociedad que
+   factura. Así Google enseña QP Studio y a la vez tiene el dato correcto. */
 const T = {
   nombre: 'QP Studio',
+  sociedad: 'GEST26',
   fundador: 'Quique Planelles',
   email: 'qpstudiocontacto@gmail.com',
-  calle: 'Calle Federico García Moliner 25',
+  calle: '[Domicilio social pendiente]',
   pais: 'ES',
-  nif: '54020797F'
+  cif: '[CIF pendiente]'
 };
 
 /* Título y descripción de cada página viven aquí, no en el generador.
@@ -138,6 +142,7 @@ function jsonLd(pagina) {
       '@id': idOrg,
       name: T.nombre,
       alternateName: 'QP Studio Web',
+      legalName: T.sociedad,
       url: SITIO,
       email: T.email,
       description:
@@ -145,7 +150,7 @@ function jsonLd(pagina) {
       logo: { '@type': 'ImageObject', url: `${SITIO}/img/logo.png`, width: 512, height: 512 },
       image: `${SITIO}/img/og.jpg`,
       priceRange: '€€',
-      vatID: T.nif,
+      vatID: T.cif,
       address: {
         '@type': 'PostalAddress',
         streetAddress: T.calle,

@@ -84,12 +84,17 @@ Vercel emite el certificado solo.
 
 - **Datos de contacto reales.** `js/ui.js`, objeto `CONTACTO` (correo y
   WhatsApp), y los mismos valores escritos a mano en el HTML.
-- **El NIF de los textos legales.** El aviso legal y la política de privacidad
-  ya llevan domicilio y están desarrollados, pero el NIF sigue como
-  `[NIF pendiente]`. Se cambia en un solo sitio: la constante `T` de
-  `build-pages.mjs`, y luego `node build-pages.mjs`. La LSSI-CE exige ese dato.
-  Conviene además que un profesional revise los tres textos antes de darlos por
-  cerrados.
+- **El CIF y el domicilio de GEST26.** Quien factura es GEST26; QP Studio es
+  la marca comercial. Los legales ya lo reflejan, pero faltan dos datos, que
+  están marcados como `[CIF pendiente]` y `[Domicilio social pendiente]`.
+
+  Se cambian en **dos sitios**: la constante `T` de `build-pages.mjs` (aviso
+  legal y privacidad) y la `T` de `scripts/seo.mjs` (datos estructurados).
+  Después, `npm run build`.
+
+  La LSSI-CE exige el CIF, así que esto no es opcional. Y conviene que la
+  gestoría de GEST26 revise los tres textos, que ya los tiene que revisar
+  igualmente para el alta de la actividad.
 - **Los textos del panel.** La bandeja de mensajes ya es real, pero los textos
   y los bloques que se editan siguen guardándose en `localStorage`, o sea solo
   en el navegador de quien los toca. Llevarlos a la base de datos exige decidir
