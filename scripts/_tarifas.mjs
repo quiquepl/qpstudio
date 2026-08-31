@@ -75,9 +75,8 @@ ${p.l.map((i) => `          <li>${i}</li>`).join('\n')}
         <p class="plan__pie">Pago único a la entrega.</p>
       </article>`;
 
-/* inv = piel oscura, para la portada. */
-export const bloqueTarifas = ({ inv = false, sangria = '    ' } = {}) => {
-  const html = `<div class="tarifas${inv ? ' tarifas--inv' : ''}">
+export const bloqueTarifas = ({ sangria = '    ' } = {}) => {
+  const html = `<div class="tarifas">
   <p class="plazas"><b>Precios de lanzamiento</b> ${PLAZAS}.</p>
 
   <div class="planes">
@@ -98,7 +97,7 @@ ${PLANES.map(plan).join('\n')}
       <p>${MANTENIMIENTO.d}</p>
       <p class="mant__cifras">${MANTENIMIENTO.cifras}<span>${MANTENIMIENTO.unidad}</span></p>
     </div>
-    <a class="btn btn--sm ${inv ? 'btn--ghost-inv' : 'btn--ghost'}" href="/mantenimiento"><span>Ver qué incluye</span></a>
+    <a class="btn btn--sm btn--ghost" href="/mantenimiento"><span>Ver qué incluye</span></a>
   </div>
 </div>`;
 

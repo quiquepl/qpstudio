@@ -362,12 +362,18 @@
 }
 
 .sec--serv {
-  background: var(--night);
-  color: var(--t-30);
+  background: var(--paper);
+  color: var(--ink-2);
+  border-block: 1px solid var(--line-soft);
   overflow: hidden;
   padding-block: clamp(4rem, 7vw, 6.5rem);
 }
 .sec--serv__in { position: relative; z-index: 2; }
+
+/* Los titulares de las dos secciones de cintas van en tinta plena. La
+   sección pone --ink-2 como color de cuerpo y, al heredarlo, el h2 salia
+   más claro que el del hero y el de la banda. */
+.sec--serv .h2, .sec--tuya .h2 { color: var(--ink); }
 .sec--serv .h2 { margin-bottom: clamp(2rem, 3.5vw, 3rem); }
 
 .serv__intro {
@@ -375,18 +381,18 @@
   margin: -0.6rem 0 clamp(2rem, 3.4vw, 2.8rem);
   font-size: var(--fs-lead);
   line-height: 1.62;
-  color: oklch(74% 0.015 250);
+  color: var(--ink-2);
   text-wrap: pretty;
 }
 
-.servs { border-top: 1px solid oklch(100% 0 0 / .13); }
+.servs { border-top: 1px solid var(--line-soft); }
 .serv {
   display: grid;
   grid-template-columns: minmax(0, 16rem) minmax(0, 1fr);
   align-items: baseline;
   gap: 0.35rem 1.5rem;
   padding: clamp(1.3rem, 2.2vw, 1.8rem) 0;
-  border-bottom: 1px solid oklch(100% 0 0 / .13);
+  border-bottom: 1px solid var(--line-soft);
   position: relative;
 }
 /* el fondo del hover es una capa aparte: antes se animaba el padding y al
@@ -395,21 +401,21 @@
   content: ""; position: absolute;
   inset: 0 -1.1rem;
   border-radius: 10px;
-  background: oklch(100% 0 0 / .05);
+  background: oklch(19% 0.022 250 / .04);
   opacity: 0;
   transition: opacity var(--t) var(--ease);
   pointer-events: none;
 }
 @media (hover: hover) {
   .serv:hover::before { opacity: 1; }
-  .serv:hover h3 { color: var(--t-00); }
+  .serv:hover h3 { color: var(--blue); }
 }
 .serv h3 {
   font-size: clamp(1.3rem, 2.2vw, 1.75rem);
-  color: var(--t-10);
+  color: var(--ink);
   transition: color var(--t) var(--ease);
 }
-.serv p { font-size: var(--fs-sm); color: oklch(70% 0.02 250); text-wrap: pretty; }
+.serv p { font-size: var(--fs-sm); color: var(--ink-2); text-wrap: pretty; }
 
 /* La línea de precio cierra la lista. Va aquí y no en una sección propia
    porque el precio solo significa algo justo después de leer qué se hace
@@ -654,8 +660,9 @@
 /* ═══ TUYA DE VERDAD · cintas 3D ══════════════════════════════════════ */
 
 .sec--tuya {
-  background: var(--night);
-  color: var(--t-30);
+  background: var(--paper);
+  color: var(--ink-2);
+  border-block: 1px solid var(--line-soft);
   overflow: hidden;
   padding-block: clamp(4rem, 7vw, 6.5rem);
 }
@@ -667,15 +674,15 @@
   gap: clamp(2.2rem, 5vw, 4.5rem);
 }
 .tuya__list { margin-top: clamp(1.8rem, 3vw, 2.4rem); }
-.tuya__list li { padding: 1.1rem 0; border-top: 1px solid oklch(100% 0 0 / .13); }
-.tuya__list li:last-child { border-bottom: 1px solid oklch(100% 0 0 / .13); }
+.tuya__list li { padding: 1.1rem 0; border-top: 1px solid var(--line-soft); }
+.tuya__list li:last-child { border-bottom: 1px solid var(--line-soft); }
 .tuya__list b {
   display: block;
   font-family: var(--display); font-weight: 700;
   font-size: 1.05rem; letter-spacing: -0.028em;
-  color: var(--t-00); margin-bottom: 0.2rem;
+  color: var(--ink); margin-bottom: 0.2rem;
 }
-.tuya__list span { font-size: var(--fs-sm); color: oklch(70% 0.02 250); }
+.tuya__list span { font-size: var(--fs-sm); color: var(--ink-2); }
 
 /* La columna derecha de Gestión: en escritorio el botón va arriba y la
    maqueta debajo. Estas reglas viven aquí, con el resto de la sección,
@@ -687,7 +694,7 @@
   gap: clamp(1.2rem, 2.4vw, 1.8rem);
 }
 .tuya__side .editor { width: 100%; }
-.tuya__cta { margin-top: 0; box-shadow: 0 14px 34px -16px oklch(0% 0 0 / .7); }
+.tuya__cta { margin-top: 0; box-shadow: 0 14px 34px -22px oklch(19% 0.022 250 / .5); }
 
 @media (max-width: 900px) {
   .tuya__side { align-items: center; }
@@ -1061,16 +1068,6 @@
 }
 
 
-/* botón fantasma para las secciones oscuras */
-.btn--ghost-inv {
-  border-color: oklch(100% 0 0 / .3);
-  color: var(--t-00);
-  background: oklch(100% 0 0 / .04);
-}
-@media (hover: hover) {
-  .btn--ghost-inv:hover { border-color: oklch(100% 0 0 / .7); background: oklch(100% 0 0 / .1); }
-}
-
 /* ── Solo escritorio / solo móvil ──────────────────────────────────── */
 .solo-mov { display: none; }
 @media (max-width: 620px) {
@@ -1117,9 +1114,8 @@
    QP STUDIO · tarifas
 
    Un solo componente para los dos sitios donde aparecen los precios: la
-   portada, sobre fondo oscuro, y /servicios, sobre papel. Cambia la piel
-   con .tarifas--inv, no la estructura: si algún día se separan en dos
-   componentes, acabarán divergiendo y enseñando precios distintos.
+   portada y /servicios. Si se separan en dos, acabarán divergiendo y
+   enseñando precios distintos.
 
    El precio va en la display pesada porque es lo que la gente busca con la
    vista: tiene que encontrarse sin leer. El precio habitual va tachado, en
@@ -1278,47 +1274,8 @@
 }
 .mant__cifras span { font-family: var(--sans); font-weight: 500; font-size: var(--fs-xs); color: var(--ink-3); letter-spacing: 0; }
 
-/* ── Piel oscura, para la portada ─────────────────────────────────────── */
-
-.tarifas--inv .plazas {
-  border-color: oklch(56% 0.215 258 / .55);
-  background: oklch(56% 0.215 258 / .14);
-  color: oklch(92% 0.008 250);
-}
-.tarifas--inv .plazas::before { background: var(--blue-sky); }
-
-.tarifas--inv .plan {
-  border-color: oklch(100% 0 0 / .14);
-  background: oklch(100% 0 0 / .045);
-}
-.tarifas--inv .plan--dest {
-  border-color: var(--blue);
-  background: oklch(56% 0.215 258 / .12);
-}
-.tarifas--inv .plan__tag { background: var(--blue-sky); color: var(--t-90); }
-
-.tarifas--inv h3.plan__n { color: var(--t-00); }
-.tarifas--inv p.plan__d { color: oklch(74% 0.018 250); }
-.tarifas--inv p.plan__p { color: var(--t-00); border-top-color: oklch(100% 0 0 / .14); }
-.tarifas--inv .plan__desde { color: oklch(66% 0.016 250); }
-.tarifas--inv .plan__p s { color: oklch(66% 0.016 250); }
-.tarifas--inv .plan__l li { color: oklch(76% 0.016 250); }
-.tarifas--inv .plan__l li::before { border-color: var(--blue-sky); }
-.tarifas--inv .plan__l b { color: var(--t-00); }
-.tarifas--inv p.plan__pie { color: oklch(63% 0.014 250); }
-
-.tarifas--inv .mant {
-  border-color: oklch(100% 0 0 / .2);
-  background: oklch(100% 0 0 / .03);
-}
-.tarifas--inv .mant b { color: var(--t-00); }
-.tarifas--inv .mant p { color: oklch(74% 0.018 250); }
-.tarifas--inv .mant__cifras { color: var(--t-00); }
-.tarifas--inv .mant__cifras span { color: oklch(66% 0.016 250); }
-
 @media (hover: hover) {
   .plan:not(.plan--dest):hover { border-color: var(--blue); }
-  .tarifas--inv .plan:not(.plan--dest):hover { border-color: oklch(56% 0.215 258 / .7); }
 }
 
 @media (max-width: 820px) {

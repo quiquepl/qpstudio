@@ -301,13 +301,20 @@
         const c = 0.5 + 0.42 * Math.sin(ph * 0.55 + f * 1.7);
         const grad = ctx.createLinearGradient(0, 0, W, 0);
         const stop = (p, col) => grad.addColorStop(clamp(p), col);
-        stop(0, 'rgba(16, 22, 38, 0.9)');
-        stop(c - 0.3, 'rgba(20, 27, 46, 0.9)');
-        stop(c - 0.09, `rgba(46, 62, 104, ${0.34 + f * 0.2})`);
-        stop(c, `rgba(64, 88, 146, ${0.38 + f * 0.22})`);
-        stop(c + 0.09, `rgba(46, 62, 104, ${0.34 + f * 0.2})`);
-        stop(c + 0.3, 'rgba(20, 27, 46, 0.9)');
-        stop(1, 'rgba(16, 22, 38, 0.9)');
+        /* Paleta clara. Antes eran azules casi negros sobre fondo oscuro;
+           ahora la sección es papel, así que las bandas van en azules
+           lavados y el brillo que viaja es un azul algo más saturado.
+
+           Las alfas son bajas a propósito: las bandas se solapan (el
+           grosor es 1,75 veces la separación) y con opacidades altas la
+           suma de veinte capas emborrona el papel y se come el texto. */
+        stop(0, 'rgba(233, 239, 249, 0.5)');
+        stop(c - 0.3, 'rgba(224, 233, 247, 0.55)');
+        stop(c - 0.09, `rgba(197, 215, 241, ${0.4 + f * 0.16})`);
+        stop(c, `rgba(163, 192, 233, ${0.46 + f * 0.18})`);
+        stop(c + 0.09, `rgba(197, 215, 241, ${0.4 + f * 0.16})`);
+        stop(c + 0.3, 'rgba(224, 233, 247, 0.55)');
+        stop(1, 'rgba(233, 239, 249, 0.5)');
 
         ctx.strokeStyle = grad;
         ctx.lineWidth = lw;

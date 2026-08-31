@@ -225,11 +225,11 @@ ${servicio(
   </div>
 </section>
 
-<section class="pbody pbody--night" id="precios">
+<section class="pbody" id="precios">
   <div class="shell">
     <h2>Planes y tarifas</h2>
     <p>Dos planes cerrados y una línea de comercio electrónico. El alcance de cada uno está escrito, y lo que no encaje en ninguno se presupuesta aparte.</p>
-${bloqueTarifas({ inv: true })}
+${bloqueTarifas()}
   </div>
 </section>
 ` +

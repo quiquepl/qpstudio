@@ -30,7 +30,7 @@ if (i < 0 || j < 0 || j < i) {
 }
 
 const nuevo =
-  html.slice(0, i + ABRE.length) + '\n' + bloqueTarifas({ inv: true }) + '\n    ' + html.slice(j);
+  html.slice(0, i + ABRE.length) + '\n' + bloqueTarifas() + '\n    ' + html.slice(j);
 
 if (nuevo === html) {
   console.log('Los precios de la portada ya estaban al día.');
