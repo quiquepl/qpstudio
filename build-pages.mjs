@@ -221,9 +221,69 @@ ${servicio(
   ['Formularios y CRM', 'Avisos automáticos', 'Calendarios', 'Recordatorios', 'Asistentes con IA', 'Documentación'],
   'photo-1460925895917-afdab827c52f'
 )}
+    <h2 id="precios" class="gsep">Precios</h2>
+    <p>Dos formas de trabajar. La diferencia no es cuántas páginas tiene la web: es si después la llevas tú.</p>
+
+    <p class="plazas"><b>Precios de lanzamiento</b> para los cinco primeros proyectos, hasta el 31 de octubre.</p>
+
+    <div class="planes">
+      <article class="plan">
+        <h3 class="plan__n">Esencial</h3>
+        <p class="plan__d">Para que te encuentren, entiendan qué haces y te llamen.</p>
+        <p class="plan__p"><span class="plan__desde">desde</span>690 €<s><span class="sr-only">Precio habitual: </span>890 €</s></p>
+        <ul class="plan__l">
+          <li>Diseño a medida, no una plantilla con tu logo encima</li>
+          <li>Una página larga, más los textos legales</li>
+          <li>Los textos los escribimos nosotros</li>
+          <li>Formulario que llega de verdad</li>
+          <li>Móvil, velocidad y posicionamiento de base</li>
+          <li>Dominio y alojamiento configurados y a tu nombre</li>
+          <li>Una ronda de revisión</li>
+        </ul>
+        <p class="plan__pie">IVA aparte. Mitad al aceptar, mitad antes de publicar.</p>
+      </article>
+
+      <article class="plan plan--dest">
+        <span class="plan__tag">La que recomendamos</span>
+        <h3 class="plan__n">Profesional</h3>
+        <p class="plan__d">Todo lo anterior, y además la manejas tú sin depender de nadie.</p>
+        <p class="plan__p"><span class="plan__desde">desde</span>1.290 €<s><span class="sr-only">Precio habitual: </span>1.690 €</s></p>
+        <ul class="plan__l">
+          <li>Todo lo del plan Esencial</li>
+          <li><b>Panel propio</b> para cambiar textos, precios, horarios e imágenes</li>
+          <li><b>Base de datos</b>: los mensajes quedan guardados, no solo enviados</li>
+          <li><b>Analítica sin cookies</b>, así que tu web no necesita banner</li>
+          <li>Las páginas que haga falta</li>
+          <li>Posicionamiento completo y datos estructurados</li>
+          <li>Dos rondas de revisión</li>
+        </ul>
+        <p class="plan__pie">IVA aparte. Mitad al aceptar, mitad antes de publicar.</p>
+      </article>
+    </div>
+
+    <div class="extras">
+      <div class="extra">
+        <span><b>Tienda online o encargo a medida</b><em>Catálogo, pagos, reservas, integraciones</em></span>
+        <span class="extra__p">Hablamos</span>
+      </div>
+      <div class="extra">
+        <span><b>Mantenimiento Esencial</b><em>Alojamiento, copias, vigilancia y cambios pequeños</em></span>
+        <span class="extra__p">29 €/mes</span>
+      </div>
+      <div class="extra">
+        <span><b>Mantenimiento Profesional</b><em>Lo anterior y hasta dos horas de cambios al mes</em></span>
+        <span class="extra__p">49 €/mes</span>
+      </div>
+    </div>
+
     <div class="notice">
-      <b>Presupuestos.</b> Todavía estamos cerrando las tarifas públicas. Cada propuesta se prepara a
-      medida tras una primera conversación y se entrega por escrito con el alcance cerrado.
+      <b>Por qué pone «desde».</b> Un taller publica lo que cuesta el cambio de aceite, no lo que cuesta
+      una caja de cambios: hasta que no abre el capó no lo sabe. Aquí igual. El precio de arriba es el de
+      un proyecto normal, y el tuyo exacto te lo decimos por escrito después de hablar, antes de que
+      decidas nada y sin coste.<br /><br />
+      <b>¿Y un rediseño?</b> Las mismas tarifas, y casi siempre por debajo: los textos y las fotos ya
+      existen, así que hay menos trabajo. Si vemos que no compensa rehacerla entera, te lo decimos y
+      arreglamos solo lo que falla.
     </div>
   </div>
 </section>

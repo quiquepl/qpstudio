@@ -408,6 +408,17 @@
 }
 .serv p { font-size: var(--fs-sm); color: oklch(70% 0.02 250); text-wrap: pretty; }
 
+/* La línea de precio cierra la lista. Va aquí y no en una sección propia
+   porque el precio solo significa algo justo después de leer qué se hace
+   por ese dinero. */
+.serv__precio {
+  display: flex; align-items: center; flex-wrap: wrap;
+  gap: 0.9rem 1.4rem;
+  margin-top: clamp(1.8rem, 3vw, 2.6rem);
+  font-size: var(--fs-sm); color: oklch(74% 0.02 250);
+}
+.serv__precio > span { max-width: 46ch; }
+
 @media (max-width: 720px) {
   .serv { grid-template-columns: minmax(0, 1fr); }
   .serv p { grid-column: 1; }

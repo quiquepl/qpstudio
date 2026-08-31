@@ -99,10 +99,14 @@ Esto casi siempre significa *"quítate de encima"*. No te enfades, aprovéchalo:
 
 > Depende bastante de lo que necesites, por eso prefiero ver lo tuyo antes de
 > decirte un número que no signifique nada. Pero para que te hagas una idea, lo
-> que hago está entre {{MINIMO}} y {{MAXIMO}}. Si eso te encaja, sigo; y si te
+> que hago está entre 690 y 1.290 euros. Si eso te encaja, sigo; y si te
 > parece mucho, me lo dices ahora y no te hago perder el tiempo.
 
 *Da el rango. Filtra al que tiene 300 € y te ahorra dos semanas.*
+
+*Son los precios de lanzamiento, que están publicados en qpstudio.es/servicios. Di
+la cifra igual que está en la web: si luego ve otra distinta, se acabó la
+confianza. Y recuérdale que son para los cinco primeros proyectos.*
 
 ### «Ahora no puedo hablar»
 

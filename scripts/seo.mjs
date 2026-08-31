@@ -66,9 +66,12 @@ export const PAGINAS = [
     archivo: 'servicios.html',
     prioridad: '0.9',
     frecuencia: 'monthly',
-    titulo: 'Servicios: diseño, rediseño y tiendas online — QP Studio',
+    /* El precio va en el título a propósito. "cuánto cuesta una página web"
+       es de las búsquedas con más intención que existen en este sector, y
+       casi ninguna competencia se atreve a poner la cifra donde se ve. */
+    titulo: 'Servicios y precios: diseño web desde 690 € — QP Studio',
     descripcion:
-      'Diseño web desde cero, rediseño conservando el posicionamiento, comercio electrónico y automatización. Qué incluye cada servicio y cómo trabajamos.'
+      'Web esencial desde 690 € y web profesional con panel propio desde 1.290 €. Qué incluye cada plan, qué cuesta el mantenimiento y cómo trabajamos.'
   },
   {
     ruta: '/gestion',
@@ -170,14 +173,31 @@ function jsonLd(pagina) {
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
         name: 'Servicios',
+        /* El precio va como minPrice dentro de un PriceSpecification y no
+           como "price" a secas, porque la tarifa publicada es un "desde".
+           Declarar 690 como precio cerrado sería falso y además expone a
+           que Google lo enseñe como si fuera el total.
+
+           Comercio electrónico y automatización van sin precio a
+           propósito: dependen del encargo y en la web ponen "hablamos". */
         itemListElement: [
-          ['Diseño web', 'Identidad, estructura y contenidos desde cero.'],
-          ['Rediseño web', 'Auditoría, migración sin pérdidas y mejora de conversión.'],
-          ['Comercio electrónico', 'Catálogo, ficha de producto y proceso de compra.'],
-          ['Automatización e integraciones', 'Formularios, avisos y herramientas conectadas.']
-        ].map(([nombre, desc]) => ({
+          ['Diseño web', 'Identidad, estructura y contenidos desde cero.', 690],
+          ['Rediseño web', 'Auditoría, migración sin pérdidas y mejora de conversión.', 690],
+          ['Comercio electrónico', 'Catálogo, ficha de producto y proceso de compra.', null],
+          ['Automatización e integraciones', 'Formularios, avisos y herramientas conectadas.', null]
+        ].map(([nombre, desc, desde]) => ({
           '@type': 'Offer',
-          itemOffered: { '@type': 'Service', name: nombre, description: desc }
+          itemOffered: { '@type': 'Service', name: nombre, description: desc },
+          ...(desde
+            ? {
+                priceSpecification: {
+                  '@type': 'PriceSpecification',
+                  minPrice: desde,
+                  priceCurrency: 'EUR',
+                  valueAddedTaxIncluded: false
+                }
+              }
+            : {})
         }))
       }
     },

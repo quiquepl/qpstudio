@@ -777,8 +777,33 @@ documentos se vuelven en tu contra el día que alguien se quiera ir.
 
 ## 16. Precios y facturación
 
-Marco de trabajo, ajustable por proyecto.
+**Las tarifas son públicas y están en `/servicios#precios`.** Se publican a
+propósito: filtran a quien no puede pagarlas, transmiten que se cobra lo mismo
+a todo el mundo y son coherentes con el resto del discurso. La cifra que se
+diga por teléfono tiene que ser **exactamente** la que está en la web.
 
+| | Lanzamiento | Habitual |
+|---|---|---|
+| **Esencial** · una página larga, sin panel | **690 €** | 890 € |
+| **Profesional** · varias páginas, con panel y base de datos | **1.290 €** | 1.690 € |
+| Tienda online o encargo a medida | Hablamos | Hablamos |
+| Mantenimiento Esencial | 29 €/mes | 29 €/mes |
+| Mantenimiento Profesional | 49 €/mes | 49 €/mes |
+
+Precios sin IVA. Los de lanzamiento valen para **los cinco primeros
+proyectos, hasta el 31 de octubre de 2026**.
+
+- **Siempre «desde».** Es la entrada del trabajo estándar, igual que un taller
+  publica el cambio de aceite y no la caja de cambios. Nunca se publica un
+  techo.
+- **El lanzamiento es un intercambio, no una rebaja.** El precio baja a cambio
+  de enseñar la web en el portfolio con el nombre del negocio, una reseña
+  escrita y fotos o vídeo del negocio. Se dice así, no como descuento.
+- **Rondas de revisión cerradas: una en Esencial, dos en Profesional.** Es la
+  línea que impide que un encargo de 690 € se convierta en seis meses de
+  cambios. No se quita de la propuesta por parecer más amable.
+- **Un rediseño usa las mismas tarifas** y suele salir por debajo, porque los
+  textos y las fotos ya existen.
 - **Pago partido:** 50% al aceptar el presupuesto, 50% antes de publicar. El
   primer 50% no se devuelve si el cliente abandona: cubre el trabajo hecho.
 - **Base + mantenimiento.** La base paga el proyecto; el mantenimiento es lo
