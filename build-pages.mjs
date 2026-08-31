@@ -222,9 +222,14 @@ ${servicio(
   ['Formularios y CRM', 'Avisos automáticos', 'Calendarios', 'Recordatorios', 'Asistentes con IA', 'Documentación'],
   'photo-1460925895917-afdab827c52f'
 )}
-    <h2 id="precios" class="gsep">Planes y tarifas</h2>
+  </div>
+</section>
+
+<section class="pbody pbody--night" id="precios">
+  <div class="shell">
+    <h2>Planes y tarifas</h2>
     <p>Dos planes cerrados y una línea de comercio electrónico. El alcance de cada uno está escrito, y lo que no encaje en ninguno se presupuesta aparte.</p>
-${bloqueTarifas({ inv: false })}
+${bloqueTarifas({ inv: true })}
   </div>
 </section>
 ` +
@@ -335,7 +340,7 @@ page(
       <h2>Qué ocurre después</h2>
       <ol class="pasos">
         <li><b>Respondemos</b><span>En menos de 48 horas, siempre.</span></li>
-        <li><b>Llamada de 45 minutos</b><span>Sin compromiso, para entender el negocio.</span></li>
+        <li><b>Nos ponemos en contacto</b><span>Por donde te venga mejor, para entender el negocio.</span></li>
         <li><b>Propuesta por escrito</b><span>Alcance, fecha y presupuesto cerrados.</span></li>
         <li><b>Si no encajamos, te lo decimos</b><span>Preferimos no coger un proyecto que hacerlo a medias.</span></li>
       </ol>
@@ -464,6 +469,8 @@ page(
       <article class="gcard gcard--blue"><b>Soporte 24/7</b><span>Dudas e incidencias resueltas cualquier día y a cualquier hora.</span></article>
       <article class="gcard"><b>Rendimiento</b><span>Velocidad de carga y comportamiento en móvil, revisados de forma periódica.</span></article>
       <article class="gcard"><b>Un solo interlocutor</b><span>Siempre la misma persona, que ya conoce tu proyecto.</span></article>
+      <article class="gcard"><b>Vigilancia de caídas</b><span>Si la web deja de responder nos enteramos nosotros, no tú por un cliente.</span></article>
+      <article class="gcard"><b>Informe de visitas</b><span>Cuánta gente entra, desde dónde llega y qué páginas mira.</span></article>
     </div>
   </div>
 </section>

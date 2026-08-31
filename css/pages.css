@@ -712,3 +712,15 @@ h2.gsep { margin-top: clamp(2.8rem, 5vw, 4.2rem); }
 a.gcard { text-decoration: none; transition: border-color var(--t) var(--ease), transform var(--t) var(--ease); }
 @media (hover: hover) { a.gcard:hover { border-color: var(--blue); transform: translateY(-2px); } }
 
+
+/* ── Bloque oscuro dentro de una página clara ──────────────────────────
+   Lo usa la tabla de precios de /servicios, para que sea exactamente la
+   misma que la de la portada y no dos versiones que puedan separarse. */
+
+.pbody--night {
+  background: var(--night);
+  border-block: 1px solid oklch(100% 0 0 / .08);
+  scroll-margin-top: 5.5rem;
+}
+.pbody--night h2 { color: var(--t-00); }
+.pbody--night .shell > p { color: oklch(74% 0.018 250); }

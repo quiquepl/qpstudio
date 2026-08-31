@@ -12,8 +12,11 @@
 .aura span {
   position: absolute;
   border-radius: 50%;
-  filter: blur(64px);
-  opacity: 0.42;
+  filter: blur(72px);
+  /* Muy por debajo de lo que estaba (0.42). El fondo tiene que insinuarse,
+     no teñir la sección: con el azul fuerte el texto perdía nitidez y la
+     página se veía apagada. */
+  opacity: 0.17;
   will-change: transform;
 }
 .aura span:nth-child(1) {
@@ -44,7 +47,7 @@
 /* el grano es lo que le da el acabado de la referencia */
 .aura::after {
   content: ""; position: absolute; inset: -60%;
-  opacity: 0.13;
+  opacity: 0.06;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -176,120 +179,106 @@
 }
 
 
-/* ═══ NUESTRO TRABAJO · webs en órbita ════════════════════════════════
-   Sin JS es una rejilla normal. motion.js añade .is-orbiting y a partir
-   de ahí coloca cada tarjeta con un solo transform por fotograma.
+/* ═══ AMOLDAMIENTO · mosaico de maquetas a la deriva ══════════════════
+   Cuatro columnas de maquetas que se desplazan muy despacio en sentidos
+   alternos, aclaradas casi hasta el papel, con el texto encima. La
+   referencia es el hero de Kryos, pero en claro: allí el collage va
+   oscurecido y aquí tiene que insinuarse sobre blanco.
+
+   Todo es CSS. Son cuatro transformaciones por fotograma, las hace el
+   compositor y el scroll no las afecta.
    ═══════════════════════════════════════════════════════════════════ */
 
-.orbit {
+.mosaico {
+  --hueco: 1.1rem;
   position: relative;
-  padding-block: clamp(3rem, 5.5vw, 4.5rem);
   overflow: hidden;
+  isolation: isolate;
   background: var(--paper);
   border-block: 1px solid var(--line-soft);
-  isolation: isolate;
-}
-.orbit__links {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  pointer-events: none; z-index: 1;
-  overflow: visible;
-}
-.orbit__links line {
-  stroke: var(--blue);
-  stroke-width: 1;
-  stroke-dasharray: 3 5;
-  opacity: 0.22;
+  min-height: clamp(580px, 84vh, 800px);
+  display: grid; place-items: center;
+  padding-block: clamp(3.5rem, 7vw, 6rem);
 }
 
-/* rejilla de reserva (sin JS) */
-.orbit__field {
-  position: relative;
-  z-index: 2;
-  width: 100%; max-width: 1400px;
-  margin-inline: auto;
-  padding-inline: var(--pad-x);
+/* El fondo se sale por arriba y por abajo a propósito: así el mosaico se
+   lee como algo que continúa y no como una rejilla recortada. */
+.mosaico__fondo {
+  position: absolute; inset: -12% -1%;
+  z-index: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  gap: 1.2rem;
-  z-index: 2;
-}
-.orbit__core { grid-column: 1 / -1; text-align: center; }
-
-/* modo órbita */
-.orbit__field.is-orbiting {
-  --vuelta: 54s;
-  display: block;
-  padding-inline: 0;
-  height: var(--field-h, 700px);
-  width: var(--field-w, 100%);
-  margin-inline: auto;
-}
-/* Órbita circular por rotación anidada. El brazo gira, la tarjeta gira lo
-   mismo al revés y así se mantiene derecha. Es exacta por construcción:
-   ángulos repartidos a partes iguales, sin sorpresas de arco.
-
-   Todo son animaciones CSS, o sea que corren en el compositor y el scroll
-   no las afecta lo más mínimo. */
-.is-orbiting .orb {
-  position: absolute;
-  left: 50%; top: 50%;
-  width: 0; height: 0;
-  animation: gira var(--vuelta, 54s) linear infinite;
-  animation-delay: calc(var(--vuelta, 54s) / -8 * var(--i));
-}
-.is-orbiting .orb__fix {
-  position: absolute;
-  left: 0; top: calc(var(--radio, 340px) * -1);
-  translate: -50% -50%;
-  animation: gira var(--vuelta, 54s) linear infinite reverse;
-  animation-delay: calc(var(--vuelta, 54s) / -8 * var(--i));
-}
-@keyframes gira { to { rotate: 360deg; } }
-
-.is-orbiting .wcard {
-  width: var(--cw, 176px);
-  animation:
-    profundidad var(--vuelta, 54s) linear infinite,
-    capa var(--vuelta, 54s) linear infinite;
-  animation-delay: calc(var(--vuelta, 54s) / -8 * var(--i));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--hueco);
+  pointer-events: none;
 }
 
-/* arriba pasa por detrás y pequeña; abajo, de frente y grande */
-@keyframes profundidad {
-  0%   { scale: 0.7;  opacity: 0.45; }
-  50%  { scale: 1.04; opacity: 1; }
-  100% { scale: 0.7;  opacity: 0.45; }
-}
-@keyframes capa {
-  0%, 24.99%  { z-index: 2; }
-  25%, 74.99% { z-index: 7; }
-  75%, 100%   { z-index: 2; }
+.mosaico__col {
+  display: flex; flex-direction: column; gap: var(--hueco);
+  will-change: transform;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .is-orbiting .orb,
-  .is-orbiting .orb__fix,
-  .is-orbiting .wcard { animation: none; }
-  .is-orbiting .orb { rotate: calc(var(--i) * 45deg); }
-  .is-orbiting .orb__fix { rotate: calc(var(--i) * -45deg); }
+/* El contenido de cada columna está duplicado, así que desplazar la mitad
+   exacta (más medio hueco, que es lo que separa las dos copias) deja la
+   segunda copia justo donde empezaba la primera y el bucle no se ve. */
+@keyframes deriva {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(0, calc(-50% - var(--hueco) / 2), 0); }
+}
+.mosaico__col--a { animation: deriva 52s linear infinite; }
+.mosaico__col--b { animation: deriva 68s linear infinite reverse; }
+
+/* Las maquetas son decoración: se aclaran mucho para que mande el titular. */
+.mosaico .wcard { flex: 0 0 auto; filter: grayscale(1) brightness(1.14) contrast(0.86); }
+.mosaico .win { box-shadow: 0 14px 34px -24px oklch(19% 0.022 250 / .38); }
+
+/* El velo. Papel casi opaco en el centro, donde va el texto, y cada vez
+   más transparente hacia los bordes. Un punto de azul muy leve para que
+   el blanco no quede muerto, y los extremos cerrados en papel liso para
+   que el mosaico no choque contra la sección de al lado. */
+.mosaico::after {
+  content: ""; position: absolute; inset: 0; z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 46% 40% at 50% 50%,
+      oklch(98.4% 0.002 250 / .97) 0%,
+      oklch(98.4% 0.002 250 / .93) 44%,
+      oklch(97% 0.014 250 / .72) 70%,
+      oklch(96% 0.022 248 / .5) 100%),
+    linear-gradient(180deg,
+      var(--paper) 0%, oklch(98.4% 0.002 250 / .3) 15%,
+      oklch(98.4% 0.002 250 / .3) 85%, var(--paper) 100%);
 }
 
-.is-orbiting .orbit__core {
-  position: absolute;
-  top: 50%; left: 50%;
-  translate: -50% -50%;
-  width: min(27rem, 56vw);
-  z-index: 5;
+.mosaico__in {
+  position: relative; z-index: 2;
+  text-align: center;
+  max-width: 42rem;
 }
-
-.orbit__core p {
-  margin: 0.9rem auto 1.5rem;
-  max-width: 24rem;
+.mosaico__in .h2 { text-wrap: balance; }
+.mosaico__in p {
+  margin: 0.9rem auto 1.6rem;
+  max-width: 30rem;
   font-size: var(--fs-sm);
   color: var(--ink-2);
   text-wrap: pretty;
 }
+
+/* Al estrechar sobran columnas: se esconden en vez de dejar que la
+   rejilla las tire a una segunda fila y rompa el mosaico. */
+@media (max-width: 860px) {
+  .mosaico__fondo { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .mosaico__col:nth-child(4) { display: none; }
+}
+@media (max-width: 620px) {
+  .mosaico { min-height: clamp(520px, 78vh, 680px); }
+  .mosaico__fondo { grid-template-columns: repeat(2, minmax(0, 1fr)); inset: -16% -8%; }
+  .mosaico__col:nth-child(3) { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mosaico__col { animation: none; }
+}
+
 
 .wcard__cap {
   margin-top: 0.45rem; text-align: center;
@@ -1010,14 +999,10 @@
 
 @media (max-width: 520px) { .form__row { grid-template-columns: 1fr; gap: 0; } }
 
-/* la órbita también en móvil, más pequeña y con el texto más estrecho */
+/* el mosaico en móvil: mismo tratamiento que tenía la órbita */
 @media (max-width: 620px) {
-  .orbit__field.is-orbiting { --vuelta: 46s; }
-  .is-orbiting .orbit__core { width: 56vw; }
-  .is-orbiting .orbit__core .h2 { font-size: 1.65rem; }
-  .is-orbiting .orbit__core p { font-size: 0.8rem; margin: 0.6rem auto 1rem; }
-  .is-orbiting .orbit__core .btn { padding: 0.6rem 1.1rem; font-size: 0.8rem; }
-  .wcard__cap { font-size: 0.5rem; letter-spacing: 0.06em; }
+  .mosaico__in .h2 { font-size: 1.8rem; }
+  .mosaico__in p { font-size: 0.84rem; margin: 0.7rem auto 1.2rem; }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
@@ -1068,12 +1053,6 @@
   .faq__item summary { font-size: 0.98rem; text-align: left; }
   .faq__item p { font-size: 0.86rem; }
 
-  /* la órbita, más compacta: menos aire y tarjetas más grandes */
-  .wcard__cap { display: none; }
-  .orbit { padding-block: clamp(1.6rem, 5vw, 2.4rem); }
-  .is-orbiting .orbit__core { width: 74vw; }
-  .is-orbiting .orbit__core .h2 { font-size: 1.8rem; }
-  .is-orbiting .orbit__core p { font-size: 0.84rem; }
 }
 
 @media (max-width: 420px) {
@@ -1178,7 +1157,11 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
-  align-items: start;
+  /* Estiradas a la misma altura a propósito. Con align-items:start cada
+     una medía lo que midiera su lista y quedaban desparejas, que es justo
+     lo que se ve mal en una tabla de precios. El pie lleva margin-top
+     auto, así que el hueco extra se va abajo y las dos rematan igual. */
+  align-items: stretch;
 }
 
 .plan {
