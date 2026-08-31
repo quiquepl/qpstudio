@@ -31,7 +31,11 @@ const FICHEROS = ['index.html', 'build-pages.mjs'];
 const origen = (id, w) =>
   `https://images.unsplash.com/${id}?fit=crop&w=${w}&q=${w > 600 ? 68 : 62}&fm=jpg`;
 
-const local = (id, w) => `img/fotos/${id}-${w}.jpg`;
+/* La barra inicial NO es opcional. Estas rutas acaban dentro de var(--img),
+   y una url relativa dentro de una propiedad usada desde css/sections.css
+   se resuelve contra /css/, no contra la raíz: el navegador pedía
+   /css/img/fotos/... y devolvía 404 sin avisar de nada. */
+const local = (id, w) => `/img/fotos/${id}-${w}.jpg`;
 
 mkdirSync(DESTINO, { recursive: true });
 

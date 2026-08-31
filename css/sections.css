@@ -228,7 +228,7 @@
 .mosaico__col--b { animation: deriva 68s linear infinite reverse; }
 
 /* Las maquetas son decoración: se aclaran mucho para que mande el titular. */
-.mosaico .wcard { flex: 0 0 auto; filter: grayscale(1) brightness(1.14) contrast(0.86); }
+.mosaico .wcard { flex: 0 0 auto; filter: grayscale(1) contrast(0.97); }
 .mosaico .win { box-shadow: 0 14px 34px -24px oklch(19% 0.022 250 / .38); }
 
 /* El velo. Papel casi opaco en el centro, donde va el texto, y cada vez
@@ -239,14 +239,14 @@
   content: ""; position: absolute; inset: 0; z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 46% 40% at 50% 50%,
-      oklch(98.4% 0.002 250 / .97) 0%,
-      oklch(98.4% 0.002 250 / .93) 44%,
-      oklch(97% 0.014 250 / .72) 70%,
-      oklch(96% 0.022 248 / .5) 100%),
+    radial-gradient(ellipse 44% 38% at 50% 50%,
+      oklch(98.4% 0.002 250 / .96) 0%,
+      oklch(98.4% 0.002 250 / .9) 44%,
+      oklch(97% 0.014 250 / .46) 72%,
+      oklch(96% 0.024 248 / .16) 100%),
     linear-gradient(180deg,
-      var(--paper) 0%, oklch(98.4% 0.002 250 / .3) 15%,
-      oklch(98.4% 0.002 250 / .3) 85%, var(--paper) 100%);
+      var(--paper) 0%, oklch(98.4% 0.002 250 / .1) 13%,
+      oklch(98.4% 0.002 250 / .1) 87%, var(--paper) 100%);
 }
 
 .mosaico__in {
@@ -1289,4 +1289,35 @@
      tiene que subir a la primera línea, no centrarse en el bloque. */
   .plazas { border-radius: var(--r); align-items: flex-start; }
   .plazas::before { margin-top: 0.58em; }
+}
+
+/* ── Maquetas de trabajo real dentro del mosaico ───────────────────────
+   Dos de las dieciséis son webs de verdad: gest26.com y lyorajewellery.com.
+   Se quedan en color mientras las de muestra van en gris, así el trabajo
+   real se distingue del ejemplo sin necesidad de ponerle una etiqueta. */
+
+.mosaico .wcard--real { filter: brightness(1.04) saturate(0.94); }
+.wcard--real .win__body--photo { filter: none; }
+
+/* La portada de GEST26 no es una foto: es un degradado cónico sobre azul
+   oscuro. Se reproduce tal cual en vez de meter una captura, que a este
+   tamaño saldría borrosa y pesaría diez veces más. */
+.win__body--marca {
+  aspect-ratio: 4 / 3;
+  background:
+    linear-gradient(180deg, oklch(22% 0.05 255 / .35), oklch(14% 0.05 258 / .82)),
+    conic-gradient(from 200deg, #2f7ef0, #15a06a, #e0a14e, #c45db1, #2f7ef0);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  gap: 3px; padding: 8px;
+}
+.win__body--marca b {
+  font-family: var(--display); font-weight: 800;
+  font-size: 0.6rem; letter-spacing: -0.025em;
+  color: oklch(99% 0 0); line-height: 1.1;
+}
+.win__body--marca u {
+  align-self: flex-start;
+  padding: 2px 7px; border-radius: 99px;
+  background: oklch(99% 0 0); color: oklch(20% 0.02 250);
+  font-size: 0.48rem; font-weight: 600; text-decoration: none;
 }

@@ -368,8 +368,14 @@
   try {
     const conFoto = document.querySelectorAll('[data-img]');
     if (conFoto.length) {
+      /* El guardia no sobra: con las maquetas duplicadas del mosaico,
+         cargar() puede recibir dos veces el mismo elemento. La segunda
+         vez el atributo ya no está, dataset.img vale undefined, y sin
+         esto se escribía url(undefined) y la tarjeta se quedaba sin foto. */
       const cargar = (el) => {
-        el.style.setProperty('--img', `url("${el.dataset.img}")`);
+        const src = el.dataset.img;
+        if (!src) return;
+        el.style.setProperty('--img', `url("${src}")`);
         el.removeAttribute('data-img');
       };
 

@@ -878,6 +878,30 @@ dispara nunca. **Dilo en vez de fingir que has visto la página.**
 
 **10. Rewrites para arreglar un redirect.** Ver la sección 13.
 
+**11. Una ruta relativa dentro de `var(--img)`.**
+Las fotos del mosaico se pasan en `data-img="img/fotos/x.jpg"` y el CSS las
+usa con `background-image: var(--img)`. Como la declaración vive en
+`css/sections.css`, **el navegador resuelve la ruta contra `/css/`**: pedía
+`/css/img/fotos/x.jpg` y devolvía 404. Sin error en consola, sin hueco: la
+tarjeta simplemente sale vacía.
+
+Las rutas que acaben dentro de una propiedad personalizada van **siempre con
+barra inicial**: `/img/fotos/x.jpg`.
+
+**12. Una función de carga que se puede llamar dos veces.**
+`cargar(el)` leía `el.dataset.img`, pintaba el fondo y borraba el atributo.
+Con las maquetas duplicadas, algunas recibían la llamada dos veces: la
+segunda leía `undefined` y escribía `url("undefined")` encima del valor
+bueno. **Toda función que consuma y borre tiene que salir sola si ya no hay
+nada que consumir.**
+
+**13. Dar por hecho que el navegador integrado no renderiza.**
+Durante días las capturas salían en blanco y todo se verificó midiendo el
+DOM. Pero el panel sí renderiza: bastaba con volver a probarlo. Los dos
+fallos de arriba llevaban horas publicados y se vieron **en cuanto se miró
+la pantalla**. Antes de resignarse a medir a ciegas, hacer una captura de
+prueba.
+
 ---
 
 ## 18. Comandos
