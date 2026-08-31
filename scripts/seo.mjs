@@ -39,6 +39,8 @@ const T = {
   fundador: 'Quique Planelles',
   email: 'qpstudiocontacto@gmail.com',
   calle: '[Domicilio social pendiente]',
+  localidad: 'Castellón de la Plana',
+  provincia: 'Castellón',
   pais: 'ES',
   cif: '[CIF pendiente]'
 };
@@ -57,9 +59,9 @@ export const PAGINAS = [
     archivo: 'index.html',
     prioridad: '1.0',
     frecuencia: 'weekly',
-    titulo: 'Diseño y desarrollo web para negocios — QP Studio',
+    titulo: 'Diseño web en Castellón para toda España — QP Studio',
     descripcion:
-      'Estudio digital independiente en España. Diseñamos, desarrollamos y mantenemos webs para negocios de cualquier sector, con panel para que las gestiones tú.'
+      'Estudio de diseño y desarrollo web en Castellón, trabajando para toda España. Webs a medida con panel de gestión propio, desde 690 €. Sin plantillas.'
   },
   {
     ruta: '/servicios',
@@ -69,16 +71,16 @@ export const PAGINAS = [
     /* El precio va en el título a propósito. "cuánto cuesta una página web"
        es de las búsquedas con más intención que existen en este sector, y
        casi ninguna competencia se atreve a poner la cifra donde se ve. */
-    titulo: 'Servicios y precios: diseño web desde 690 € — QP Studio',
+    titulo: 'Precios de diseño y desarrollo web desde 690 € — QP Studio',
     descripcion:
-      'Web esencial desde 690 € y web profesional con panel propio desde 1.290 €. Qué incluye cada plan, qué cuesta el mantenimiento y cómo trabajamos.'
+      'Cuánto cuesta una página web profesional: plan Esencial desde 690 €, Profesional desde 1.290 € y tienda online desde 1.490 €. Alcance cerrado por escrito.'
   },
   {
     ruta: '/gestion',
     archivo: 'gestion.html',
     prioridad: '0.8',
     frecuencia: 'monthly',
-    titulo: 'Gestiona tu web tú mismo, sin tocar código — QP Studio',
+    titulo: 'Edita tu web tú mismo, sin tocar código — QP Studio',
     descripcion:
       'Cambia textos, precios, horarios e imágenes desde un panel propio. Formularios, reservas y pagos conectados de verdad, con acompañamiento y soporte.'
   },
@@ -87,7 +89,7 @@ export const PAGINAS = [
     archivo: 'mantenimiento.html',
     prioridad: '0.8',
     frecuencia: 'monthly',
-    titulo: 'Mantenimiento web sin ataduras — QP Studio',
+    titulo: 'Mantenimiento web sin permanencia, desde 29 € — QP Studio',
     descripcion:
       'Qué incluye el mantenimiento, qué es tuyo desde el primer día y cómo te lo entregamos todo el día que decidas seguir por tu cuenta. Sin permanencia.'
   },
@@ -96,9 +98,9 @@ export const PAGINAS = [
     archivo: 'contacto.html',
     prioridad: '0.9',
     frecuencia: 'monthly',
-    titulo: 'Pide presupuesto para tu web — QP Studio',
+    titulo: 'Presupuesto de página web sin compromiso — QP Studio',
     descripcion:
-      'Cuéntanos qué necesita tu negocio y te enviamos una propuesta por escrito, sin compromiso y sin coste. Respondemos en menos de 48 horas.'
+      'Pide presupuesto de diseño o rediseño web en Castellón y en toda España. Propuesta por escrito, sin compromiso y sin coste, en menos de 48 horas.'
   },
   {
     ruta: '/aviso-legal',
@@ -149,26 +151,52 @@ function jsonLd(pagina) {
       url: SITIO,
       email: T.email,
       description:
-        'Estudio digital independiente. Diseño, desarrollo y mantenimiento web para negocios de cualquier sector.',
+        'Estudio de diseño y desarrollo web en Castellón de la Plana. Webs a medida, tiendas online y mantenimiento para negocios de toda España.',
       logo: { '@type': 'ImageObject', url: `${SITIO}/img/logo.png`, width: 512, height: 512 },
       image: `${SITIO}/img/og.jpg`,
       priceRange: '€€',
-      vatID: T.cif,
+      /* El CIF y la calle se omiten mientras no sean reales. Publicar
+         "[pendiente]" dentro de los datos estructurados es peor que no
+         publicar el campo: Google se lo cree y lo enseña. La localidad y
+         la provincia sí son ciertas hoy, y son justo lo que pide una
+         búsqueda local. */
+      ...(T.cif.startsWith('[') ? {} : { vatID: T.cif }),
       address: {
         '@type': 'PostalAddress',
-        streetAddress: T.calle,
+        ...(T.calle.startsWith('[') ? {} : { streetAddress: T.calle }),
+        addressLocality: T.localidad,
+        addressRegion: T.provincia,
         addressCountry: T.pais
       },
       founder: { '@type': 'Person', name: T.fundador },
-      areaServed: { '@type': 'Country', name: 'España' },
+      /* Dos niveles a propósito: la provincia para las búsquedas locales
+         y el país para las genéricas. Con solo la ciudad, "diseño web
+         freelance" a secas se leería como si no saliéramos de Castellón. */
+      areaServed: [
+        { '@type': 'City', name: 'Castellón de la Plana' },
+        { '@type': 'AdministrativeArea', name: 'Provincia de Castellón' },
+        { '@type': 'AdministrativeArea', name: 'Comunidad Valenciana' },
+        { '@type': 'Country', name: 'España' }
+      ],
       availableLanguage: 'es',
       knowsAbout: [
         'Diseño web',
+        'Diseño web en Castellón',
+        'Desarrollo web a medida',
         'Rediseño web',
+        'Diseño web freelance',
+        'Agencia de diseño web',
+        'Páginas web para empresas',
+        'Páginas web para autónomos',
+        'Tiendas online',
         'Comercio electrónico',
+        'Posicionamiento web',
+        'SEO local',
+        'SEO técnico',
+        'Optimización de velocidad web',
+        'Gestor de contenidos',
         'Automatización e integraciones',
-        'Mantenimiento web',
-        'SEO'
+        'Mantenimiento web'
       ],
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
@@ -178,12 +206,12 @@ function jsonLd(pagina) {
            Declarar 690 como precio cerrado sería falso y además expone a
            que Google lo enseñe como si fuera el total.
 
-           Comercio electrónico y automatización van sin precio a
-           propósito: dependen del encargo y en la web ponen "hablamos". */
+           Automatización va sin precio a propósito: depende entera del
+           encargo y no tiene tarifa publicada. */
         itemListElement: [
           ['Diseño web', 'Identidad, estructura y contenidos desde cero.', 690],
           ['Rediseño web', 'Auditoría, migración sin pérdidas y mejora de conversión.', 690],
-          ['Comercio electrónico', 'Catálogo, ficha de producto y proceso de compra.', null],
+          ['Comercio electrónico', 'Catálogo, ficha de producto y proceso de compra.', 1490],
           ['Automatización e integraciones', 'Formularios, avisos y herramientas conectadas.', null]
         ].map(([nombre, desc, desde]) => ({
           '@type': 'Offer',

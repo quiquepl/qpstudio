@@ -2,6 +2,7 @@
    Se ejecuta a mano cuando cambia la cabecera o el pie:  node build-pages.mjs
    No forma parte del sitio publicado. */
 import { writeFileSync } from 'node:fs';
+import { bloqueTarifas } from './scripts/_tarifas.mjs';
 
 const NAV = [
   ['index.html', 'Inicio'],
@@ -60,7 +61,7 @@ const foot = `</main>
         <a class="brand brand--mark-only" href="/" aria-label="QP Studio, inicio">
           <img class="brand__mark" src="img/logo.png" alt="QP Studio" width="48" height="48" />
         </a>
-        <p>QP Studio. Diseño, desarrollo y mantenimiento web para negocios de cualquier sector.</p>
+        <p>QP Studio. Diseño y desarrollo web a medida en Castellón de la Plana, para negocios de toda España.</p>
         <div class="foot__social">
           <a href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0zM.5 8h4V24h-4zM8 8h3.8v2.2h.06c.53-1 1.83-2.2 3.77-2.2C19.6 8 21 10.3 21 14.1V24h-4v-8.9c0-2.1-.04-4.8-3-4.8s-3.4 2.3-3.4 4.65V24H8z"/></svg>
@@ -164,7 +165,7 @@ const pcta = (h, p) => `
 const aura = `<div class="aura" aria-hidden="true"><span></span><span></span><span></span><span></span></div>`;
 
 const foto = (id, alt) =>
-  `<img src="https://images.unsplash.com/${id}?auto=format&fit=crop&w=900&q=65" alt="${alt}" width="900" height="600" loading="lazy" decoding="async" />`;
+  `<img src="img/fotos/${id}-900.jpg" alt="${alt}" width="900" height="600" loading="lazy" decoding="async" />`;
 
 /* ── Servicios ─────────────────────────────────────────────────────── */
 
@@ -185,7 +186,7 @@ page(
   'servicios.html',
   'Servicios',
   'Diseño web, rediseño, comercio electrónico y automatización para negocios de cualquier sector.',
-  phead('Servicios', 'Servicios', 'Cuatro líneas de trabajo. Ajustamos el alcance al punto en el que esté cada negocio.') +
+  phead('Servicios', 'Diseño y desarrollo web', 'Cuatro líneas de trabajo para empresas y autónomos de Castellón y de toda España. Ajustamos el alcance al punto en el que esté cada negocio.') +
     `
 <section class="pbody">
   <div class="shell">
@@ -221,70 +222,9 @@ ${servicio(
   ['Formularios y CRM', 'Avisos automáticos', 'Calendarios', 'Recordatorios', 'Asistentes con IA', 'Documentación'],
   'photo-1460925895917-afdab827c52f'
 )}
-    <h2 id="precios" class="gsep">Precios</h2>
-    <p>Dos formas de trabajar. La diferencia no es cuántas páginas tiene la web: es si después la llevas tú.</p>
-
-    <p class="plazas"><b>Precios de lanzamiento</b> para los cinco primeros proyectos, hasta el 31 de octubre.</p>
-
-    <div class="planes">
-      <article class="plan">
-        <h3 class="plan__n">Esencial</h3>
-        <p class="plan__d">Para que te encuentren, entiendan qué haces y te llamen.</p>
-        <p class="plan__p"><span class="plan__desde">desde</span>690 €<s><span class="sr-only">Precio habitual: </span>890 €</s></p>
-        <ul class="plan__l">
-          <li>Diseño a medida, no una plantilla con tu logo encima</li>
-          <li>Una página larga, más los textos legales</li>
-          <li>Los textos los escribimos nosotros</li>
-          <li>Formulario que llega de verdad</li>
-          <li>Móvil, velocidad y posicionamiento de base</li>
-          <li>Dominio y alojamiento configurados y a tu nombre</li>
-          <li>Una ronda de revisión</li>
-        </ul>
-        <p class="plan__pie">IVA aparte. Mitad al aceptar, mitad antes de publicar.</p>
-      </article>
-
-      <article class="plan plan--dest">
-        <span class="plan__tag">La que recomendamos</span>
-        <h3 class="plan__n">Profesional</h3>
-        <p class="plan__d">Todo lo anterior, y además la manejas tú sin depender de nadie.</p>
-        <p class="plan__p"><span class="plan__desde">desde</span>1.290 €<s><span class="sr-only">Precio habitual: </span>1.690 €</s></p>
-        <ul class="plan__l">
-          <li>Todo lo del plan Esencial</li>
-          <li><b>Panel propio</b> para cambiar textos, precios, horarios e imágenes</li>
-          <li><b>Base de datos</b>: los mensajes quedan guardados, no solo enviados</li>
-          <li><b>Analítica sin cookies</b>, así que tu web no necesita banner</li>
-          <li>Las páginas que haga falta</li>
-          <li>Posicionamiento completo y datos estructurados</li>
-          <li>Dos rondas de revisión</li>
-        </ul>
-        <p class="plan__pie">IVA aparte. Mitad al aceptar, mitad antes de publicar.</p>
-      </article>
-    </div>
-
-    <div class="extras">
-      <div class="extra">
-        <span><b>Tienda online o encargo a medida</b><em>Catálogo, pagos, reservas, integraciones</em></span>
-        <span class="extra__p">Hablamos</span>
-      </div>
-      <div class="extra">
-        <span><b>Mantenimiento Esencial</b><em>Alojamiento, copias, vigilancia y cambios pequeños</em></span>
-        <span class="extra__p">29 €/mes</span>
-      </div>
-      <div class="extra">
-        <span><b>Mantenimiento Profesional</b><em>Lo anterior y hasta dos horas de cambios al mes</em></span>
-        <span class="extra__p">49 €/mes</span>
-      </div>
-    </div>
-
-    <div class="notice">
-      <b>Por qué pone «desde».</b> Un taller publica lo que cuesta el cambio de aceite, no lo que cuesta
-      una caja de cambios: hasta que no abre el capó no lo sabe. Aquí igual. El precio de arriba es el de
-      un proyecto normal, y el tuyo exacto te lo decimos por escrito después de hablar, antes de que
-      decidas nada y sin coste.<br /><br />
-      <b>¿Y un rediseño?</b> Las mismas tarifas, y casi siempre por debajo: los textos y las fotos ya
-      existen, así que hay menos trabajo. Si vemos que no compensa rehacerla entera, te lo decimos y
-      arreglamos solo lo que falla.
-    </div>
+    <h2 id="precios" class="gsep">Planes y tarifas</h2>
+    <p>Dos planes cerrados y una línea de comercio electrónico. El alcance de cada uno está escrito, y lo que no encaje en ninguno se presupuesta aparte.</p>
+${bloqueTarifas({ inv: false })}
   </div>
 </section>
 ` +
@@ -365,7 +305,7 @@ page(
   phead(
     'Contacto',
     'Cuéntanos qué necesita tu negocio.',
-    'Te enviamos una propuesta por escrito con el alcance cerrado, sin compromiso y sin coste. Respondemos en menos de 48 horas.'
+    'Presupuesto de diseño o rediseño web, en Castellón y en toda España. Propuesta por escrito con el alcance cerrado, sin compromiso y sin coste. Respondemos en menos de 48 horas.'
   ) +
     `
 <section class="pbody gpanel">
@@ -716,9 +656,8 @@ legal('cookies.html', 'Política de cookies', 'Qué cookies y servicios de terce
     </ul>
 
     <h2>3. Servicios de terceros</h2>
-    <p>Las tipografías se sirven desde este mismo sitio, así que no se las pedimos a nadie. Quedan estos recursos externos que, por el propio funcionamiento de internet, reciben tu dirección IP:</p>
+    <p>Las tipografías y las imágenes se sirven desde este mismo sitio, así que no se las pedimos a nadie. Queda un único recurso externo que, por el propio funcionamiento de internet, recibe tu dirección IP:</p>
     <ul>
-      <li><b>Unsplash</b> — algunas imágenes de ejemplo. <a href="https://unsplash.com/privacy" target="_blank" rel="noopener">Política de Unsplash</a>.</li>
       <li><b>Vercel</b> — alojamiento. <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener">Política de Vercel</a>.</li>
     </ul>
 

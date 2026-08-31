@@ -69,7 +69,7 @@ const SECCIONES = [
       { k: 'ser.2', et: 'Servicio 2' },
       { k: 'ser.3', et: 'Servicio 3' },
       { k: 'ser.4', et: 'Servicio 4' },
-      { k: 'ser.precio', et: 'Línea de precio', larga: true }
+      { k: 'tar.t', et: 'Titular de tarifas' }
     ]
   },
   {

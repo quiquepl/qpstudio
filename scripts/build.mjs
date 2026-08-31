@@ -25,6 +25,7 @@ import { dirname, join } from 'node:path';
 const RAIZ = join(dirname(fileURLToPath(import.meta.url)), '..');
 
 const pasos = [
+  ['Precios de la portada', 'scripts/tarifas.mjs', []],
   ['Textos originales', 'scripts/extraer-textos.mjs', []],
   ['Páginas interiores', 'build-pages.mjs', []],
   ['Textos del panel', 'scripts/aplicar-contenidos.mjs', []],

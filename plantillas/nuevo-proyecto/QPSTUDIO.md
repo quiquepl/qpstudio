@@ -784,14 +784,18 @@ diga por teléfono tiene que ser **exactamente** la que está en la web.
 
 | | Lanzamiento | Habitual |
 |---|---|---|
-| **Esencial** · una página larga, sin panel | **690 €** | 890 € |
-| **Profesional** · varias páginas, con panel y base de datos | **1.290 €** | 1.690 € |
-| Tienda online o encargo a medida | Hablamos | Hablamos |
-| Mantenimiento Esencial | 29 €/mes | 29 €/mes |
-| Mantenimiento Profesional | 49 €/mes | 49 €/mes |
+| **Esencial** · presencia profesional, sin panel | **690 €** | 890 € |
+| **Profesional** · con panel de gestión y datos | **1.290 €** | 1.690 € |
+| **Comercio electrónico** | **1.490 €** | — |
+| Mantenimiento | 29 € o 49 €/mes | igual |
 
-Precios sin IVA. Los de lanzamiento valen para **los cinco primeros
-proyectos, hasta el 31 de octubre de 2026**.
+Los de lanzamiento valen para **los cinco primeros proyectos, hasta el 31 de
+octubre de 2026**. Pago único a la entrega.
+
+**Las cifras y el contenido de los planes viven en `scripts/_tarifas.mjs`.**
+De ahí salen la portada y `/servicios`, así que no pueden divergir. Si se
+cambian, hay que cambiarlas también en
+`plantillas/captacion/01-llamada.md`, que es lo que se dice por teléfono.
 
 - **Siempre «desde».** Es la entrada del trabajo estándar, igual que un taller
   publica el cambio de aceite y no la caja de cambios. Nunca se publica un
@@ -802,10 +806,15 @@ proyectos, hasta el 31 de octubre de 2026**.
 - **Rondas de revisión cerradas: una en Esencial, dos en Profesional.** Es la
   línea que impide que un encargo de 690 € se convierta en seis meses de
   cambios. No se quita de la propuesta por parecer más amable.
-- **Un rediseño usa las mismas tarifas** y suele salir por debajo, porque los
-  textos y las fotos ya existen.
-- **Pago partido:** 50% al aceptar el presupuesto, 50% antes de publicar. El
-  primer 50% no se devuelve si el cliente abandona: cubre el trabajo hecho.
+- **Pago único a la entrega.** Decisión de Quique. Tiene un riesgo real y
+  conviene tenerlo presente: se trabaja el proyecto entero antes de cobrar
+  nada, así que un cliente que se eche atrás a mitad deja el trabajo sin
+  pagar. Mitiga con un presupuesto firmado por escrito antes de empezar. Si
+  algún encargo grande da mala espina, se pide señal.
+- **El IVA no se menciona en la web.** También decisión suya. Para clientes
+  empresa es lo normal cotizar sin IVA, pero si alguna vez se le vende a un
+  particular, la ley de consumidores pide el precio final con impuestos: ahí
+  hay que decirlo en el presupuesto.
 - **Base + mantenimiento.** La base paga el proyecto; el mantenimiento es lo
   que hace el negocio sostenible.
 - El mantenimiento se dice en concreto: «hasta dos horas al mes», «cambios de
